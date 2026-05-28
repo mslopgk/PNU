@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PNU AI · 08 Hanji Scroll</title>
+<style>
+:root{
+  --hanji:#F5EFE0;--hanji-2:#EBE3CE;--hanji-3:#DDD2B6;
+  --sumuk:#1A1410;--sumuk-2:#3D3328;--sumuk-3:#6B5C47;--sumuk-4:#94856B;
+  --jeokto:#A82E21;--cheong:#1F3A5F;
+  --pnu-blue:#005BAA;--pnu-green:#00A651;--cse:#900020;
+  --gold:#A0823A;
+  --sans:-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+  --serif:"Apple SD Gothic Neo","Noto Serif KR",Georgia,serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--hanji);font-family:var(--serif);color:var(--sumuk);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;letter-spacing:-0.005em;}
+a{color:inherit;text-decoration:none;}img{display:block;max-width:100%;}
+::selection{background:var(--jeokto);color:var(--hanji);}
+
+/* Hanji paper texture */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle at 20% 30%,rgba(168,46,33,0.015) 2px,transparent 3px),radial-gradient(circle at 80% 70%,rgba(26,20,16,0.025) 1px,transparent 3px),radial-gradient(circle at 50% 50%,rgba(160,130,58,0.02) 1px,transparent 2px);background-size:48px 48px,32px 32px,20px 20px;mix-blend-mode:multiply;}
+
+/* Top — calligraphy header */
+.mast{position:relative;z-index:1;padding:24px 32px 16px;border-bottom:3px solid var(--sumuk);background:var(--hanji);}
+.mast::after{content:"";position:absolute;bottom:-7px;left:0;right:0;height:1px;background:var(--sumuk);}
+.mast .row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.mast .left{display:flex;align-items:flex-start;gap:18px;}
+.mast .seal{width:54px;height:54px;background:var(--jeokto);color:var(--hanji);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:18px;letter-spacing:0.04em;flex-shrink:0;box-shadow:1px 1px 0 var(--sumuk);}
+.mast .seal .v{writing-mode:vertical-rl;text-orientation:upright;line-height:1.1;}
+.mast .nameplate{font-family:var(--serif);font-weight:700;font-size:32px;letter-spacing:-0.015em;line-height:1;margin:0;}
+.mast .nameplate small{display:block;font-size:13px;color:var(--sumuk-3);font-weight:500;letter-spacing:0.04em;margin-top:6px;font-family:var(--mono);}
+.mast .right{font-family:var(--mono);font-size:11px;color:var(--sumuk-3);text-align:right;letter-spacing:0.04em;line-height:1.7;}
+.mast .right strong{color:var(--sumuk);font-weight:700;display:block;}
+
+.nav{position:sticky;top:0;z-index:50;background:var(--hanji);border-bottom:1px solid var(--sumuk);padding:10px 32px;display:flex;align-items:center;gap:20px;font-family:var(--mono);font-size:12px;flex-wrap:wrap;}
+.nav nav{display:flex;gap:18px;flex-wrap:wrap;}
+.nav nav a{color:var(--sumuk);padding:4px 0;position:relative;}
+.nav nav a::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--jeokto);transform:scaleX(0);transform-origin:left;transition:transform 200ms;}
+.nav nav a:hover::after,.nav nav a.active::after{transform:scaleX(1);}
+.nav nav a.active{color:var(--jeokto);font-weight:600;}
+.nav .right{margin-left:auto;color:var(--sumuk-3);}
+
+.shell{max-width:1280px;margin:0 auto;padding:0 32px;position:relative;z-index:1;}
+
+/* HERO — scroll-style two columns */
+.hero{padding:64px 0;border-bottom:1px solid var(--sumuk);position:relative;}
+.hero .grid{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:stretch;}
+
+/* Left — vertical title */
+.hero .left{border-right:2px solid var(--sumuk);padding-right:48px;position:relative;}
+.hero .left::before{content:"";position:absolute;top:0;left:-1px;width:0.5px;height:100%;background:var(--sumuk);}
+.hero .vert{display:flex;align-items:flex-start;gap:24px;height:100%;}
+.hero .vert-title{writing-mode:vertical-rl;text-orientation:mixed;font-family:var(--serif);font-weight:700;font-size:72px;line-height:1.1;letter-spacing:-0.015em;color:var(--sumuk);}
+.hero .vert-title .red{color:var(--jeokto);}
+.hero .vert-title .small{font-size:32px;}
+.hero .vert-meta{font-family:var(--mono);font-size:11px;color:var(--sumuk-3);writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:0.06em;}
+
+/* Right — body story */
+.hero .right{padding-left:8px;}
+.hero .right .badge{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--sumuk);padding:4px 12px;font-family:var(--mono);font-size:11px;letter-spacing:0.04em;color:var(--sumuk-2);margin-bottom:24px;}
+.hero .right .badge .dot{width:6px;height:6px;background:var(--jeokto);}
+.hero .right .lead{font-family:var(--serif);font-size:24px;line-height:1.5;font-weight:500;margin:0 0 24px;letter-spacing:-0.015em;color:var(--sumuk);max-width:32ch;}
+.hero .right .lead .red{color:var(--jeokto);}
+.hero .right .lead .blue{color:var(--cheong);}
+.hero .right p{font-size:14.5px;line-height:1.8;color:var(--sumuk-2);margin:0 0 16px;max-width:48ch;}
+.hero .right .seal-line{margin-top:24px;padding-top:18px;border-top:1px solid var(--sumuk);display:flex;align-items:center;gap:14px;}
+.hero .right .seal-line .stamp{width:42px;height:42px;background:var(--jeokto);color:var(--hanji);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:14px;writing-mode:vertical-rl;line-height:1;box-shadow:1px 1px 0 var(--sumuk);}
+.hero .right .seal-line .text{font-family:var(--mono);font-size:11px;color:var(--sumuk-3);letter-spacing:0.04em;line-height:1.6;}
+
+/* Stats — vertical column on right */
+.hero .stats{margin-top:32px;display:grid;grid-template-columns:repeat(5,1fr);border-top:2px solid var(--sumuk);border-bottom:1px solid var(--sumuk);}
+.hero .stats .s{padding:18px 14px 18px 0;border-right:1px dotted var(--sumuk-4);}
+.hero .stats .s:last-child{border-right:0;padding-right:0;}
+.hero .stats .k{font-family:var(--mono);font-size:10.5px;color:var(--sumuk-3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;}
+.hero .stats .v{font-family:var(--serif);font-weight:700;font-size:34px;letter-spacing:-0.018em;line-height:1;color:var(--sumuk);}
+.hero .stats .v small{font-size:13px;font-weight:500;color:var(--sumuk-3);margin-left:4px;font-family:var(--sans);}
+.hero .stats .v .red{color:var(--jeokto);}
+.hero .stats .d{font-family:var(--mono);font-size:10px;color:var(--sumuk-4);margin-top:4px;}
+
+/* Sections */
+section.sec{padding:72px 0;border-bottom:1px solid var(--sumuk);}
+.sec-head{display:grid;grid-template-columns:5fr 7fr;gap:48px;margin-bottom:36px;padding-bottom:18px;border-bottom:3px double var(--sumuk);align-items:end;}
+.sec-head .n{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--sumuk-3);margin-bottom:10px;}
+.sec-head h2{font-family:var(--serif);font-weight:700;font-size:48px;line-height:1;letter-spacing:-0.025em;margin:0;}
+.sec-head h2 .red{color:var(--jeokto);}
+.sec-head h2 .small{font-size:32px;color:var(--sumuk-3);font-weight:500;}
+.sec-head .dek{font-family:var(--serif);font-size:18px;line-height:1.55;color:var(--sumuk-2);margin:0;max-width:48ch;font-weight:500;letter-spacing:-0.01em;}
+
+/* Cards — wooden frame style */
+.scroll-grid{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--sumuk);background:var(--hanji);}
+.scroll-cell{padding:22px;border-right:1px solid var(--sumuk);border-bottom:1px solid var(--sumuk);}
+.scroll-cell:nth-child(4n){border-right:0;}
+.scroll-cell:nth-last-child(-n+4){border-bottom:0;}
+.scroll-cell .seal{width:36px;height:36px;background:var(--jeokto);color:var(--hanji);display:inline-flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:13px;writing-mode:vertical-rl;line-height:1;margin-bottom:14px;box-shadow:1px 1px 0 var(--sumuk);}
+.scroll-cell .seal.dark{background:var(--sumuk);}
+.scroll-cell .seal.gold{background:var(--gold);}
+.scroll-cell .seal.blue{background:var(--cheong);}
+.scroll-cell .tag{font-family:var(--mono);font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--sumuk-3);margin-bottom:6px;}
+.scroll-cell h3{font-family:var(--serif);font-weight:700;font-size:20px;letter-spacing:-0.012em;margin:0 0 4px;line-height:1.25;}
+.scroll-cell .en{font-family:var(--mono);font-size:11px;color:var(--sumuk-3);margin-bottom:12px;}
+.scroll-cell p{margin:0;font-size:13px;line-height:1.7;color:var(--sumuk-2);}
+.scroll-cell .meta{margin-top:14px;padding-top:10px;border-top:1px dotted var(--sumuk-4);font-family:var(--mono);font-size:11px;color:var(--sumuk-3);display:flex;justify-content:space-between;}
+
+/* Centers — large pillar style */
+.centers{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--sumuk);}
+.center-cell{padding:32px;border-right:1px solid var(--sumuk);position:relative;}
+.center-cell:last-child{border-right:0;}
+.center-cell.featured{background:var(--sumuk);color:var(--hanji);}
+.center-cell .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--sumuk-3);margin-bottom:14px;}
+.center-cell.featured .tag{color:var(--hanji-3);}
+.center-cell h3{font-family:var(--serif);font-weight:700;font-size:26px;letter-spacing:-0.018em;margin:0 0 4px;line-height:1.2;}
+.center-cell .en{font-family:var(--mono);font-size:11px;color:var(--sumuk-3);margin-bottom:14px;}
+.center-cell.featured .en{color:var(--hanji-3);}
+.center-cell p{margin:0 0 18px;font-size:13.5px;line-height:1.7;color:var(--sumuk-2);}
+.center-cell.featured p{color:var(--hanji-2);}
+.center-cell .specs{padding-top:14px;border-top:1px solid var(--sumuk-4);}
+.center-cell.featured .specs{border-top-color:var(--sumuk-3);}
+.center-cell .specs .row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;}
+.center-cell .specs .row .k{font-family:var(--mono);font-size:11px;color:var(--sumuk-3);letter-spacing:0.04em;}
+.center-cell.featured .specs .row .k{color:var(--hanji-3);}
+
+/* Jang Yeong-sil narrative block */
+.jang-block{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:start;border:2px solid var(--sumuk);padding:40px 36px;background:var(--hanji-2);}
+.jang-block .left{border-right:1px solid var(--sumuk);padding-right:36px;}
+.jang-block .left .seal-big{width:120px;height:120px;background:var(--jeokto);color:var(--hanji);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:32px;writing-mode:vertical-rl;line-height:1.1;letter-spacing:0.04em;box-shadow:2px 2px 0 var(--sumuk);margin-bottom:24px;}
+.jang-block .left h3{font-family:var(--serif);font-weight:700;font-size:32px;letter-spacing:-0.02em;margin:0 0 8px;line-height:1.2;}
+.jang-block .left h3 small{display:block;font-size:13px;color:var(--sumuk-3);margin-top:6px;font-weight:500;font-family:var(--mono);letter-spacing:0.04em;}
+.jang-block .left p{font-size:13.5px;color:var(--sumuk-2);line-height:1.75;margin:0 0 12px;}
+.jang-block .right h3{font-family:var(--serif);font-weight:700;font-size:28px;letter-spacing:-0.02em;margin:0 0 16px;line-height:1.25;}
+.jang-block .right h3 .red{color:var(--jeokto);}
+.jang-block .right .quote{font-family:var(--serif);font-size:17px;font-style:italic;color:var(--sumuk);padding:14px 0 14px 18px;border-left:3px solid var(--jeokto);margin:18px 0;line-height:1.55;background:var(--hanji);}
+.jang-block .right p{font-size:14px;color:var(--sumuk-2);line-height:1.75;margin:0 0 12px;}
+.jang-block .right .att{margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--sumuk-3);letter-spacing:0.04em;text-align:right;}
+
+/* ACTS — woodblock style */
+.acts{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--sumuk);}
+.acts .a{padding:24px;border-right:1px solid var(--sumuk);text-align:center;}
+.acts .a:last-child{border-right:0;}
+.acts .a:nth-child(even){background:var(--hanji-2);}
+.acts .a .letter{width:60px;height:60px;background:var(--jeokto);color:var(--hanji);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:30px;margin:0 auto 14px;box-shadow:1px 1px 0 var(--sumuk);}
+.acts .a:nth-child(2) .letter{background:var(--sumuk);}
+.acts .a:nth-child(3) .letter{background:var(--gold);}
+.acts .a:nth-child(4) .letter{background:var(--cheong);}
+.acts .a h4{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:-0.01em;margin:0 0 4px;}
+.acts .a h4 small{display:block;font-family:var(--mono);font-size:10px;color:var(--sumuk-3);margin-top:4px;letter-spacing:0.04em;text-transform:uppercase;font-weight:500;}
+.acts .a p{margin:8px 0 0;font-size:12.5px;line-height:1.65;color:var(--sumuk-2);text-align:left;}
+
+/* Quantum-AI signature */
+.quantum-frame{margin-top:32px;border:3px double var(--sumuk);background:var(--hanji);padding:36px;position:relative;}
+.quantum-frame::before,.quantum-frame::after{content:"";position:absolute;width:14px;height:14px;background:var(--jeokto);}
+.quantum-frame::before{top:-3px;left:-3px;}
+.quantum-frame::after{bottom:-3px;right:-3px;}
+.quantum-frame .row{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;}
+.quantum-frame .seal-big{width:88px;height:88px;background:var(--cheong);color:var(--hanji);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:22px;writing-mode:vertical-rl;line-height:1.15;letter-spacing:0.04em;flex-shrink:0;box-shadow:2px 2px 0 var(--sumuk);}
+.quantum-frame h3{font-family:var(--serif);font-weight:700;font-size:32px;letter-spacing:-0.02em;margin:0 0 8px;line-height:1.25;}
+.quantum-frame h3 .red{color:var(--jeokto);}
+.quantum-frame h3 .blue{color:var(--cheong);}
+.quantum-frame p{font-size:14.5px;line-height:1.75;color:var(--sumuk-2);margin:0 0 12px;max-width:54ch;}
+.quantum-frame .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;}
+.quantum-frame .chip{border:1px solid var(--sumuk);padding:4px 10px;font-family:var(--mono);font-size:11px;color:var(--sumuk-2);letter-spacing:0.03em;background:var(--hanji-2);}
+
+/* Areas grid */
+.areas{margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--sumuk);}
+.areas .area{padding:18px;border-right:1px solid var(--sumuk);border-bottom:1px solid var(--sumuk);background:var(--hanji);}
+.areas .area:nth-child(4n){border-right:0;}
+.areas .area:nth-last-child(-n+4){border-bottom:0;}
+.areas .area .n{font-family:var(--mono);font-size:10.5px;color:var(--sumuk-3);margin-bottom:10px;letter-spacing:0.04em;}
+.areas .area h4{font-family:var(--serif);font-weight:700;font-size:16px;letter-spacing:-0.008em;margin:0 0 4px;}
+.areas .area .en{font-family:var(--mono);font-size:10.5px;color:var(--sumuk-3);margin-bottom:8px;letter-spacing:0.03em;}
+.areas .area p{margin:0;font-size:12.5px;color:var(--sumuk-2);line-height:1.65;}
+
+/* Table — ledger style */
+.ledger{border:2px solid var(--sumuk);background:var(--hanji);}
+.ledger .head{padding:14px 22px;border-bottom:2px solid var(--sumuk);background:var(--sumuk);color:var(--hanji);display:flex;justify-content:space-between;align-items:baseline;}
+.ledger .head h4{font-family:var(--serif);font-weight:700;font-size:18px;margin:0;letter-spacing:-0.012em;}
+.ledger .head .meta{font-family:var(--mono);font-size:11px;color:var(--hanji-3);letter-spacing:0.04em;}
+table.t{width:100%;border-collapse:collapse;}
+table.t th{text-align:left;padding:10px 22px;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.04em;color:var(--sumuk-3);font-weight:500;border-bottom:1px solid var(--sumuk);background:var(--hanji-2);}
+table.t td{padding:12px 22px;border-bottom:1px dotted var(--sumuk-4);font-size:13.5px;vertical-align:baseline;}
+table.t tbody tr:last-child td{border-bottom:0;}
+table.t tbody tr:hover{background:var(--hanji-2);}
+table.t .num{font-family:var(--mono);font-variant-numeric:tabular-nums;}
+table.t td.name{font-family:var(--serif);font-size:15.5px;font-weight:600;letter-spacing:-0.008em;}
+table.t tr.sum td{background:var(--sumuk);color:var(--hanji);font-family:var(--serif);font-weight:700;font-size:17px;border-bottom:0;}
+table.t tr.sum .num{font-size:20px;}
+
+/* People */
+.ppl-grid{margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--sumuk);}
+.ppl-cell{padding:22px;border-right:1px solid var(--sumuk);border-bottom:1px solid var(--sumuk);background:var(--hanji);}
+.ppl-cell:nth-child(3n){border-right:0;}
+.ppl-cell:nth-last-child(-n+3){border-bottom:0;}
+.ppl-cell .head{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px;}
+.ppl-cell .ava{width:44px;height:44px;background:var(--hanji-2);border:1px solid var(--sumuk);color:var(--sumuk);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:18px;flex-shrink:0;}
+.ppl-cell .ava.lead{background:var(--jeokto);color:var(--hanji);border-color:var(--jeokto);}
+.ppl-cell .id .nm{font-family:var(--serif);font-weight:700;font-size:18px;letter-spacing:-0.012em;line-height:1.2;}
+.ppl-cell .id .nm small{font-family:var(--mono);font-size:10.5px;color:var(--sumuk-3);margin-left:6px;font-weight:500;letter-spacing:0.03em;}
+.ppl-cell .id .role{font-family:var(--mono);font-size:10.5px;color:var(--jeokto);margin-top:4px;letter-spacing:0.04em;text-transform:uppercase;}
+.ppl-cell p.topic{font-size:13px;color:var(--sumuk-2);line-height:1.65;margin:0 0 12px;}
+.ppl-cell .lab{font-family:var(--mono);font-size:11px;color:var(--sumuk-3);padding-top:10px;border-top:1px dotted var(--sumuk-4);letter-spacing:0.03em;}
+
+/* News — vertical scroll */
+.news-scroll{display:grid;grid-template-columns:1fr;border:2px solid var(--sumuk);background:var(--hanji);}
+.news-row{display:grid;grid-template-columns:130px 1fr 180px;padding:18px 24px;border-bottom:1px solid var(--sumuk);gap:24px;align-items:baseline;}
+.news-row:last-child{border-bottom:0;}
+.news-row:hover{background:var(--hanji-2);}
+.news-row .date{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:-0.012em;}
+.news-row .date small{display:block;font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--sumuk-3);margin-top:3px;letter-spacing:0.04em;}
+.news-row .body h5{font-family:var(--serif);font-weight:700;font-size:17px;margin:0 0 4px;letter-spacing:-0.008em;line-height:1.3;}
+.news-row .body p{margin:0;font-size:13px;color:var(--sumuk-2);line-height:1.6;}
+.news-row .right{font-family:var(--mono);font-size:10.5px;color:var(--sumuk-3);text-align:right;letter-spacing:0.04em;}
+
+/* Partners list */
+.partners{border:2px solid var(--sumuk);background:var(--hanji);}
+.p-row{display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--sumuk);}
+.p-row:last-child{border-bottom:0;}
+.p-row .lbl{padding:18px 22px;background:var(--sumuk);color:var(--hanji);font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;border-right:1px solid var(--sumuk);}
+.p-row .list{padding:18px 22px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.p-row .it{font-family:var(--serif);font-size:15px;letter-spacing:-0.008em;padding:3px 12px 3px 0;border-right:1px dotted var(--sumuk-4);font-weight:500;}
+.p-row .it:last-child{border-right:0;}
+.p-row .it small{font-family:var(--mono);font-size:10px;color:var(--sumuk-3);margin-left:5px;font-style:normal;font-weight:500;letter-spacing:0.03em;}
+
+/* Footer */
+footer{padding:48px 32px 28px;border-top:2px solid var(--sumuk);background:var(--hanji);position:relative;z-index:1;}
+footer .row{display:grid;grid-template-columns:4fr 1fr 1fr 1fr;gap:32px;margin-bottom:20px;}
+footer .lead-block .nameplate{font-family:var(--serif);font-weight:700;font-size:24px;letter-spacing:-0.015em;margin-bottom:10px;}
+footer .lead-block .nameplate .red{color:var(--jeokto);}
+footer .lead-block p{font-size:13.5px;color:var(--sumuk-2);max-width:42ch;margin:0;line-height:1.65;}
+footer h6{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 10px;font-weight:600;color:var(--sumuk-3);padding-bottom:6px;border-bottom:1px solid var(--sumuk);}
+footer ul{list-style:none;padding:0;margin:0;}
+footer li{padding:4px 0;font-size:13px;border-bottom:1px dotted var(--sumuk-4);color:var(--sumuk-2);}
+footer .end{border-top:1px solid var(--sumuk);padding-top:14px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--sumuk-3);flex-wrap:wrap;gap:10px;letter-spacing:0.04em;}
+
+.switcher{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:90;background:var(--sumuk);padding:6px;display:flex;gap:2px;box-shadow:2px 2px 0 var(--jeokto);font-family:var(--mono);}
+.switcher a{font-size:11px;color:var(--hanji-3);padding:6px 12px;letter-spacing:0.04em;}
+.switcher a:hover{color:var(--hanji);background:rgba(255,255,255,0.06);}
+.switcher a.active{color:var(--sumuk);background:var(--hanji);font-weight:600;}
+
+@media (max-width:960px){
+  .hero .grid,.sec-head,.jang-block,.quantum-frame .row{grid-template-columns:1fr;}
+  .hero .left{border-right:0;padding-right:0;padding-bottom:32px;border-bottom:1px solid var(--sumuk);}
+  .hero .vert-title{font-size:48px;}
+  .hero .stats{grid-template-columns:1fr 1fr;}
+  .scroll-grid,.centers,.acts,.areas,.ppl-grid{grid-template-columns:1fr 1fr;}
+  .scroll-cell:nth-child(4n){border-right:1px solid var(--sumuk);}
+  .scroll-cell:nth-child(2n){border-right:0;}
+  .news-row,.p-row{grid-template-columns:1fr;gap:8px;}
+  footer .row{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head><body>
+
+<header class="mast">
+  <div class="row">
+    <div class="left">
+      <div class="seal"><span class="v">釜大</span></div>
+      <div>
+        <h1 class="nameplate">국립부산대학교 · Open PNU AI</h1>
+        <small>第 八十 號 · 開校 80周年 · 2026.05.18</small>
+      </div>
+    </div>
+    <div class="right">
+      <strong>08 HANJI SCROLL</strong>
+      장영실의 과학주권을 잇다<br/>truth · liberty · devotion
+    </div>
+  </div>
+</header>
+
+<div class="nav">
+  <nav>
+    <a class="active" href="#hero">표지</a>
+    <a href="#vision">비전</a>
+    <a href="#org">조직</a>
+    <a href="#strategy">전략</a>
+    <a href="#quantum">양자 AI</a>
+    <a href="#people">교수진</a>
+    <a href="#news">소식</a>
+    <a href="#partners">파트너</a>
+  </nav>
+  <div class="right">PUSAN NATIONAL UNIVERSITY · EST. 1946</div>
+</div>
+
+<main class="shell">
+
+<section class="hero" id="hero" data-screen-label="01 hero">
+  <div class="grid">
+    <div class="left">
+      <div class="vert">
+        <div class="vert-title">人 工 知 能 의<br/><span class="red">中 心 軸</span> ·<br/><span class="small">PNU Core AXIS</span></div>
+        <div class="vert-meta">開校 八十 周年 · 二〇二六 · 부산</div>
+      </div>
+    </div>
+    <div class="right">
+      <span class="badge"><span class="dot"></span> ALPHA · 2026.05 · 개교 80주년 · 08 HANJI SCROLL</span>
+      <p class="lead">조선의 <span class="red">장영실</span>이 자격루로 시간을 세웠듯,<br/>오늘의 국립부산대학교는 <span class="blue">양자 AI</span>로<br/>새로운 계산혁명의 첫 페이지를 엽니다.</p>
+      <p>1946년 국내 최초 종합 국립대학으로 출범한 부산대학교가 개교 80주년인 2026년, 다음 100년의 첫 발을 인공지능으로 내딛습니다. AI 대학 · 장영실 AI 융합 연구원 · AI 대학원 · AI 융합 교육원이 단일 허브로 묶여, 동남권 인공지능 거점의 새로운 표준을 만듭니다.</p>
+      <p>장영실 AI 융합 연구원은 국내 최초로 양자(Quantum) 분야를 AI 융합 체계에 편입합니다. 그의 '조선 독자 기술' 정신을 잇는 ACTS 4대 전략은 단순한 슬로건이 아닌, 차세대 계산혁명의 실행 도구입니다.</p>
+      <div class="seal-line">
+        <div class="stamp">釜大</div>
+        <div class="text">— 부산대학교 인공지능 거점대학 추진단<br/>2026年 5月 18日 · 부산 금정구</div>
+      </div>
+      <div class="stats">
+        <div class="s"><div class="k">QS 세계</div><div class="v"><span class="red">473</span><small>위</small></div><div class="d">↑ 51</div></div>
+        <div class="s"><div class="k">THE 영향</div><div class="v">13<small>위</small></div><div class="d">국내 종합 2위</div></div>
+        <div class="s"><div class="k">단과대</div><div class="v">16</div><div class="d">99 학과</div></div>
+        <div class="s"><div class="k">국책 10년</div><div class="v">3,111<small>억</small></div><div class="d">8 사업</div></div>
+        <div class="s"><div class="k">AI 대학</div><div class="v">347<small>명</small></div><div class="d">2027.03</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="vision" data-screen-label="02 vision">
+  <div class="sec-head">
+    <div><div class="n">§ 一 — Four Pillars</div><h2>네 개의 <span class="red">기둥.</span></h2></div>
+    <p class="dek">부산대 전체 AI 대전환의 4대 축 — 교육 · 연구 · 인프라 · 행정. A.U.R.A 2.0 마스터플랜이 그 실행 도구.</p>
+  </div>
+  <div class="scroll-grid">
+    <div class="scroll-cell"><div class="seal">敎</div><div class="tag">PILLAR 01 · 教育</div><h3>전교생 AI 교양</h3><div class="en">AI Literacy · 3 학점</div><p>"인공지능과 디지털 사고" 전교생 교양 필수. 학과별 맞춤 — 인문·예술·이공 차별 커리큘럼.</p><div class="meta"><span>전체 재학생</span><span>21K</span></div></div>
+    <div class="scroll-cell"><div class="seal dark">研</div><div class="tag">PILLAR 02 · 研究</div><h3>장영실 AI 융합 연구원</h3><div class="en">국내 최초 양자-AI 융합</div><p>개방형 연구 플랫폼. 송길태 초대 원장. ACTS 4대 전략. 9개 핵심 분야.</p><div class="meta"><span>2025.12.30</span><span>9 분야</span></div></div>
+    <div class="scroll-cell"><div class="seal gold">基</div><div class="tag">PILLAR 03 · 基盤</div><h3>산지니 AI + Google</h3><div class="en">하이브리드 LLM · 2026.06</div><p>국립대 최초 자체 생성형 AI 에이전트. 3 LLM 단일 채널. IT관 267억 준공.</p><div class="meta"><span>2025.12.11</span><span>LIVE</span></div></div>
+    <div class="scroll-cell"><div class="seal blue">行</div><div class="tag">PILLAR 04 · 行政</div><h3>AX 적응형 행정</h3><div class="en">상담 AI · 국립대 최초</div><p>지도교수상담 AI 도우미 → AI 학사 행정 → LMS AI 조교 단계 확대.</p><div class="meta"><span>2025.12.22</span><span>FIRST</span></div></div>
+  </div>
+</section>
+
+<section class="sec" id="org" data-screen-label="03 org">
+  <div class="sec-head">
+    <div><div class="n">§ 二 — Organization</div><h2>4 학부, 3 거점,<br/><span class="red">하나의 大學.</span></h2></div>
+    <p class="dek">2027.03 신설 AI 대학(College of AI)은 정원 347명. 그 곁을 운영 중인 3개 거점이 지킨다.</p>
+  </div>
+
+  <div class="scroll-grid">
+    <div class="scroll-cell"><div class="seal">一</div><div class="tag">SCHOOL · 01</div><h3>AI 컴퓨팅 학부</h3><div class="en">School of AI Computing</div><p>컴퓨터공학 · AI · 인터랙티브 컴퓨팅 + 예비전공. 기존 정보컴퓨터공학부 개편.</p><div class="meta"><span>4 전공</span><span>→</span></div></div>
+    <div class="scroll-cell"><div class="seal dark">二</div><div class="tag">SCHOOL · 02</div><h3>데이터·통계 학부</h3><div class="en">Data Science & Statistics</div><p>통계 + 데이터사이언스. DS 전문대학원 연계.</p><div class="meta"><span>2 전공</span><span>→</span></div></div>
+    <div class="scroll-cell"><div class="seal gold">三</div><div class="tag">SCHOOL · 03</div><h3>소재·산업공학 학부</h3><div class="en">Materials & Industrial AI</div><p>산업공학 + 산업 AI. 한국재료연구원 협력.</p><div class="meta"><span>2 전공</span><span>→</span></div></div>
+    <div class="scroll-cell" style="background:var(--hanji-2);"><div class="seal blue">四</div><div class="tag">SCHOOL · 04 · OPEN</div><h3>AX 융합 학부</h3><div class="en">School of AX Convergence</div><p>별도 입시 없음. 모든 학과 재학생 개방. 최대 10 AX 융합 전공.</p><div class="meta"><span>최대 10 전공</span><span>OPEN</span></div></div>
+  </div>
+
+  <div class="centers">
+    <div class="center-cell featured">
+      <div class="tag">CENTER A · 研究</div>
+      <h3>장영실 AI 융합 연구원</h3>
+      <div class="en">est. 2025.12.30</div>
+      <p>국내 최초 양자-AI 융합. 개방형 연구 플랫폼. "AI 융합과학주권 선도" 비전. ACTS 4대 전략.</p>
+      <div class="specs">
+        <div class="row"><span class="k">초대 원장</span><span>송길태</span></div>
+        <div class="row"><span class="k">출범 협약</span><span>3 건</span></div>
+        <div class="row"><span class="k">핵심 분야</span><span>9</span></div>
+      </div>
+    </div>
+    <div class="center-cell">
+      <div class="tag">CENTER B · 大學院</div>
+      <h3>AI 대학원</h3>
+      <div class="en">est. 2020.09</div>
+      <p>인공지능 융합 연구 센터. 핵심·심화·융합 3트랙. 등록금 전액 지원. NeurIPS·ICML 학회 지원.</p>
+      <div class="specs">
+        <div class="row"><span class="k">정원</span><span>50 명</span></div>
+        <div class="row"><span class="k">2기 사업</span><span>63억 · 4년</span></div>
+      </div>
+    </div>
+    <div class="center-cell">
+      <div class="tag">CENTER C · 教育</div>
+      <h3>AI 융합 교육원</h3>
+      <div class="en">est. 2016</div>
+      <p>구 SW 융합 교육원. 13 융합 트랙. 마이크로디그리 21학점. 디지털 새싹 캠프 주관.</p>
+      <div class="specs">
+        <div class="row"><span class="k">SW 2단계</span><span>142.35 억</span></div>
+        <div class="row"><span class="k">원장</span><span>백윤주</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="strategy" data-screen-label="04 strategy">
+  <div class="sec-head">
+    <div><div class="n">§ 三 — Strategy · ACTS</div><h2>장영실의 <span class="red">정신을</span><br/>오늘의 <span class="small">AI에.</span></h2></div>
+    <p class="dek">조선 세종 시대 동래 출신 장영실의 자격루 · 측우기 정신을 잇는 ACTS 4대 전략.</p>
+  </div>
+
+  <div class="jang-block">
+    <div class="left">
+      <div class="seal-big">蔣<br/>英<br/>實</div>
+      <h3>장영실<br/><small>蔣英實 · Jang Yeong-sil · 15세기 동래</small></h3>
+      <p>조선 세종 시대, 노비 출신으로 자격루(自擊漏)·측우기(測雨器)·앙부일구(仰釜日晷)를 만든 동래 출신 과학자.</p>
+      <p>그의 위대함은 발명품 자체가 아닌 — 중국 기술 의존에서 벗어나 조선 독자의 과학 기술 체계를 수립한 정신이었다.</p>
+      <p style="font-family:var(--mono);font-size:11px;color:var(--sumuk-3);letter-spacing:0.03em;margin-top:18px;">出 · 부산 동래 · IR52 장영실상</p>
+    </div>
+    <div class="right">
+      <h3>"AI <span class="red">융합과학주권</span>을 선도한다."</h3>
+      <p>장영실 AI 융합 연구원의 비전입니다. 단일 대학 전용 시설이 아닌 개방형 연구 플랫폼으로, 대학의 담장을 넘어 대기업·지역 중견기업·연구기관이 지속적으로 협력·공동 연구를 수행하는 공간입니다.</p>
+      <p class="quote">"국내 최초로 양자(Quantum) 분야를 AI 융합연구 체계에 포함시켜 AI와 양자물리 · 양자컴퓨팅 · AI 반도체 간의 융합 연구로 차세대 계산혁명을 선도한다."</p>
+      <p>장영실이 자격루로 시간을 세웠다면, 우리는 양자-AI로 새로운 계산의 시대를 연다. 그 위에 ACTS 4대 전략이 작동합니다.</p>
+      <div class="att">— 부산대 공식 보도자료 · 장영실 AI 융합 연구원 개원 (2025.12.30)</div>
+    </div>
+  </div>
+
+  <div class="acts" style="margin-top:24px;">
+    <div class="a"><div class="letter">A</div><h4>Acceleration<small>AI 산업화 허브</small></h4><p>연구 → 산업 이전. 출범 당일 산학 협약 3건 (삼성중공업·좋은병원·재료연).</p></div>
+    <div class="a"><div class="letter">C</div><h4>Core<small>기초·핵심 기술</small></h4><p>딥러닝 · 양자 AI · 위상초전도체. 과기부 양자과학 47억 5년.</p></div>
+    <div class="a"><div class="letter">T</div><h4>Transformation<small>국가 전략산업 AI 전환</small></h4><p>해양·제조·의료·에너지 국가 전략 산업의 AI 이식.</p></div>
+    <div class="a"><div class="letter">S</div><h4>Superiority<small>주권 + 글로벌</small></h4><p>Stanford·CMU·NUS·AIST 등 7개 해외 기관.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="quantum" data-screen-label="05 quantum">
+  <div class="sec-head">
+    <div><div class="n">§ 四 — Signature · 量子 AI</div><h2><span class="red">차세대</span><br/>計算革命.</h2></div>
+    <p class="dek">장영실 AI 융합 연구원의 시그니처 — 국내 최초 양자(Quantum) 분야 AI 융합 연구.</p>
+  </div>
+
+  <div class="quantum-frame">
+    <div class="row">
+      <div class="seal-big">量<br/>子<br/>AI</div>
+      <div>
+        <h3>AI의 한계를 <span class="blue">양자로</span> 넘는다 — <span class="red">국내 최초.</span></h3>
+        <p>국내 최초로 양자 분야를 AI 융합연구 체계에 포함시켜, AI · 양자물리 · 양자컴퓨팅 · AI 반도체의 융합 연구로 차세대 계산혁명을 선도합니다. 옥종목 교수(물리학과) 책임으로 위상초전도체(Topological Superconductor) 개발 — 마요라나 양자 상태 기반 오류 내성 강한 차세대 양자컴퓨터 소재. 부울경 지역을 국내 양자소재 연구 거점으로 육성합니다.</p>
+        <div class="chips">
+          <span class="chip">과기부 양자과학 · 47억</span>
+          <span class="chip">2025 — 2029 · 5년</span>
+          <span class="chip">옥종목 (PNU)</span>
+          <span class="chip">박성균·황춘규 (PNU 물리)</span>
+          <span class="chip">오윤석 (UNIST)</span>
+          <span class="chip">조길영 (KAIST)</span>
+          <span class="chip">서순범 (창원대)</span>
+          <span class="chip">장동진·함웅돈 (KRISS)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--mono);font-size:11px;color:var(--sumuk-3);letter-spacing:0.06em;margin:32px 0 14px;text-transform:uppercase;text-align:center;">+ 8개 응용 연구 영역</h3>
+  <div class="areas">
+    <div class="area"><div class="n">02 · 海洋</div><h4>해양 데이터</h4><div class="en">Maritime</div><p>해양 빅데이터 기반 AI 모델. 부산항·해운대 거점.</p></div>
+    <div class="area"><div class="n">03 · 造船</div><h4>스마트 조선공학</h4><div class="en">Shipbuilding</div><p>선박 설계·생산 AI. 삼성중공업 교내 협력센터.</p></div>
+    <div class="area"><div class="n">04 · 모빌리티</div><h4>미래 모빌리티</h4><div class="en">Mobility</div><p>자율주행·스마트 모빌리티.</p></div>
+    <div class="area"><div class="n">05 · 製造</div><h4>초거대 제조 AI</h4><div class="en">Manufacturing</div><p>산업 공정 지능화. 한국재료연구원.</p></div>
+    <div class="area"><div class="n">06 · 高齢</div><h4>에이지테크</h4><div class="en">Age-Tech</div><p>고령화 사회 대응. 좋은병원 AX 헬스케어.</p></div>
+    <div class="area"><div class="n">07 · 에너지</div><h4>차세대 에너지</h4><div class="en">Energy</div><p>에너지 효율 최적화 AI.</p></div>
+    <div class="area"><div class="n">08 · 醫療</div><h4>바이오·의료 AI</h4><div class="en">Bio-Medical</div><p>의료 영상·신약. 부산대병원·씨젠.</p></div>
+    <div class="area"><div class="n">09 · 블록체인</div><h4>AI × 블록체인</h4><div class="en">ITRC · 김호원</div><p>산업 적용 솔루션.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="budget" data-screen-label="06 budget">
+  <div class="sec-head">
+    <div><div class="n">§ 五 — Track Record</div><h2>10년의 <span class="red">기록.</span></h2></div>
+    <p class="dek">2016년 SW 중심대학 1단계부터 2026년 AI 첨단산업 부트캠프까지 — 8개 사업 누적 3,111억.</p>
+  </div>
+
+  <div class="ledger">
+    <div class="head"><h4>국책 사업 등록부 · 二〇一六 — 二〇二六</h4><span class="meta">8 RECORDS · 累計 三千百十一億</span></div>
+    <table class="t">
+      <thead><tr><th>No.</th><th>年度</th><th>事業名</th><th>主管</th><th class="num">規模 (億)</th><th>期間</th></tr></thead>
+      <tbody>
+        <tr><td class="num">01</td><td class="num">2016</td><td class="name">SW 중심대학 1단계</td><td>과기정통부</td><td class="num">우수</td><td class="num">6년</td></tr>
+        <tr><td class="num">02</td><td class="num">2020</td><td class="name">AI 융합 연구 센터 1기</td><td>과기정통부</td><td class="num">50</td><td class="num">3년</td></tr>
+        <tr><td class="num">03</td><td class="num">2022</td><td class="name">SW 중심대학 2단계</td><td>과기정통부</td><td class="num">142.35</td><td class="num">2023-28</td></tr>
+        <tr><td class="num">04</td><td class="num">2023</td><td class="name">AI 융합 대학원 2기</td><td>과기정통부</td><td class="num">63</td><td class="num">4년</td></tr>
+        <tr><td class="num">05</td><td class="num">2023</td><td class="name">글로컬대학 30</td><td>교육부</td><td class="num">1,500</td><td class="num">5년</td></tr>
+        <tr><td class="num">06</td><td class="num">2023</td><td class="name">반도체 특성화 대학</td><td>교육부</td><td class="num">328</td><td class="num">4년</td></tr>
+        <tr><td class="num">07</td><td class="num">2025</td><td class="name">RISE 사업</td><td>교육부·부산시</td><td class="num">956</td><td class="num">2025-29</td></tr>
+        <tr><td class="num">08</td><td class="num">2025</td><td class="name">양자과학 (위상초전도체)</td><td>과기정통부</td><td class="num">47</td><td class="num">5년</td></tr>
+        <tr><td class="num">09</td><td class="num">2026</td><td class="name">AI 첨단산업 부트캠프</td><td>교육부·KIAT</td><td class="num">74.9</td><td class="num">5년</td></tr>
+        <tr class="sum"><td colspan="4">— 累計 · 8 事業 —</td><td class="num">3,111</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="people" data-screen-label="07 people">
+  <div class="sec-head">
+    <div><div class="n">§ 六 — Faculty · 核心 九人</div><h2>AI 컴퓨팅의 <span class="red">아홉 분.</span></h2></div>
+    <p class="dek">정보컴퓨터공학부 24명 중 AI/ML 핵심 13명에서 추린 9인. 2027 AI 대학의 코어.</p>
+  </div>
+
+  <div class="ppl-grid">
+    <div class="ppl-cell"><div class="head"><div class="ava lead">송</div><div class="id"><div class="nm">송길태 <small>Song</small></div><div class="role">장영실 원장 · AI 대학원 센터장</div></div></div><p class="topic">신약 개발 AI · 생의학정보학 · 그래프 표현학습 · 생성형 AI · 다중 모달 모델.</p><div class="lab">DMB Lab · dmb.pusan.ac.kr</div></div>
+    <div class="ppl-cell"><div class="head"><div class="ava">감</div><div class="id"><div class="nm">감진규 <small>Gahm</small></div><div class="role">AI 대학원 부센터장 · 조교수</div></div></div><p class="topic">머신러닝 · 의료 영상 AI · 딥러닝 응용.</p><div class="lab">AI Lab</div></div>
+    <div class="ppl-cell"><div class="head"><div class="ava">박</div><div class="id"><div class="nm">박진선 <small>Park</small></div><div class="role">부교수 · 컴퓨터비전</div></div></div><p class="topic">컴퓨터비전 · 딥러닝 · 객체 검출 · 영상 인식.</p><div class="lab">VIPLab · pnu-viplab.github.io</div></div>
+    <div class="ppl-cell"><div class="head"><div class="ava">전</div><div class="id"><div class="nm">전상률 <small>Jeon</small></div><div class="role">조교수 · 생성형 AI</div></div></div><p class="topic">Diffusion Model · Vision-Language Model · 자기지도 학습.</p><div class="lab">PNUCVLAB</div></div>
+    <div class="ppl-cell"><div class="head"><div class="ava">조</div><div class="id"><div class="nm">조준수 <small>Cho</small></div><div class="role">조교수 · LLM · NLP</div></div></div><p class="topic">추천 시스템 · 자연어처리 · 대규모 언어 모델 · 데이터 마이닝.</p><div class="lab">Data Intelligence Lab</div></div>
+    <div class="ppl-cell"><div class="head"><div class="ava">이</div><div class="id"><div class="nm">이명호 <small>Lee</small></div><div class="role">조교수 · XR · 디지털 휴먼</div></div></div><p class="topic">VR/AR · 디지털 휴먼 · 텔레프레전스 · XR 인터랙션.</p><div class="lab">XRL Lab</div></div>
+    <div class="ppl-cell"><div class="head"><div class="ava">류</div><div class="id"><div class="nm">류광렬 <small>Ryu</small></div><div class="role">교수 · 스마트 팩토리</div></div></div><p class="topic">스마트 팩토리 · 빅데이터 · 지능형 시스템 · 산업 AI.</p><div class="lab">지능형 시스템 연구실</div></div>
+    <div class="ppl-cell"><div class="head"><div class="ava">김</div><div class="id"><div class="nm">김호원 <small>Kim</small></div><div class="role">교수 · ITRC 책임</div></div></div><p class="topic">AI × 블록체인 융합 · LLM · 사이버 보안 · IoT.</p><div class="lab">정보보호 · Physical AI</div></div>
+    <div class="ppl-cell"><div class="head"><div class="ava">황</div><div class="id"><div class="nm">황원주 <small>Hwang</small></div><div class="role">교수 · 무선 AI · 양자통신</div></div></div><p class="topic">무선 AI · 양자통신 · 신호처리 · 양자 AI 융합.</p><div class="lab">양자 무선 AI 연구실</div></div>
+  </div>
+</section>
+
+<section class="sec" id="news" data-screen-label="08 news">
+  <div class="sec-head">
+    <div><div class="n">§ 七 — News</div><h2>최근의 <span class="red">기록.</span></h2></div>
+    <p class="dek">개교 80주년의 일년이 가장 농밀하게 흐른다.</p>
+  </div>
+
+  <div class="news-scroll">
+    <div class="news-row"><div class="date">5/13<small>2026 · 水</small></div><div class="body"><h5>Google for Education 파트너십 공식화 — 국내 대학 최초 AI Ecosystem 전면 도입</h5><p>대학본부 3층 대회의실. Kevin Kells 글로벌 MD 참석. 2026년 6월부터 전체 교원·학생에게 Google Workspace + AI Pro for Education 전면 도입.</p></div><div class="right">[GOOGLE]<br/>[국내 최초]<br/>[개교 80주년]</div></div>
+    <div class="news-row"><div class="date">2/10<small>2026</small></div><div class="body"><h5>A.U.R.A 2.0 마스터플랜 공개</h5><p>연구 AI Boost-up · 적응형 학습 · LMS AI 조교 등 5개 신규 시스템. 2년 100억 예산.</p></div><div class="right">[전략]<br/>[A.U.R.A 2.0]</div></div>
+    <div class="news-row"><div class="date">12/30<small>2025</small></div><div class="body"><h5>장영실 AI 융합 연구원 정식 개원 + 산학 협약 3건</h5><p>삼성중공업 AI 연구협력센터 / 좋은병원 AX 헬스케어 / 한국재료연구원 PNU 협력센터 동시 체결. 박형준 부산시장 축사.</p></div><div class="right">[장영실]<br/>[송길태 원장]</div></div>
+    <div class="news-row"><div class="date">12/22<small>2025</small></div><div class="body"><h5>지도교수상담 AI 도우미 시범 오픈 — 국립대 최초</h5><p>성적 요약, 이전 상담 회차 요약, 상담 방향 제안, 결과 초안 자동 생성. 산지니 AI 위에서 동작. 민감 데이터 온프레미스 전용.</p></div><div class="right">[산지니]<br/>[국립대 최초]</div></div>
+    <div class="news-row"><div class="date">12/11<small>2025</small></div><div class="body"><h5>산지니 AI 플랫폼 시범 오픈</h5><p>국립대 최초 대학 특화 생성형 AI 에이전트. 온프레미스 + 클라우드 하이브리드. ChatGPT·Gemini·Claude 단일 채널.</p></div><div class="right">[FIRST]<br/>[3 LLM]</div></div>
+    <div class="news-row"><div class="date">10/23<small>2025</small></div><div class="body"><h5>AI 통번역 안경 국내 대학 최초 시범 도입</h5><p>엑스퍼트아이엔씨㈜ 스마트 글라스. 20개 언어 · 98% 정확도. 70개 언어로 확장 예정.</p></div><div class="right">[FIRST]<br/>[20 → 70 언어]</div></div>
+    <div class="news-row"><div class="date">7/21<small>2025</small></div><div class="body"><h5>로보컵 2025 RoboCup@Home 종합 세계 1위 — 한국팀 단독 참가</h5><p>전기공학과 '타이디보이' 팀. 휴머노이드 '아누비스'가 8개 임무 전부 완수. 칭화·도쿄·킹스 칼리지 압도. 이재명 대통령 SNS 언급.</p></div><div class="right">[세계 1위]<br/>[37개국]</div></div>
+  </div>
+</section>
+
+<section class="sec" id="partners" data-screen-label="09 partners">
+  <div class="sec-head">
+    <div><div class="n">§ 八 — Partners</div><h2>함께 <span class="red">걷는 분들.</span></h2></div>
+    <p class="dek">산업체 35곳 + 의료·연구·공공 10곳 + 해외 7개 기관. 모두 협약 완료.</p>
+  </div>
+
+  <div class="partners">
+    <div class="p-row">
+      <div class="lbl">A · 산업체 (10/35)</div>
+      <div class="list">
+        <span class="it">Google for Education <small>AI ECO · 2026.5</small></span>
+        <span class="it">삼성중공업 <small>조선·해양</small></span>
+        <span class="it">LG전자 <small>Physical AI · 계약</small></span>
+        <span class="it">LG U+ <small>교육 MoU</small></span>
+        <span class="it">한화에어로스페이스</span>
+        <span class="it">NVIDIA <small>Physical AI</small></span>
+        <span class="it">AWS <small>클라우드</small></span>
+        <span class="it">업스테이지 <small>LLM</small></span>
+        <span class="it">네이버커넥트재단</span>
+        <span class="it">BNK 부산은행 <small>금융</small></span>
+      </div>
+    </div>
+    <div class="p-row">
+      <div class="lbl">B · 의료·연구·공공 · 10</div>
+      <div class="list">
+        <span class="it">부산대학교병원 <small>의료 AI</small></span>
+        <span class="it">좋은병원 <small>AX 헬스</small></span>
+        <span class="it">씨젠의료재단 <small>바이오</small></span>
+        <span class="it">ETRI <small>AI 응용</small></span>
+        <span class="it">한국전기연구원 <small>에너지</small></span>
+        <span class="it">한국재료연구원 <small>소재 · 센터</small></span>
+        <span class="it">한국언론진흥재단 <small>언론 AI</small></span>
+        <span class="it">한국능률협회컨설팅 <small>AX 실행</small></span>
+        <span class="it">부산광역시 <small>RISE</small></span>
+        <span class="it">부산시교육청 <small>새싹</small></span>
+      </div>
+    </div>
+    <div class="p-row">
+      <div class="lbl">C · 글로벌 · 7</div>
+      <div class="list">
+        <span class="it">Stanford University <small>USA</small></span>
+        <span class="it">Carnegie Mellon <small>USA</small></span>
+        <span class="it">USC <small>USA</small></span>
+        <span class="it">Boston College <small>USA</small></span>
+        <span class="it">NUS <small>Singapore</small></span>
+        <span class="it">AIST <small>Japan</small></span>
+        <span class="it">치바대 <small>Japan</small></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="row">
+    <div class="lead-block">
+      <div class="nameplate">釜山國立大學校 · <span class="red">Open PNU AI</span></div>
+      <p>진리 · 자유 · 봉사 (truth · liberty · devotion). 1946년 국내 최초 종합 국립대학으로 출범 · 16개 단과대학 · 99개 학과 · 5개 멀티캠퍼스. 장영실의 과학주권 정신을 잇는 AI 거점대학.</p>
+    </div>
+    <div><h6>편집</h6><ul><li>비전 · A.U.R.A</li><li>조직</li><li>전략 · ACTS</li><li>양자 AI</li></ul></div>
+    <div><h6>자료</h6><ul><li>PNU 공식</li><li>AI 대학원</li><li>AI 교육원</li></ul></div>
+    <div><h6>연락</h6><ul><li><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec8d85ac9c999f8d82c28d8fc2879e">[email&#160;protected]</a></li><li>051-510-2071</li></ul></div>
+  </div>
+  <div class="end">
+    <span>PRINTED IN BUSAN · 釜大 印 · EST. 1946 · 八十周年</span>
+    <span>// PNU-AI-HUB / V1.0 · 08 HANJI SCROLL · BUILD 2026.05.18</span>
+  </div>
+</footer>
+
+<nav class="switcher">
+  <a href="gallery.html">ALL</a>
+  <a href="index.html">MAIN</a>
+  <a href="00 Enterprise Structured.html">00</a>
+  <a href="01 Linear Minimal.html">01</a>
+  <a href="02 Stripe Geometric.html">02</a>
+  <a href="03 Vercel Dark.html">03</a>
+  <a href="04 MIT Editorial.html">04</a>
+  <a href="05 Brutalist Manifesto.html">05</a>
+  <a href="06 Pastel Soft.html">06</a>
+  <a href="07 Quantum Glass.html">07</a>
+  <a class="active" href="08 Hanji Scroll.html">08</a>
+</nav>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body></html>

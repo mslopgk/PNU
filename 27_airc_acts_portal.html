@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>장영실 AI 융합연구원 — ACTS Portal | airc.pusan.ac.kr</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@500;700;900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --blue: #005BAA;
+  --blue-d: #1E3A5F;
+  --blue-l: #EFF6FF;
+  --blue-b: #BFDBFE;
+  --green: #00A651;
+  --green-l: #ECFDF5;
+  --amber: #D97706;
+  --amber-l: #FEF3C7;
+  --violet: #7C3AED;
+  --violet-l: #EDE9FE;
+  --rose: #E11D48;
+  --rose-l: #FFE4E6;
+  --teal: #0D9488;
+  --teal-l: #CCFBF1;
+  --gold: #C39B3A;
+  --red: #EF4444;
+  --ink: #111827;
+  --body: #374151;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --bg: #F8FAFC;
+  --bg-soft: #F1F5F9;
+  --white: #fff;
+  --sidebar-w: 272px;
+}
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Noto Sans KR','Inter',sans-serif;
+  background:var(--bg);
+  color:var(--body);
+  font-size:14px;
+  line-height:1.65;
+  word-break:keep-all;
+  -webkit-font-smoothing:antialiased;
+}
+a { text-decoration:none; color:inherit; }
+.serif { font-family:'Noto Serif KR', serif; }
+.mono { font-family:'JetBrains Mono', monospace; }
+
+/* ── TOPBAR ── */
+.topbar { height:54px; background:var(--blue-d); display:flex; align-items:center; justify-content:space-between; padding:0 24px; position:sticky; top:0; z-index:200; border-bottom:1px solid rgba(255,255,255,.08); }
+.tb-left { display:flex; align-items:center; gap:18px; }
+.tb-logo { display:flex; align-items:center; gap:12px; }
+.tb-mark { width:36px; height:36px; background:linear-gradient(135deg, var(--blue), var(--gold)); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:17px; color:#fff; box-shadow:0 4px 14px rgba(195,155,58,.25); }
+.tb-name { font-size:14.5px; font-weight:800; color:#fff; letter-spacing:-.015em; }
+.tb-sub { font-size:10px; color:rgba(255,255,255,.5); font-family:'JetBrains Mono', monospace; letter-spacing:.05em; margin-top:1px; }
+.tb-sep { width:1px; height:24px; background:rgba(255,255,255,.12); }
+.tb-bread { font-size:12px; color:rgba(255,255,255,.6); display:flex; align-items:center; gap:7px; }
+.tb-bread a { color:rgba(255,255,255,.6); }
+.tb-bread strong { color:#fff; font-weight:600; }
+
+.tb-right { display:flex; align-items:center; gap:10px; }
+.tb-link { font-size:12px; color:rgba(255,255,255,.65); padding:5px 12px; border-radius:6px; transition:all .2s; }
+.tb-link:hover { background:rgba(255,255,255,.1); color:#fff; }
+.tb-cta { background:var(--blue) !important; color:#fff !important; font-weight:700 !important; padding:6px 16px !important; border-radius:8px; box-shadow:0 4px 10px rgba(0,91,170,.4); }
+.tb-cta:hover { background:#0075C9 !important; }
+
+/* ── LAYOUT ── */
+.layout { display:flex; min-height:calc(100vh - 54px); }
+
+/* ── SIDEBAR ── */
+.sidebar { width:var(--sidebar-w); flex-shrink:0; background:var(--white); border-right:1px solid var(--border); position:sticky; top:54px; height:calc(100vh - 54px); overflow-y:auto; display:flex; flex-direction:column; }
+.sidebar::-webkit-scrollbar { width:4px; }
+.sidebar::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+
+/* Sidebar hero */
+.sb-hero { background:linear-gradient(165deg, var(--blue-d) 0%, var(--blue) 100%); padding:22px 18px; position:relative; overflow:hidden; }
+.sb-hero::before { content:''; position:absolute; top:-40px; right:-40px; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(195,155,58,.4), transparent 60%); }
+.sb-hero-tag { font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; font-family:'JetBrains Mono', monospace; position:relative; }
+.sb-hero-name { font-family:'Noto Serif KR', serif; font-size:22px; font-weight:800; color:#fff; line-height:1.15; letter-spacing:-.02em; margin-bottom:6px; position:relative; }
+.sb-hero-en { font-size:10.5px; color:rgba(255,255,255,.6); font-family:'JetBrains Mono', monospace; letter-spacing:.04em; margin-bottom:18px; position:relative; }
+.sb-acts { display:grid; grid-template-columns:1fr 1fr; gap:6px; position:relative; }
+.sb-acts-cell { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.12); border-radius:8px; padding:8px 10px; text-align:center; }
+.sb-acts-letter { font-family:'Noto Serif KR', serif; font-size:18px; font-weight:900; color:var(--gold); line-height:1; }
+.sb-acts-l { font-size:9px; color:rgba(255,255,255,.7); margin-top:3px; font-family:'JetBrains Mono', monospace; letter-spacing:.05em; text-transform:uppercase; }
+
+/* Sidebar nav sections */
+.sb-section { padding:16px 14px 8px; }
+.sb-section-title { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); padding:0 6px; margin-bottom:8px; font-family:'JetBrains Mono', monospace; }
+.sb-item { display:flex; align-items:center; gap:10px; padding:8px 11px; border-radius:8px; color:var(--body); font-size:13px; font-weight:500; transition:all .18s; cursor:pointer; }
+.sb-item:hover { background:var(--blue-l); color:var(--blue); }
+.sb-item.active { background:var(--blue-l); color:var(--blue); font-weight:700; }
+.sb-item i { font-size:13px; width:16px; text-align:center; color:var(--muted); transition:color .18s; }
+.sb-item:hover i, .sb-item.active i { color:var(--blue); }
+.sb-badge { margin-left:auto; padding:1px 8px; border-radius:999px; font-size:10px; font-weight:800; background:var(--blue); color:#fff; font-family:'JetBrains Mono', monospace; }
+.sb-badge.green { background:var(--green); }
+.sb-badge.amber { background:var(--amber); }
+.sb-badge.violet { background:var(--violet); }
+.sb-divider { height:1px; background:var(--border); margin:8px 14px; }
+
+.sb-stat-block { margin:14px 14px; padding:14px 16px; background:linear-gradient(135deg, var(--green-l), #D1FAE5); border-radius:12px; border:1px solid rgba(0,166,81,.18); }
+.sb-stat-tag { font-size:9.5px; font-weight:800; color:var(--green); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; font-family:'JetBrains Mono', monospace; }
+.sb-stat-num { font-family:'Inter', sans-serif; font-size:24px; font-weight:900; color:var(--ink); letter-spacing:-.03em; line-height:1; }
+.sb-stat-num span { font-size:13px; color:var(--green); }
+.sb-stat-lbl { font-size:11px; color:var(--body); margin-top:3px; }
+
+.sb-footer { margin-top:auto; padding:16px; border-top:1px solid var(--border); }
+.sb-footer-links { display:flex; gap:10px; flex-wrap:wrap; }
+.sb-footer-links a { font-size:10.5px; color:var(--muted); transition:color .15s; font-family:'JetBrains Mono', monospace; }
+.sb-footer-links a:hover { color:var(--blue); }
+
+/* ── MAIN ── */
+.main { flex:1; overflow-x:hidden; padding:24px 28px; min-width:0; }
+
+/* Page header */
+.page-header { background:var(--white); border:1px solid var(--border); border-radius:16px; padding:24px 28px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; }
+.ph-left { flex:1; }
+.ph-tag { font-size:11px; font-weight:800; color:var(--blue); letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; font-family:'JetBrains Mono', monospace; }
+.ph-title { font-family:'Noto Serif KR', serif; font-size:26px; font-weight:800; color:var(--ink); letter-spacing:-.025em; line-height:1.2; }
+.ph-title em { font-style:italic; color:var(--gold); }
+.ph-desc { font-size:13.5px; color:var(--muted); margin-top:6px; }
+.ph-right { display:flex; gap:10px; flex-wrap:wrap; }
+.ph-btn { padding:9px 18px; border-radius:9px; font-size:13px; font-weight:700; display:inline-flex; align-items:center; gap:7px; transition:all .2s; cursor:pointer; }
+.ph-btn-primary { background:var(--blue); color:#fff; border:none; box-shadow:0 4px 12px rgba(0,91,170,.25); }
+.ph-btn-primary:hover { background:var(--blue-d); transform:translateY(-1px); }
+.ph-btn-outline { border:1.5px solid var(--border); color:var(--body); background:var(--white); }
+.ph-btn-outline:hover { border-color:var(--blue); color:var(--blue); }
+
+/* KPI Row */
+.kpi-row { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:20px; }
+.kpi-tile { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:18px; display:flex; align-items:flex-start; gap:14px; transition:all .2s; cursor:pointer; }
+.kpi-tile:hover { border-color:var(--blue); box-shadow:0 6px 22px rgba(0,91,170,.1); transform:translateY(-2px); }
+.kpi-icon { width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.ic-blue { background:var(--blue-l); color:var(--blue); }
+.ic-green { background:var(--green-l); color:var(--green); }
+.ic-amber { background:var(--amber-l); color:var(--amber); }
+.ic-violet { background:var(--violet-l); color:var(--violet); }
+.ic-rose { background:var(--rose-l); color:var(--rose); }
+.ic-teal { background:var(--teal-l); color:var(--teal); }
+.kpi-info { flex:1; }
+.kpi-num { font-family:'Inter', sans-serif; font-size:24px; font-weight:900; color:var(--ink); line-height:1; margin-bottom:3px; letter-spacing:-.03em; }
+.kpi-num sup { font-size:13px; color:var(--blue); margin-left:2px; }
+.kpi-lbl { font-size:12px; color:var(--muted); }
+.kpi-trend { font-size:10.5px; margin-top:5px; font-family:'JetBrains Mono', monospace; }
+.trend-up { color:var(--green); font-weight:700; }
+.trend-new { color:var(--amber); font-weight:700; }
+
+/* Hero visual panel */
+.visual-panel { border-radius:18px; overflow:hidden; margin-bottom:20px; position:relative; min-height:320px; background:linear-gradient(165deg, var(--blue-d) 0%, var(--blue) 55%, #0075C9 100%); }
+.vp-bg-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:40px 40px; }
+.vp-glow { position:absolute; top:-100px; right:-100px; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle, rgba(195,155,58,.3), transparent 60%); }
+.vp-content { position:relative; z-index:1; padding:36px; display:grid; grid-template-columns:1.4fr 1fr; gap:32px; align-items:end; }
+.vp-main { color:#fff; }
+.vp-badge { display:inline-flex; align-items:center; gap:7px; background:rgba(195,155,58,.18); border:1px solid rgba(195,155,58,.4); backdrop-filter:blur(8px); border-radius:100px; padding:6px 14px; font-size:11px; font-weight:800; color:var(--gold); margin-bottom:16px; letter-spacing:.06em; }
+.vp-dot { width:7px; height:7px; border-radius:50%; background:var(--gold); animation:pulse 2s ease infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:.5} }
+.vp-title { font-family:'Noto Serif KR', serif; font-size:32px; font-weight:900; color:#fff; line-height:1.18; letter-spacing:-.025em; margin-bottom:14px; }
+.vp-title em { font-style:italic; color:var(--gold); }
+.vp-desc { font-size:14px; color:rgba(255,255,255,.78); line-height:1.7; max-width:560px; margin-bottom:18px; }
+.vp-tags { display:flex; gap:8px; flex-wrap:wrap; }
+.vp-tag { padding:5px 13px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18); border-radius:100px; font-size:11px; font-weight:700; color:rgba(255,255,255,.92); }
+
+.vp-stats { background:rgba(255,255,255,.08); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.15); border-radius:14px; padding:22px; display:flex; flex-direction:column; gap:14px; }
+.vp-stat-item { display:flex; align-items:center; gap:14px; padding-bottom:14px; border-bottom:1px solid rgba(255,255,255,.1); }
+.vp-stat-item:last-child { padding-bottom:0; border-bottom:none; }
+.vp-stat-icon { width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; flex-shrink:0; }
+.vp-stat-content { flex:1; }
+.vp-stat-num { font-family:'Inter', sans-serif; font-size:18px; font-weight:900; color:#fff; letter-spacing:-.025em; line-height:1; }
+.vp-stat-l { font-size:11px; color:rgba(255,255,255,.62); margin-top:3px; }
+
+/* 2 col grid */
+.grid-2 { display:grid; grid-template-columns:1.3fr 1fr; gap:18px; margin-bottom:20px; }
+.grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:20px; }
+
+/* Card */
+.card { background:var(--white); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.card-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.card-title { font-size:14.5px; font-weight:800; color:var(--ink); display:flex; align-items:center; gap:8px; }
+.card-title i { font-size:14px; }
+.card-body { padding:18px 20px; }
+.card-more { font-size:11.5px; font-weight:700; color:var(--blue); display:inline-flex; align-items:center; gap:5px; transition:gap .2s; }
+.card-more:hover { gap:8px; }
+
+/* ACTS detail grid */
+.acts-detail-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.acts-cell { padding:18px 16px; background:var(--bg); border-radius:11px; border:1px solid var(--border); transition:all .22s; cursor:pointer; }
+.acts-cell:hover { border-color:var(--blue); background:var(--blue-l); transform:translateY(-2px); }
+.acts-cell.green:hover { border-color:var(--green); background:var(--green-l); }
+.acts-cell.amber:hover { border-color:var(--amber); background:var(--amber-l); }
+.acts-cell.violet:hover { border-color:var(--violet); background:var(--violet-l); }
+.ac-letter { font-family:'Noto Serif KR', serif; font-size:36px; font-weight:900; color:var(--blue); line-height:1; letter-spacing:-.04em; margin-bottom:6px; font-style:italic; }
+.acts-cell.green .ac-letter { color:var(--green); }
+.acts-cell.amber .ac-letter { color:var(--amber); }
+.acts-cell.violet .ac-letter { color:var(--violet); }
+.ac-name { font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px; line-height:1.3; }
+.ac-en { font-size:10.5px; color:var(--muted); font-family:'JetBrains Mono', monospace; letter-spacing:.04em; margin-bottom:10px; }
+.ac-desc { font-size:12px; color:var(--body); line-height:1.55; }
+
+/* Research visual cards */
+.research-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.rv-card { border-radius:12px; overflow:hidden; position:relative; min-height:170px; cursor:pointer; transition:all .25s; }
+.rv-card:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,.18); }
+.rv-card.v1 { background:linear-gradient(165deg, #1a0a3e, #7C3AED); }
+.rv-card.v2 { background:linear-gradient(165deg, #003c2c, var(--green)); }
+.rv-card.v3 { background:linear-gradient(165deg, var(--blue-d), var(--blue)); }
+.rv-card.v4 { background:linear-gradient(165deg, #4a2400, var(--amber)); }
+.rv-card.v5 { background:linear-gradient(165deg, #4a0014, var(--rose)); }
+.rv-card.v6 { background:linear-gradient(165deg, #073833, var(--teal)); }
+.rv-inner { position:absolute; inset:0; padding:20px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(to top, rgba(0,0,0,.55), transparent 50%); }
+.rv-label { font-family:'JetBrains Mono', monospace; font-size:9.5px; font-weight:800; letter-spacing:.1em; color:rgba(255,255,255,.65); margin-bottom:5px; text-transform:uppercase; }
+.rv-title { font-family:'Noto Serif KR', serif; font-size:15px; font-weight:800; color:#fff; line-height:1.3; }
+.rv-stat { font-size:11.5px; color:rgba(255,255,255,.78); margin-top:4px; }
+.rv-tag { display:inline-flex; align-self:flex-start; align-items:center; gap:5px; padding:3px 10px; background:rgba(195,155,58,.25); border-radius:100px; font-size:10px; font-weight:800; color:var(--gold); letter-spacing:.06em; text-transform:uppercase; margin-bottom:8px; font-family:'JetBrains Mono', monospace; }
+
+/* Director message */
+.director-card { background:linear-gradient(135deg, var(--bg-soft), var(--white)); border:1px solid var(--border); border-radius:14px; padding:24px; display:flex; gap:20px; align-items:flex-start; }
+.dir-avatar { width:80px; height:80px; border-radius:14px; background:linear-gradient(135deg, var(--blue-l), var(--blue-b)); display:flex; align-items:center; justify-content:center; font-size:38px; flex-shrink:0; box-shadow:0 4px 14px rgba(0,91,170,.12); }
+.dir-content { flex:1; }
+.dir-name { font-size:15px; font-weight:800; color:var(--ink); margin-bottom:2px; }
+.dir-name small { font-weight:500; color:var(--muted); }
+.dir-position { font-size:11.5px; color:var(--blue); font-weight:700; margin-bottom:12px; font-family:'JetBrains Mono', monospace; }
+.dir-quote { font-family:'Noto Serif KR', serif; font-size:14px; color:var(--ink); line-height:1.7; font-style:italic; margin-bottom:10px; }
+.dir-quote::before { content:'"'; color:var(--gold); font-size:30px; line-height:0.5; vertical-align:-8px; margin-right:4px; }
+.dir-quote::after { content:'"'; color:var(--gold); font-size:30px; line-height:0.5; vertical-align:-8px; margin-left:4px; }
+.dir-meta { font-size:11px; color:var(--muted); font-family:'JetBrains Mono', monospace; }
+
+/* Partnership cards */
+.partner-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.partner-c { padding:18px; border:1px solid var(--border); border-radius:12px; background:var(--white); transition:all .22s; cursor:pointer; }
+.partner-c:hover { border-color:var(--blue); box-shadow:0 6px 22px rgba(0,91,170,.08); transform:translateY(-2px); }
+.partner-top { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+.partner-logo { width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:900; color:#fff; flex-shrink:0; }
+.partner-logo.samsung { background:linear-gradient(135deg, #1428A0, #0D2BAF); }
+.partner-logo.eunsung { background:linear-gradient(135deg, var(--green), #047857); }
+.partner-logo.kims { background:linear-gradient(135deg, #6366F1, #4338CA); }
+.partner-logo.stanford { background:linear-gradient(135deg, #8C1515, #B83A4B); }
+.partner-logo.etri { background:linear-gradient(135deg, var(--blue), #0075C9); }
+.partner-logo.keri { background:linear-gradient(135deg, var(--amber), #F59E0B); }
+.partner-name { font-size:14px; font-weight:800; color:var(--ink); line-height:1.2; }
+.partner-tag { font-size:10.5px; color:var(--muted); margin-top:2px; font-family:'JetBrains Mono', monospace; letter-spacing:.03em; }
+.partner-desc { font-size:12px; color:var(--body); line-height:1.6; margin-bottom:12px; }
+.partner-meta { display:flex; gap:10px; align-items:center; font-size:10.5px; color:var(--muted); padding-top:10px; border-top:1px solid var(--border); font-family:'JetBrains Mono', monospace; }
+.partner-meta i { color:var(--blue); }
+
+/* Faculty grid */
+.fac-mini-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.fac-mini { display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--white); transition:all .2s; }
+.fac-mini:hover { border-color:var(--blue); box-shadow:0 4px 14px rgba(0,91,170,.08); }
+.fac-mini-avatar { width:42px; height:42px; border-radius:999px; background:linear-gradient(135deg, var(--blue-l), var(--blue-b)); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.fac-mini-name { font-size:13px; font-weight:800; color:var(--ink); }
+.fac-mini-area { font-size:11px; color:var(--blue); font-weight:600; }
+.fac-mini-lab { font-size:10.5px; color:var(--muted); font-family:'JetBrains Mono', monospace; margin-top:2px; }
+
+/* Project table */
+table.proj-table { width:100%; border-collapse:collapse; }
+table.proj-table th { padding:10px 14px; background:var(--bg); font-size:11px; font-weight:800; color:var(--muted); text-align:left; border-bottom:1px solid var(--border); letter-spacing:.06em; text-transform:uppercase; font-family:'JetBrains Mono', monospace; }
+table.proj-table td { padding:12px 14px; font-size:12.5px; color:var(--body); border-bottom:1px solid var(--border); vertical-align:middle; }
+table.proj-table tr:last-child td { border-bottom:none; }
+table.proj-table tr:hover { background:var(--blue-l); }
+.proj-name { font-weight:700; color:var(--ink); }
+.proj-tag { display:inline-block; padding:2px 9px; border-radius:100px; font-size:10.5px; font-weight:800; font-family:'JetBrains Mono', monospace; letter-spacing:.04em; }
+.proj-tag.q { background:var(--violet-l); color:var(--violet); }
+.proj-tag.m { background:var(--blue-l); color:var(--blue); }
+.proj-tag.b { background:var(--green-l); color:var(--green); }
+.proj-tag.s { background:var(--amber-l); color:var(--amber); }
+.proj-amt { font-family:'Inter', sans-serif; font-weight:800; color:var(--ink); }
+.proj-status { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; }
+.proj-status.run { color:var(--green); }
+.proj-status.plan { color:var(--amber); }
+.status-dot { width:7px; height:7px; border-radius:50%; }
+.status-dot.green { background:var(--green); animation:pulse 2s ease infinite; }
+.status-dot.amber { background:var(--amber); }
+
+/* Notice list */
+.notice-list { padding:0; }
+.nl-item { padding:12px 0; border-bottom:1px solid var(--border); display:flex; gap:12px; align-items:flex-start; }
+.nl-item:last-child { border-bottom:none; }
+.nl-icon { width:32px; height:32px; border-radius:9px; background:var(--blue-l); color:var(--blue); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.nl-icon.green { background:var(--green-l); color:var(--green); }
+.nl-icon.amber { background:var(--amber-l); color:var(--amber); }
+.nl-icon.violet { background:var(--violet-l); color:var(--violet); }
+.nl-body { flex:1; }
+.nl-title { font-size:13px; font-weight:700; color:var(--ink); line-height:1.4; margin-bottom:3px; }
+.nl-title:hover { color:var(--blue); }
+.nl-date { font-size:10.5px; color:var(--muted); font-family:'JetBrains Mono', monospace; }
+.nl-tag { font-size:10px; font-weight:800; color:var(--blue); margin-left:6px; padding:1px 7px; background:var(--blue-l); border-radius:100px; font-family:'JetBrains Mono', monospace; }
+
+/* Footer */
+footer.airc-footer { padding:24px 0; border-top:1px solid var(--border); margin-top:30px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+.airc-copy { font-size:11.5px; color:var(--muted); font-family:'JetBrains Mono', monospace; }
+.airc-policy { display:flex; gap:16px; }
+.airc-policy a { font-size:11.5px; color:var(--muted); transition:color .15s; }
+.airc-policy a:hover { color:var(--blue); }
+
+@media (max-width:1180px){
+  .kpi-row { grid-template-columns:repeat(3,1fr); }
+  .grid-2, .grid-3 { grid-template-columns:1fr; }
+  .acts-detail-grid, .partner-grid, .fac-mini-grid { grid-template-columns:repeat(2,1fr); }
+  .research-grid { grid-template-columns:1fr; }
+  .sidebar { width:240px; }
+  :root { --sidebar-w:240px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-left">
+    <div class="tb-logo">
+      <div class="tb-mark">🔬</div>
+      <div>
+        <div class="tb-name">장영실 AI 융합연구원</div>
+        <div class="tb-sub">JANG YEONG-SIL AI CONVERGENCE RESEARCH INSTITUTE</div>
+      </div>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-bread">
+      <a href="#">airc.pusan.ac.kr</a>
+      <i class="fas fa-chevron-right" style="font-size:9px;color:rgba(255,255,255,.3)"></i>
+      <strong>연구원 홈</strong>
+    </div>
+  </div>
+  <div class="tb-right">
+    <a href="https://www.pusan.ac.kr" class="tb-link">부산대 ↗</a>
+    <a href="https://ai.pusan.ac.kr" class="tb-link">AI 대학 ↗</a>
+    <a href="https://arise-ai.pusan.ac.kr" class="tb-link">ARISE ↗</a>
+    <a href="#" class="tb-link tb-cta"><i class="fas fa-handshake" style="font-size:11px;margin-right:6px"></i>연구 협력 문의</a>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <!-- Sidebar hero with ACTS -->
+    <div class="sb-hero">
+      <div class="sb-hero-tag">VISION 2030</div>
+      <div class="sb-hero-name">AI 융합과학<br>주권 선도</div>
+      <div class="sb-hero-en">"ACTS" Strategy Framework</div>
+      <div class="sb-acts">
+        <div class="sb-acts-cell">
+          <div class="sb-acts-letter">A</div>
+          <div class="sb-acts-l">Acceleration</div>
+        </div>
+        <div class="sb-acts-cell">
+          <div class="sb-acts-letter">C</div>
+          <div class="sb-acts-l">Core</div>
+        </div>
+        <div class="sb-acts-cell">
+          <div class="sb-acts-letter">T</div>
+          <div class="sb-acts-l">Transform</div>
+        </div>
+        <div class="sb-acts-cell">
+          <div class="sb-acts-letter">S</div>
+          <div class="sb-acts-l">Superiority</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav: 연구원 소개 -->
+    <div class="sb-section">
+      <div class="sb-section-title">연구원 소개</div>
+      <div class="sb-item active"><i class="fas fa-home"></i> 대시보드</div>
+      <div class="sb-item"><i class="fas fa-flag"></i> 비전 · ACTS</div>
+      <div class="sb-item"><i class="fas fa-comment"></i> 원장 인사말</div>
+      <div class="sb-item"><i class="fas fa-sitemap"></i> 조직 구성</div>
+      <div class="sb-item"><i class="fas fa-history"></i> 장영실 헤리티지</div>
+    </div>
+    <div class="sb-divider"></div>
+
+    <!-- Nav: 연구 분야 -->
+    <div class="sb-section">
+      <div class="sb-section-title">연구 분야</div>
+      <div class="sb-item"><i class="fas fa-atom"></i> 양자 AI <div class="sb-badge violet">47억</div></div>
+      <div class="sb-item"><i class="fas fa-ship"></i> 해양·물류 AI <div class="sb-badge">6</div></div>
+      <div class="sb-item"><i class="fas fa-heart-pulse"></i> 의료 AI <div class="sb-badge green">12</div></div>
+      <div class="sb-item"><i class="fas fa-cubes"></i> 소재·제조 AI <div class="sb-badge amber">8</div></div>
+      <div class="sb-item"><i class="fas fa-car"></i> 모빌리티 AI <div class="sb-badge">4</div></div>
+      <div class="sb-item"><i class="fas fa-bolt"></i> 에너지 AI <div class="sb-badge">3</div></div>
+    </div>
+    <div class="sb-divider"></div>
+
+    <!-- KPI stat -->
+    <div class="sb-stat-block">
+      <div class="sb-stat-tag">2025-26 누적</div>
+      <div class="sb-stat-num">127<span>개</span></div>
+      <div class="sb-stat-lbl">진행 중 연구 과제</div>
+    </div>
+
+    <!-- Nav: 성과 -->
+    <div class="sb-section">
+      <div class="sb-section-title">성과 · 자료</div>
+      <div class="sb-item"><i class="fas fa-file-alt"></i> 논문 검색</div>
+      <div class="sb-item"><i class="fas fa-lightbulb"></i> 특허 현황</div>
+      <div class="sb-item"><i class="fas fa-exchange-alt"></i> 기술이전</div>
+      <div class="sb-item"><i class="fas fa-trophy"></i> 수상 실적</div>
+    </div>
+    <div class="sb-divider"></div>
+
+    <!-- Nav: 협력 -->
+    <div class="sb-section">
+      <div class="sb-section-title">파트너십</div>
+      <div class="sb-item"><i class="fas fa-industry"></i> 산학 협력</div>
+      <div class="sb-item"><i class="fas fa-globe"></i> 글로벌</div>
+      <div class="sb-item"><i class="fas fa-landmark"></i> 정부·공공</div>
+    </div>
+    <div class="sb-divider"></div>
+
+    <!-- Nav: 알림 -->
+    <div class="sb-section">
+      <div class="sb-section-title">알림</div>
+      <div class="sb-item"><i class="fas fa-bell"></i> 공지 <div class="sb-badge">3</div></div>
+      <div class="sb-item"><i class="fas fa-calendar"></i> 세미나·행사</div>
+      <div class="sb-item"><i class="fas fa-user-plus"></i> 채용 <div class="sb-badge green">2</div></div>
+    </div>
+
+    <div class="sb-footer">
+      <div class="sb-footer-links">
+        <a href="#">PRIVACY</a>
+        <a href="#">SITEMAP</a>
+        <a href="#">EN</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="ph-tag">Jang Yeong-sil AI Convergence Research Institute</div>
+        <h1 class="ph-title">장영실 AI 융합연구원 <em>대시보드</em></h1>
+        <div class="ph-desc">개방형 AI 융합 플랫폼 — 2025.12.30 개원 · 송길태 초대 원장 · 부산대학교 IT관 (267억·13,161㎡)</div>
+      </div>
+      <div class="ph-right">
+        <a href="#" class="ph-btn ph-btn-outline"><i class="fas fa-file-alt"></i> 논문 검색</a>
+        <a href="#" class="ph-btn ph-btn-outline"><i class="fas fa-file-pdf"></i> 백서 다운로드</a>
+        <a href="#" class="ph-btn ph-btn-primary"><i class="fas fa-handshake"></i> 연구 협력 신청</a>
+      </div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="kpi-row">
+      <div class="kpi-tile">
+        <div class="kpi-icon ic-blue"><i class="fas fa-flask"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-num">127<sup>개</sup></div>
+          <div class="kpi-lbl">진행 중 연구 과제</div>
+          <div class="kpi-trend trend-up"><i class="fas fa-arrow-trend-up"></i> +14 vs 2025</div>
+        </div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon ic-green"><i class="fas fa-file-alt"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-num">284<sup>편</sup></div>
+          <div class="kpi-lbl">SCI(E) 논문</div>
+          <div class="kpi-trend trend-up"><i class="fas fa-arrow-trend-up"></i> 2023~ 누적</div>
+        </div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon ic-amber"><i class="fas fa-lightbulb"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-num">63<sup>건</sup></div>
+          <div class="kpi-lbl">특허 출원·등록</div>
+          <div class="kpi-trend trend-new"><i class="fas fa-star"></i> 해외 12건</div>
+        </div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon ic-violet"><i class="fas fa-exchange-alt"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-num">18억<sup></sup></div>
+          <div class="kpi-lbl">기술이전 수입</div>
+          <div class="kpi-trend trend-up"><i class="fas fa-arrow-trend-up"></i> +42% YoY</div>
+        </div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-icon ic-rose"><i class="fas fa-users"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-num">68<sup>명</sup></div>
+          <div class="kpi-lbl">소속 연구 인력</div>
+          <div class="kpi-trend trend-new"><i class="fas fa-star"></i> 박사급 32명</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO VISUAL PANEL -->
+    <div class="visual-panel">
+      <div class="vp-bg-grid"></div>
+      <div class="vp-glow"></div>
+      <div class="vp-content">
+        <div class="vp-main">
+          <div class="vp-badge"><span class="vp-dot"></span> 5대 핵심 분야 · 개방형 플랫폼 운영 중</div>
+          <h2 class="vp-title">AI 융합과학으로<br>이끄는 <em>과학 주권</em></h2>
+          <p class="vp-desc">장영실 AI 융합연구원은 양자 AI, 해양·물류 AI, 의료 AI, 소재·제조 AI 등 국가 전략 분야에서 세계 수준의 융합 연구를 수행하며 동남권 산업 혁신을 선도합니다.</p>
+          <div class="vp-tags">
+            <span class="vp-tag">⚛️ 양자 AI</span>
+            <span class="vp-tag">🚢 해양 AI</span>
+            <span class="vp-tag">⚕️ 의료 AI</span>
+            <span class="vp-tag">🏭 소재·제조 AI</span>
+            <span class="vp-tag">🚗 모빌리티</span>
+            <span class="vp-tag">⚡ 에너지</span>
+          </div>
+        </div>
+        <div class="vp-stats">
+          <div class="vp-stat-item">
+            <div class="vp-stat-icon"><i class="fas fa-award"></i></div>
+            <div class="vp-stat-content">
+              <div class="vp-stat-num">국내 최초</div>
+              <div class="vp-stat-l">양자 AI 융합 사업 운영</div>
+            </div>
+          </div>
+          <div class="vp-stat-item">
+            <div class="vp-stat-icon"><i class="fas fa-globe"></i></div>
+            <div class="vp-stat-content">
+              <div class="vp-stat-num">24개국</div>
+              <div class="vp-stat-l">국제 공동연구 협력</div>
+            </div>
+          </div>
+          <div class="vp-stat-item">
+            <div class="vp-stat-icon"><i class="fas fa-building"></i></div>
+            <div class="vp-stat-content">
+              <div class="vp-stat-num">85개사</div>
+              <div class="vp-stat-l">산학 협력 기관</div>
+            </div>
+          </div>
+          <div class="vp-stat-item">
+            <div class="vp-stat-icon"><i class="fas fa-dollar-sign"></i></div>
+            <div class="vp-stat-content">
+              <div class="vp-stat-num">42억 / 2025</div>
+              <div class="vp-stat-l">외부 수주 연간 실적</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTS Detail + Director -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-compass" style="color:var(--gold)"></i> ACTS 비전 체계</div>
+          <a href="#" class="card-more">상세 보기 <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card-body">
+          <div class="acts-detail-grid">
+            <div class="acts-cell">
+              <div class="ac-letter">A</div>
+              <div class="ac-name">Acceleration</div>
+              <div class="ac-en">산업화 가속</div>
+              <div class="ac-desc">AI 산업화 허브로서 연구 성과를 산업 현장으로 직접 이전합니다.</div>
+            </div>
+            <div class="acts-cell green">
+              <div class="ac-letter">C</div>
+              <div class="ac-name">Core</div>
+              <div class="ac-en">기초과학 강화</div>
+              <div class="ac-desc">AI 핵심기술 개발 및 양자·신경과학 등 기초 과학을 강화합니다.</div>
+            </div>
+            <div class="acts-cell amber">
+              <div class="ac-letter">T</div>
+              <div class="ac-name">Transformation</div>
+              <div class="ac-en">산업 혁신</div>
+              <div class="ac-desc">해양·제조·의료·에너지 국가 전략산업의 AI 전환을 추진합니다.</div>
+            </div>
+            <div class="acts-cell violet">
+              <div class="ac-letter">S</div>
+              <div class="ac-name">Superiority</div>
+              <div class="ac-en">경쟁 우위</div>
+              <div class="ac-desc">차세대 주권기술 개발을 통해 국가 경쟁우위를 확보합니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="director-card">
+          <div class="dir-avatar">👨‍🏫</div>
+          <div class="dir-content">
+            <div class="dir-name">송길태 <small>초대 원장</small></div>
+            <div class="dir-position">PROFESSOR · DMB LAB · CSE</div>
+            <p class="dir-quote">장영실 선생이 노비 출신에서 조선 최고 과학자로 성장했듯, 우리 연구원도 출신과 무관하게 인재가 모이는 개방형 플랫폼이 되어 AI 융합과학의 주권을 선도하겠습니다.</p>
+            <div class="dir-meta">2025.12.30 · 개원사 中</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Research Areas + Recent Papers -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-microscope" style="color:var(--blue)"></i> 6대 핵심 연구 분야</div>
+          <a href="#" class="card-more">분야별 상세 <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card-body">
+          <div class="research-grid">
+            <div class="rv-card v1">
+              <div class="rv-inner">
+                <div class="rv-tag"><i class="fas fa-star"></i> 국내 최초 · 47억</div>
+                <div class="rv-label">Quantum-AI · 양자 AI</div>
+                <div class="rv-title">위상초전도체 개발<br>(2025–2029)</div>
+                <div class="rv-stat">옥종목 교수팀 · 과기정통부 5년 사업</div>
+              </div>
+            </div>
+            <div class="rv-card v3">
+              <div class="rv-inner">
+                <div class="rv-label">Marine AI · 해양 AI</div>
+                <div class="rv-title">스마트 조선공학 ·<br>해양데이터 분석</div>
+                <div class="rv-stat">삼성중공업 AI 연구협력센터 운영</div>
+              </div>
+            </div>
+            <div class="rv-card v2">
+              <div class="rv-inner">
+                <div class="rv-label">Medical AI · 의료 AI</div>
+                <div class="rv-title">AX 헬스케어 ·<br>에이지테크</div>
+                <div class="rv-stat">은성의료재단 (좋은병원들) 공동 설치</div>
+              </div>
+            </div>
+            <div class="rv-card v4">
+              <div class="rv-inner">
+                <div class="rv-label">Materials & Mfg. AI</div>
+                <div class="rv-title">초거대 첨단<br>제조 AI</div>
+                <div class="rv-stat">한국재료연구원 PNU 협력센터</div>
+              </div>
+            </div>
+            <div class="rv-card v5">
+              <div class="rv-inner">
+                <div class="rv-label">Mobility AI · 모빌리티</div>
+                <div class="rv-title">자율주행 ·<br>스마트 모빌리티</div>
+                <div class="rv-stat">동남권 자동차 산업 클러스터</div>
+              </div>
+            </div>
+            <div class="rv-card v6">
+              <div class="rv-inner">
+                <div class="rv-label">Energy AI · 에너지 AI</div>
+                <div class="rv-title">차세대 에너지 ·<br>AI 그리드</div>
+                <div class="rv-stat">한국전기연구원 협력</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects table -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-table-list" style="color:var(--violet)"></i> 주요 연구 과제</div>
+          <a href="#" class="card-more">전체 <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <table class="proj-table">
+          <thead>
+            <tr>
+              <th>과제명</th>
+              <th>분야</th>
+              <th>예산</th>
+              <th>상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="proj-name">위상초전도체 양자 AI 개발</div></td>
+              <td><span class="proj-tag q">양자</span></td>
+              <td class="proj-amt">47억</td>
+              <td><span class="proj-status run"><span class="status-dot green"></span>운영</span></td>
+            </tr>
+            <tr>
+              <td><div class="proj-name">신약개발 GNN 플랫폼</div></td>
+              <td><span class="proj-tag m">의료</span></td>
+              <td class="proj-amt">12억</td>
+              <td><span class="proj-status run"><span class="status-dot green"></span>운영</span></td>
+            </tr>
+            <tr>
+              <td><div class="proj-name">스마트 조선 AI 분석</div></td>
+              <td><span class="proj-tag b">해양</span></td>
+              <td class="proj-amt">8.5억</td>
+              <td><span class="proj-status run"><span class="status-dot green"></span>운영</span></td>
+            </tr>
+            <tr>
+              <td><div class="proj-name">초거대 제조 AI 플랫폼</div></td>
+              <td><span class="proj-tag s">소재</span></td>
+              <td class="proj-amt">15억</td>
+              <td><span class="proj-status run"><span class="status-dot green"></span>운영</span></td>
+            </tr>
+            <tr>
+              <td><div class="proj-name">에이지테크 헬스케어</div></td>
+              <td><span class="proj-tag m">의료</span></td>
+              <td class="proj-amt">6.8억</td>
+              <td><span class="proj-status plan"><span class="status-dot amber"></span>준비</span></td>
+            </tr>
+            <tr>
+              <td><div class="proj-name">자율주행 모빌리티 AI</div></td>
+              <td><span class="proj-tag b">모빌</span></td>
+              <td class="proj-amt">9.2억</td>
+              <td><span class="proj-status run"><span class="status-dot green"></span>운영</span></td>
+            </tr>
+            <tr>
+              <td><div class="proj-name">한국어 Bio LLM 구축</div></td>
+              <td><span class="proj-tag m">의료</span></td>
+              <td class="proj-amt">5.4억</td>
+              <td><span class="proj-status run"><span class="status-dot green"></span>운영</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Partnership grid -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-handshake" style="color:var(--green)"></i> 전략 협력 기관 (개원 동시 협약 3 + 글로벌 3)</div>
+        <a href="#" class="card-more">전체 85개 기관 <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="card-body">
+        <div class="partner-grid">
+          <a href="#" class="partner-c">
+            <div class="partner-top">
+              <div class="partner-logo samsung">S</div>
+              <div>
+                <div class="partner-name">삼성중공업</div>
+                <div class="partner-tag">2025.12.30 · MOU</div>
+              </div>
+            </div>
+            <div class="partner-desc"><strong>AI 연구협력센터</strong>를 부산대 교내에 공동 설치. 조선·해양 AI 공동 연구 및 데이터 분석.</div>
+            <div class="partner-meta"><i class="fas fa-flask"></i> 해양 AI · 양 기관 공동 예산</div>
+          </a>
+          <a href="#" class="partner-c">
+            <div class="partner-top">
+              <div class="partner-logo eunsung">은</div>
+              <div>
+                <div class="partner-name">은성의료재단 (좋은병원들)</div>
+                <div class="partner-tag">2025.12.30 · MOU</div>
+              </div>
+            </div>
+            <div class="partner-desc"><strong>AX 헬스케어센터</strong>를 양 기관 공동 설치. 의료 AI · 에이지테크(고령화 사회 대응) 공동 연구.</div>
+            <div class="partner-meta"><i class="fas fa-flask"></i> 의료 AI · 에이지테크</div>
+          </a>
+          <a href="#" class="partner-c">
+            <div class="partner-top">
+              <div class="partner-logo kims">K</div>
+              <div>
+                <div class="partner-name">한국재료연구원 (KIMS)</div>
+                <div class="partner-tag">2025.12.30 · MOU</div>
+              </div>
+            </div>
+            <div class="partner-desc"><strong>PNU 연구협력센터</strong> 공동 설치. 초거대 첨단 제조 AI · 소재 AI 융합 연구.</div>
+            <div class="partner-meta"><i class="fas fa-flask"></i> 소재·제조 AI</div>
+          </a>
+          <a href="#" class="partner-c">
+            <div class="partner-top">
+              <div class="partner-logo stanford">S</div>
+              <div>
+                <div class="partner-name">Stanford University</div>
+                <div class="partner-tag">연구 협력 · 진행중</div>
+              </div>
+            </div>
+            <div class="partner-desc">스탠퍼드 AI Lab과 <strong>AI 융합 공동 연구</strong>. Fei-Fei Li 2026 부산 AI 서밋 기조강연 예정.</div>
+            <div class="partner-meta"><i class="fas fa-globe"></i> 글로벌 · 학술 협력</div>
+          </a>
+          <a href="#" class="partner-c">
+            <div class="partner-top">
+              <div class="partner-logo etri">E</div>
+              <div>
+                <div class="partner-name">ETRI</div>
+                <div class="partner-tag">한국전자통신연구원</div>
+              </div>
+            </div>
+            <div class="partner-desc">AI 응용 기술 협력. <strong>한국어 NLP 모델 공동 연구</strong> · 양자 통신 기술 협력.</div>
+            <div class="partner-meta"><i class="fas fa-landmark"></i> 정부 출연연</div>
+          </a>
+          <a href="#" class="partner-c">
+            <div class="partner-top">
+              <div class="partner-logo keri">K</div>
+              <div>
+                <div class="partner-name">한국전기연구원 (KERI)</div>
+                <div class="partner-tag">에너지 AI</div>
+              </div>
+            </div>
+            <div class="partner-desc">차세대 에너지 AI 공동 연구. <strong>AI 기반 스마트 그리드</strong> 및 신재생 에너지 최적화.</div>
+            <div class="partner-meta"><i class="fas fa-bolt"></i> 에너지 AI</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faculty + Notice -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-user-tie" style="color:var(--blue)"></i> 핵심 연구원 (대표 6명)</div>
+          <a href="#" class="card-more">전체 68명 <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card-body">
+          <div class="fac-mini-grid">
+            <div class="fac-mini">
+              <div class="fac-mini-avatar">👨‍🏫</div>
+              <div>
+                <div class="fac-mini-name">송길태 교수</div>
+                <div class="fac-mini-area">연구원장 · 의료 AI</div>
+                <div class="fac-mini-lab">DMB Lab</div>
+              </div>
+            </div>
+            <div class="fac-mini">
+              <div class="fac-mini-avatar">👨‍🔬</div>
+              <div>
+                <div class="fac-mini-name">옥종목 교수</div>
+                <div class="fac-mini-area">양자 AI · 물리학과</div>
+                <div class="fac-mini-lab">47억 사업 PI</div>
+              </div>
+            </div>
+            <div class="fac-mini">
+              <div class="fac-mini-avatar">👨‍💻</div>
+              <div>
+                <div class="fac-mini-name">김호원 교수</div>
+                <div class="fac-mini-area">Physical AI 보안</div>
+                <div class="fac-mini-lab">S3Lab · ITRC</div>
+              </div>
+            </div>
+            <div class="fac-mini">
+              <div class="fac-mini-avatar">👩‍🔬</div>
+              <div>
+                <div class="fac-mini-name">권선영 교수</div>
+                <div class="fac-mini-area">신약 AI · GNN</div>
+                <div class="fac-mini-lab">AI Bio Lab</div>
+              </div>
+            </div>
+            <div class="fac-mini">
+              <div class="fac-mini-avatar">👨‍🏫</div>
+              <div>
+                <div class="fac-mini-name">전상률 교수</div>
+                <div class="fac-mini-area">CV · 생성형 AI</div>
+                <div class="fac-mini-lab">PNUCVLAB</div>
+              </div>
+            </div>
+            <div class="fac-mini">
+              <div class="fac-mini-avatar">👨‍🎓</div>
+              <div>
+                <div class="fac-mini-name">류광렬 교수</div>
+                <div class="fac-mini-area">제조 AI · DS</div>
+                <div class="fac-mini-lab">DS 대학원장</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notice list -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-bell" style="color:var(--amber)"></i> 알림</div>
+          <a href="#" class="card-more">전체 <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card-body">
+          <div class="notice-list">
+            <div class="nl-item">
+              <div class="nl-icon green"><i class="fas fa-user-plus"></i></div>
+              <div class="nl-body">
+                <div class="nl-title">박사후연구원 채용 공고 (2명)<span class="nl-tag">채용</span></div>
+                <div class="nl-date">2026.05.25 · 마감 6.30</div>
+              </div>
+            </div>
+            <div class="nl-item">
+              <div class="nl-icon"><i class="fas fa-bullhorn"></i></div>
+              <div class="nl-body">
+                <div class="nl-title">2026년 연구비 집행 지침 개정 안내</div>
+                <div class="nl-date">2026.05.22</div>
+              </div>
+            </div>
+            <div class="nl-item">
+              <div class="nl-icon violet"><i class="fas fa-calendar"></i></div>
+              <div class="nl-body">
+                <div class="nl-title">AI 비전 세미나 — Stanford AI Lab 연사</div>
+                <div class="nl-date">2026.06.05 · IT관 세미나실 101</div>
+              </div>
+            </div>
+            <div class="nl-item">
+              <div class="nl-icon amber"><i class="fas fa-handshake"></i></div>
+              <div class="nl-body">
+                <div class="nl-title">산학협력 기술 발표회 (35개 기업 초청)</div>
+                <div class="nl-date">2026.06.12 · 대학본부 국제회의실</div>
+              </div>
+            </div>
+            <div class="nl-item">
+              <div class="nl-icon green"><i class="fas fa-trophy"></i></div>
+              <div class="nl-body">
+                <div class="nl-title">CVPR 2026 박진선 교수팀 논문 채택</div>
+                <div class="nl-date">2026.05.18 · VLM 분야</div>
+              </div>
+            </div>
+            <div class="nl-item">
+              <div class="nl-icon"><i class="fas fa-file-alt"></i></div>
+              <div class="nl-body">
+                <div class="nl-title">개원 1주년 성과 보고서 공개</div>
+                <div class="nl-date">2026.05.15</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IT 관 facility info -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-building" style="color:var(--blue)"></i> IT관 (Information Technology Building)</div>
+        <a href="#" class="card-more">시설 안내 <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:18px">
+          <div>
+            <div style="font-family:'JetBrains Mono', monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">총 사업비</div>
+            <div style="font-size:22px;font-weight:900;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.03em">267<span style="font-size:14px;color:var(--blue)">억원</span></div>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:3px">국립대학 BTL 최대 규모</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono', monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">연면적</div>
+            <div style="font-size:22px;font-weight:900;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.03em">13,161<span style="font-size:14px;color:var(--blue)">㎡</span></div>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:3px">지하 1층 · 지상 10층</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono', monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">준공일</div>
+            <div style="font-size:22px;font-weight:900;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.03em">2025<span style="font-size:14px;color:var(--blue)">.12.16</span></div>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:3px">개원식 12.30 · 송길태 원장</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono', monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">친환경</div>
+            <div style="font-size:22px;font-weight:900;color:var(--ink);font-family:'Inter',sans-serif;letter-spacing:-.03em">100<span style="font-size:14px;color:var(--green)">% LED</span></div>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:3px">태양광 · 지열 · BEMS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="airc-footer">
+      <div class="airc-copy">© 2026 장영실 AI 융합연구원 · 부산대학교 | 부산광역시 금정구 부산대학로 63번길 2 | airc@pusan.ac.kr · 051-510-0000</div>
+      <div class="airc-policy">
+        <a href="#">개인정보처리방침</a>
+        <a href="#">사이트맵</a>
+        <a href="#">English</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

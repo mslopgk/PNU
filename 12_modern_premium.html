@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부산대학교 AI 거점대학</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#005BAA;--blue-light:#0071CC;--blue-pale:#EEF5FF;
+  --green:#00A651;--green-pale:#ECFAF3;
+  --navy:#0B1A3E;--ink:#0F172A;--mid:#64748B;--lite:#F8FAFD;
+  --border:rgba(0,91,170,.12);--white:#fff;
+  --glass:rgba(255,255,255,.65);--glass-border:rgba(255,255,255,.8);
+  --ff:"Pretendard Variable",Pretendard,sans-serif;
+  --shadow:0 8px 32px rgba(0,91,170,.12);--shadow-lg:0 20px 60px rgba(0,91,170,.18);
+}
+body{font-family:var(--ff);color:var(--ink);background:var(--lite);line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* ── BLOBS ── */
+.blob-container{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.18;animation:drift 12s ease-in-out infinite}
+.blob1{width:600px;height:600px;background:radial-gradient(circle,#005BAA,#0071CC);top:-100px;left:-100px;animation-delay:0s}
+.blob2{width:500px;height:500px;background:radial-gradient(circle,#00A651,#00A651);bottom:-100px;right:-50px;animation-delay:-4s}
+.blob3{width:400px;height:400px;background:radial-gradient(circle,#143F90,#143F90);top:40%;right:20%;animation-delay:-8s}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,30px) scale(.97)}}
+
+/* ── HEADER ── */
+.hdr{position:sticky;top:0;z-index:100;backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);background:rgba(248,250,253,.85);border-bottom:1px solid var(--border)}
+.hdr-inner{max-width:1300px;margin:0 auto;padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo-wrap{display:flex;align-items:center;gap:.75rem}
+.logo-pill{background:linear-gradient(135deg,var(--blue),var(--blue-light));padding:.5rem 1rem;border-radius:8px;display:flex;align-items:center;gap:.5rem}
+.logo-pill svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2}
+.logo-pill span{font-size:.78rem;font-weight:800;color:#fff;letter-spacing:-.01em}
+.logo-sub{font-size:.78rem;font-weight:700;color:var(--blue)}
+nav{display:flex;gap:.2rem}
+.nav-a{padding:.5rem .9rem;font-size:.83rem;font-weight:600;color:var(--mid);border-radius:6px;transition:all .2s;position:relative}
+.nav-a:hover{background:var(--blue-pale);color:var(--blue)}
+.hdr-btns{display:flex;gap:.5rem}
+.btn-ghost{padding:.45rem .9rem;border-radius:6px;font-size:.8rem;font-weight:600;border:1.5px solid var(--border);color:var(--blue);background:transparent;cursor:pointer;font-family:var(--ff);transition:all .2s}
+.btn-ghost:hover{background:var(--blue-pale)}
+.btn-solid{padding:.45rem 1rem;border-radius:6px;font-size:.8rem;font-weight:700;border:none;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;cursor:pointer;font-family:var(--ff);box-shadow:0 2px 12px rgba(0,91,170,.35);transition:all .2s}
+.btn-solid:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(0,91,170,.4)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;padding:0 2rem}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#EEF5FF 0%,#F8FAFD 50%,#F0FFF8 100%)}
+.hero-grid-pattern{position:absolute;inset:0;background-image:linear-gradient(rgba(0,91,170,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,91,170,.04) 1px,transparent 1px);background-size:48px 48px}
+.hero-content{position:relative;z-index:1;max-width:1300px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.hero-left .badge{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,rgba(0,91,170,.08),rgba(0,166,81,.08));border:1px solid rgba(0,91,170,.2);padding:.4rem 1rem;border-radius:20px;font-size:.72rem;font-weight:700;color:var(--blue);letter-spacing:.06em;margin-bottom:1.5rem}
+.hero-left .badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+.hero-left h1{font-size:3.2rem;font-weight:900;line-height:1.12;letter-spacing:-.05em;color:var(--ink)}
+.hero-left h1 .grad{background:linear-gradient(135deg,var(--blue),#0075C9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-left p{font-size:1.05rem;color:var(--mid);margin:1.5rem 0 2rem;line-height:1.75;max-width:480px}
+.hero-left .cta-row{display:flex;gap:.8rem;align-items:center}
+.cta-primary{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;padding:.85rem 1.8rem;border-radius:10px;font-size:.92rem;font-weight:700;box-shadow:0 4px 20px rgba(0,91,170,.35);transition:all .25s}
+.cta-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,91,170,.4)}
+.cta-secondary{display:inline-flex;align-items:center;gap:.5rem;color:var(--blue);font-size:.9rem;font-weight:600;padding:.85rem 1.5rem;border-radius:10px;border:1.5px solid rgba(0,91,170,.2);transition:all .2s}
+.cta-secondary:hover{background:var(--blue-pale)}
+
+/* Hero right — card stack */
+.hero-right{position:relative}
+.card-stack{position:relative;height:480px}
+.stack-card{position:absolute;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;box-shadow:var(--shadow-lg)}
+.stack-card.main{width:340px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);padding:2rem;z-index:3;background:rgba(255,255,255,.9)}
+.stack-card.sec1{width:220px;height:160px;top:5%;right:0;transform:rotate(6deg);z-index:1;padding:1.2rem;background:linear-gradient(135deg,rgba(0,91,170,.85),rgba(0,113,204,.85));color:#fff}
+.stack-card.sec2{width:200px;height:150px;bottom:5%;left:0;transform:rotate(-5deg);z-index:1;padding:1.2rem;background:linear-gradient(135deg,rgba(0,166,81,.85),rgba(0,212,104,.85));color:#fff}
+.stack-card.sec3{width:180px;height:130px;bottom:15%;right:5%;transform:rotate(3deg);z-index:2;padding:1rem;background:rgba(255,255,255,.85)}
+.main-card-icon{font-size:2.5rem;margin-bottom:.8rem}
+.main-card-title{font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:.4rem}
+.main-card-desc{font-size:.8rem;color:var(--mid);line-height:1.6}
+.main-card-stat{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);display:flex;gap:1.5rem}
+.mc-stat .n{font-size:1.5rem;font-weight:900;color:var(--blue);letter-spacing:-.04em}
+.mc-stat .l{font-size:.65rem;color:var(--mid);margin-top:.1rem}
+.sec-card-label{font-size:.65rem;font-weight:700;opacity:.75;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.sec-card-big{font-size:1.6rem;font-weight:900;letter-spacing:-.04em}
+.sec-card-sub{font-size:.72rem;opacity:.8;margin-top:.2rem}
+.sec3 .sc3-ico{font-size:1.4rem;margin-bottom:.4rem}
+.sec3 .sc3-t{font-size:.8rem;font-weight:700;color:var(--ink)}
+.sec3 .sc3-v{font-size:.72rem;color:var(--green);font-weight:700;margin-top:.2rem}
+
+/* Floating badges */
+.float-badge{position:absolute;z-index:10;backdrop-filter:blur(12px);background:rgba(255,255,255,.9);border:1px solid var(--glass-border);border-radius:30px;padding:.4rem 1rem;font-size:.72rem;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.1);white-space:nowrap}
+.fb1{top:8%;left:-10%;color:var(--blue)}
+.fb2{bottom:20%;right:-5%;color:var(--green)}
+.fb3{top:55%;left:-15%;color:#143F90}
+
+/* ── COUNTER ROW ── */
+.counter-row{background:var(--navy);padding:2.5rem 0;position:relative;z-index:1}
+.counter-row .container{max-width:1300px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.counter-cell{text-align:center;padding:1rem;position:relative}
+.counter-cell::after{content:'';position:absolute;top:20%;right:0;width:1px;height:60%;background:rgba(255,255,255,.1)}
+.counter-cell:last-child::after{display:none}
+.counter-n{font-size:2rem;font-weight:900;color:#7EC8FF;letter-spacing:-.05em}
+.counter-l{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:.3rem}
+.counter-sub{font-size:.65rem;color:var(--green);font-weight:600;margin-top:.15rem}
+
+/* ── SECTION SHARED ── */
+.container{max-width:1300px;margin:0 auto;padding:0 2rem}
+.section{padding:5rem 0}
+.s-eyebrow{font-size:.72rem;font-weight:700;color:var(--blue);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+.s-title{font-size:2rem;font-weight:900;letter-spacing:-.04em;margin-bottom:.5rem}
+.s-title .acc{background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.s-sub{font-size:.92rem;color:var(--mid);max-width:520px;line-height:1.75}
+.s-more{display:inline-flex;align-items:center;gap:.35rem;font-size:.8rem;font-weight:700;color:var(--blue);margin-top:1rem}
+
+/* ── HUB ECOSYSTEM ── */
+.hub-section{padding:5rem 0;background:linear-gradient(160deg,#EEF5FF,#F8FAFD 60%,#F0FFF8)}
+.hub-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:center}
+.hub-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.hub-g-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.5rem;box-shadow:var(--shadow);transition:all .25s;position:relative;overflow:hidden}
+.hub-g-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue)}
+.hub-g-card.green::before{background:var(--green)}
+.hub-g-card.purple::before{background:#143F90}
+.hub-g-card.amber::before{background:#00A651}
+.hub-g-card.span2{grid-column:1/3}
+.hub-g-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.hgc-icon{font-size:1.8rem;margin-bottom:.8rem}
+.hgc-title{font-size:.95rem;font-weight:800;margin-bottom:.3rem}
+.hgc-desc{font-size:.78rem;color:var(--mid);line-height:1.6}
+.hgc-tag{display:inline-block;margin-top:.8rem;font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;background:var(--blue-pale);color:var(--blue)}
+.hub-g-card.green .hgc-tag{background:var(--green-pale);color:var(--green)}
+
+/* ── ACHIEVEMENT WALL ── */
+.achievement-wall{padding:5rem 0;background:var(--navy)}
+.achievement-wall .s-title{color:var(--white)}
+.achievement-wall .s-eyebrow{color:#7EC8FF}
+.achievement-wall .s-sub{color:rgba(255,255,255,.55)}
+.ach-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:1rem;margin-top:2.5rem}
+.ach-card{border-radius:16px;padding:2rem;position:relative;overflow:hidden}
+.ach-card.big{grid-row:1/3;background:linear-gradient(160deg,#1A3A6E,#005BAA);display:flex;flex-direction:column;justify-content:space-between}
+.ach-card.g2{background:linear-gradient(135deg,#006837,#00A651)}
+.ach-card.g3{background:linear-gradient(135deg,#143F90,#143F90)}
+.ach-card.g4{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.ach-card.g5{background:linear-gradient(135deg,#006837,#00A651)}
+.ach-deco{position:absolute;bottom:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.06)}
+.ach-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-bottom:.8rem}
+.ach-emoji{font-size:2rem;margin-bottom:.8rem}
+.ach-num{font-size:3rem;font-weight:900;color:var(--white);letter-spacing:-.06em;line-height:1}
+.ach-card.big .ach-num{font-size:4rem}
+.ach-desc{font-size:.82rem;color:rgba(255,255,255,.7);margin-top:.6rem;line-height:1.6}
+.ach-card .tag{display:inline-block;margin-top:.8rem;background:rgba(255,255,255,.15);font-size:.68rem;font-weight:700;padding:.25rem .65rem;border-radius:20px;color:rgba(255,255,255,.9)}
+
+/* ── DEPT SHOWCASE ── */
+.dept-section{padding:5rem 0;background:var(--lite)}
+.dept-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:2.5rem}
+.dept-col{background:var(--white);padding:2rem 1.5rem;transition:background .2s}
+.dept-col:hover{background:var(--blue-pale)}
+.dept-num{font-size:.65rem;font-weight:700;color:var(--blue);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+.dept-icon{font-size:2rem;margin-bottom:.7rem}
+.dept-name{font-size:.98rem;font-weight:800;line-height:1.4;margin-bottom:.5rem}
+.dept-desc{font-size:.77rem;color:var(--mid);line-height:1.65}
+.dept-pills{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:1rem}
+.dept-pill{font-size:.65rem;padding:.25rem .55rem;border-radius:4px;background:var(--blue-pale);color:var(--blue);font-weight:600}
+.dept-col:hover .dept-pill{background:rgba(0,91,170,.15)}
+.dept-footer{margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--mid)}
+
+/* ── RESEARCH CARDS ── */
+.research-section{padding:5rem 0}
+.res-grid-premium{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+.res-premium{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.8rem;box-shadow:var(--shadow);transition:all .25s;position:relative;overflow:hidden}
+.res-premium::after{content:'';position:absolute;top:0;right:0;width:80px;height:80px;border-radius:0 16px 0 80px;opacity:.06}
+.res-premium.r1::after{background:var(--blue)}
+.res-premium.r2::after{background:var(--green)}
+.res-premium.r3::after{background:#143F90}
+.res-premium.r4::after{background:#00A651}
+.res-premium.r5::after{background:#143F90}
+.res-premium.r6::after{background:#0075C9}
+.res-premium:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.rp-head{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.rp-icon{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:1.4rem;flex-shrink:0}
+.rp-icon.b{background:var(--blue-pale)} .rp-icon.g{background:var(--green-pale)}
+.rp-icon.p{background:#EEF4FB} .rp-icon.a{background:#ECFAF3}
+.rp-icon.r{background:#EEF4FB} .rp-icon.c{background:#EEF4FB}
+.rp-kw{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.8rem}
+.rp-kw span{font-size:.65rem;font-weight:700;padding:.2rem .5rem;border-radius:4px;background:var(--lite);color:var(--mid);border:1px solid var(--border)}
+.rp-title{font-size:.92rem;font-weight:800;line-height:1.4;color:var(--ink)}
+.rp-body{font-size:.78rem;color:var(--mid);line-height:1.65}
+.rp-foot{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.72rem}
+.rp-foot .val{font-weight:800;color:var(--blue)} .rp-foot .lbl{color:var(--mid)}
+
+/* ── FACULTY ── */
+.faculty-section{padding:5rem 0;background:linear-gradient(160deg,#EEF5FF,#F8FAFD)}
+.faculty-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2.5rem}
+.faculty-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:all .25s}
+.faculty-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.fc-avatar{height:120px;display:grid;place-items:center;font-size:2.5rem;position:relative}
+.fc-avatar.f1{background:linear-gradient(135deg,#003F7D,#005BAA)}
+.fc-avatar.f2{background:linear-gradient(135deg,#006837,#00A651)}
+.fc-avatar.f3{background:linear-gradient(135deg,#0B1A3E,#143F90)}
+.fc-avatar.f4{background:linear-gradient(135deg,#0B1A3E,#0075C9)}
+.fc-info{padding:1.2rem}
+.fc-name{font-size:.95rem;font-weight:800}
+.fc-dept{font-size:.73rem;color:var(--blue);font-weight:700;margin-top:.2rem}
+.fc-field{font-size:.75rem;color:var(--mid);margin-top:.3rem;line-height:1.5}
+.fc-badges{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.8rem}
+.fc-badge{font-size:.63rem;padding:.2rem .5rem;border-radius:4px;background:var(--blue-pale);color:var(--blue);font-weight:600}
+
+/* ── NEWS MASONRY ── */
+.news-section{padding:5rem 0}
+.news-grid-modern{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:auto auto;gap:1.2rem;margin-top:2.5rem}
+.nm-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:all .25s}
+.nm-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.nm-card.feature{grid-row:1/3}
+.nm-img{background:linear-gradient(135deg,var(--navy),var(--blue));height:200px;display:flex;align-items:flex-end;padding:1.2rem}
+.nm-card.feature .nm-img{height:280px}
+.nm-img .cat{font-size:.65rem;font-weight:700;background:var(--green);color:#fff;padding:.25rem .65rem;border-radius:4px}
+.nm-body{padding:1.2rem}
+.nm-body h3{font-size:.92rem;font-weight:700;line-height:1.5}
+.nm-card.feature .nm-body h3{font-size:1.1rem}
+.nm-body p{font-size:.78rem;color:var(--mid);line-height:1.6;margin-top:.4rem}
+.nm-body .meta{display:flex;gap:1rem;margin-top:.8rem;font-size:.68rem;color:var(--mid)}
+
+/* ── NOTICE GRID ── */
+.notice-section{padding:4rem 0;background:var(--lite)}
+.notice-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
+.notice-panel{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.np-head{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.np-head h3{font-size:.92rem;font-weight:800}
+.np-head a{font-size:.75rem;color:var(--blue);font-weight:600}
+.np-row{display:grid;grid-template-columns:56px 1fr auto;gap:.8rem;padding:.85rem 1.5rem;border-bottom:1px solid var(--border);align-items:center}
+.np-row:last-child{border-bottom:none}
+.np-badge{font-size:.63rem;font-weight:700;padding:.25rem .5rem;border-radius:4px;text-align:center;white-space:nowrap}
+.np-badge.n{background:#EEF4FB;color:#1E3A5F}
+.np-badge.h{background:#ECFAF3;color:#006837}
+.np-badge.g{background:var(--lite);color:var(--mid)}
+.np-title{font-size:.82rem;color:var(--ink);font-weight:500;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.np-date{font-size:.68rem;color:var(--mid);white-space:nowrap}
+
+/* ── PARTNERS ── */
+.partners-section{padding:4rem 0}
+.partners-inner{display:flex;flex-direction:column;align-items:center;gap:2rem}
+.partners-inner .s-title{text-align:center}
+.partners-inner .s-sub{text-align:center}
+.partners-scroll{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;max-width:900px}
+.p-chip{display:inline-flex;align-items:center;gap:.5rem;background:var(--white);border:1px solid var(--border);border-radius:30px;padding:.55rem 1.2rem;font-size:.8rem;font-weight:600;color:var(--mid);box-shadow:var(--shadow);transition:all .2s;cursor:default}
+.p-chip:hover{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 4px 16px rgba(0,91,170,.3)}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);padding:4rem 0 2rem;position:relative;z-index:1}
+.footer-grid{display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.ft-brand-logo{font-size:1.1rem;font-weight:900;color:var(--white);margin-bottom:.8rem}
+.ft-brand-desc{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.75}
+footer h4{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+footer ul li a{font-size:.82rem;color:rgba(255,255,255,.6);transition:color .2s}
+footer ul li a:hover{color:var(--white)}
+.footer-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:.72rem;color:rgba(255,255,255,.35)}
+.wm-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:.3rem .8rem;border-radius:20px;font-size:.65rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.04em}
+
+.wm{position:fixed;bottom:1.2rem;right:1.2rem;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;font-size:.65rem;font-weight:700;padding:.4rem .9rem;border-radius:20px;z-index:9999;letter-spacing:.05em;box-shadow:0 4px 16px rgba(0,91,170,.4)}
+</style>
+</head>
+<body>
+
+<!-- BLOBS -->
+<div class="blob-container">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="logo-wrap">
+      <div class="logo-pill">
+        <img src="assets/pnu-symbol-color.jpg" alt="부산대학교" style="height:36px;width:auto;object-fit:contain;display:block;background:#fff;padding:4px 6px;border-radius:6px;">
+        <span>PNU AI</span>
+      </div>
+      <span class="logo-sub">AI 거점대학</span>
+    </div>
+    <nav>
+      <a class="nav-a" href="#">거점대학</a>
+      <a class="nav-a" href="#">AI 대학</a>
+      <a class="nav-a" href="#">장영실 연구원</a>
+      <a class="nav-a" href="#">AI 대학원</a>
+      <a class="nav-a" href="#">성과</a>
+      <a class="nav-a" href="#">소식</a>
+    </nav>
+    <div class="hdr-btns">
+      <button class="btn-ghost">교수진</button>
+      <button class="btn-solid">입학 상담 →</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="badge">🏆 2025 대한민국 AI 거점대학 공식 선정</div>
+      <h1>대한민국 AI 교육의<br><span class="grad">새로운 중심</span></h1>
+      <p>부산대학교가 956억 원 RISE 사업과 함께 국가 AI 핵심 인재 양성의 거점으로 도약합니다. AI 대학·장영실 연구원·AI 대학원이 하나의 허브로 움직입니다.</p>
+      <div class="cta-row">
+        <a href="#" class="cta-primary">AI 거점대학 소개 →</a>
+        <a href="#" class="cta-secondary">성과 보기</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="card-stack">
+        <div class="stack-card sec1">
+          <div class="sec-card-label">QS 세계 순위 2025</div>
+          <div class="sec-card-big">473위</div>
+          <div class="sec-card-sub">▲ 51계단 상승</div>
+        </div>
+        <div class="stack-card main">
+          <div class="main-card-icon">🏛️</div>
+          <div class="main-card-title">AI 거점대학 허브 구조</div>
+          <div class="main-card-desc">교육·연구·산업 협력을 통합하는 AI 생태계</div>
+          <div class="main-card-stat">
+            <div class="mc-stat"><div class="n">956억</div><div class="l">RISE 지원금</div></div>
+            <div class="mc-stat"><div class="n">347명</div><div class="l">AI 대학 정원</div></div>
+            <div class="mc-stat"><div class="n">#1</div><div class="l">RoboCup 2025</div></div>
+          </div>
+        </div>
+        <div class="stack-card sec2">
+          <div class="sec-card-label">THE 세계 영향력</div>
+          <div class="sec-card-big"># 13위</div>
+          <div class="sec-card-sub">World Impact Rankings 2024</div>
+        </div>
+        <div class="stack-card sec3">
+          <div class="sc3-ico">🤝</div>
+          <div class="sc3-t">Google AI 협약 체결</div>
+          <div class="sc3-v">2026.05.13 공식 서명</div>
+        </div>
+        <div class="float-badge fb1">🤖 산지니 AI — 국립대 최초</div>
+        <div class="float-badge fb2">🎓 2027년 AI 대학 신설</div>
+        <div class="float-badge fb3">💡 RISE 사업 선정</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTER ROW -->
+<div class="counter-row">
+  <div class="container">
+    <div class="counter-cell"><div class="counter-n">956억</div><div class="counter-l">RISE 사업 지원금</div><div class="counter-sub">2025-2029</div></div>
+    <div class="counter-cell"><div class="counter-n">473위</div><div class="counter-l">QS 세계 대학 순위</div><div class="counter-sub">▲51 상승</div></div>
+    <div class="counter-cell"><div class="counter-n">#1</div><div class="counter-l">RoboCup 세계 챔피언</div><div class="counter-sub">아누비스 2025</div></div>
+    <div class="counter-cell"><div class="counter-n">#13</div><div class="counter-l">THE 영향력 순위</div><div class="counter-sub">세계 영향력</div></div>
+    <div class="counter-cell"><div class="counter-n">347명</div><div class="counter-l">AI 대학 신입 정원</div><div class="counter-sub">2027 신설</div></div>
+    <div class="counter-cell"><div class="counter-n">3,111억</div><div class="counter-l">정부 AI 사업 총액</div><div class="counter-sub">2024-2025</div></div>
+  </div>
+</div>
+
+<!-- HUB ECOSYSTEM -->
+<section class="hub-section">
+  <div class="container">
+    <div class="hub-inner">
+      <div>
+        <p class="s-eyebrow">ECOSYSTEM</p>
+        <h2 class="s-title">AI 거점대학<br><span class="acc">허브 생태계</span></h2>
+        <p class="s-sub">교육·연구·산업이 유기적으로 연결된 허브 구조로 국가 AI 전략을 선도합니다.</p>
+        <a href="#" class="s-more">조직 전체 보기 →</a>
+      </div>
+      <div class="hub-cards">
+        <div class="hub-g-card span2">
+          <div class="hgc-icon">🏛️</div>
+          <div class="hgc-title">AI 거점대학 (Hub)</div>
+          <div class="hgc-desc">교육부 지정 AI 거점대학으로서 AI 교육·연구·산업 협력의 중심 허브 역할 수행. RISE 956억 원 사업 총괄.</div>
+          <span class="hgc-tag">RISE 956억 · 2025-2029</span>
+        </div>
+        <div class="hub-g-card">
+          <div class="hgc-icon">🏫</div>
+          <div class="hgc-title">AI 대학 (2027 신설)</div>
+          <div class="hgc-desc">4개 학부, 347명 정원. AI 학부 교육의 핵심 기관.</div>
+          <span class="hgc-tag">4개 학부 · 347명</span>
+        </div>
+        <div class="hub-g-card green">
+          <div class="hgc-icon">🔬</div>
+          <div class="hgc-title">장영실 AI 융합연구원</div>
+          <div class="hgc-desc">산학연 협력 거점. 응용·기초 연구 통합.</div>
+          <span class="hgc-tag">산학연 연구 허브</span>
+        </div>
+        <div class="hub-g-card purple">
+          <div class="hgc-icon">🎓</div>
+          <div class="hgc-title">AI 대학원</div>
+          <div class="hgc-desc">석·박사 고급 AI 인재 양성과정.</div>
+          <span class="hgc-tag" style="background:#EEF4FB;color:#143F90">석·박사 과정</span>
+        </div>
+        <div class="hub-g-card amber">
+          <div class="hgc-icon">🌐</div>
+          <div class="hgc-title">AI 융합교육원 + 정보융합혁신본부</div>
+          <div class="hgc-desc">전교생 AI 리터러시 교육 및 디지털 인프라 운영.</div>
+          <span class="hgc-tag" style="background:#ECFAF3;color:#006837">교육원 + 혁신본부</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENT WALL -->
+<section class="achievement-wall">
+  <div class="container">
+    <p class="s-eyebrow">ACHIEVEMENTS</p>
+    <h2 class="s-title">주요 성과</h2>
+    <p class="s-sub">세계 무대에서 증명하는 부산대학교 AI의 역량</p>
+    <div class="ach-grid">
+      <div class="ach-card big">
+        <div><div class="ach-label">RoboCup 2025</div><div class="ach-emoji">🏆</div><div class="ach-num">세계<br>#1</div></div>
+        <div><div class="ach-desc">이승준 교수 지도의 아누비스 팀이 인간형 로봇 리그 전 부문을 석권하며 RoboCup 2025 세계 챔피언에 등극했습니다.</div><span class="tag">인간형 로봇 리그</span></div>
+        <div class="ach-deco"></div>
+      </div>
+      <div class="ach-card g2">
+        <div class="ach-label">QS 세계 대학 순위</div>
+        <div class="ach-emoji">📈</div>
+        <div class="ach-num">473위</div>
+        <div class="ach-desc">51계단 상승 — 국내 국립대 최고 도약폭</div>
+        <div class="ach-deco"></div>
+      </div>
+      <div class="ach-card g3">
+        <div class="ach-label">THE 세계 영향력</div>
+        <div class="ach-emoji">🌏</div>
+        <div class="ach-num">#13</div>
+        <div class="ach-desc">Times Higher Education World Impact Rankings 2024</div>
+        <div class="ach-deco"></div>
+      </div>
+      <div class="ach-card g4">
+        <div class="ach-label">Google AI 협약</div>
+        <div class="ach-emoji">🤝</div>
+        <div class="ach-num" style="font-size:1.8rem">2026.05</div>
+        <div class="ach-desc">Google AI 교육 공식 협약 체결. AI 교육과정 공동 개발.</div>
+        <div class="ach-deco"></div>
+      </div>
+      <div class="ach-card g5">
+        <div class="ach-label">국립대 최초</div>
+        <div class="ach-emoji">🤖</div>
+        <div class="ach-num" style="font-size:1.6rem">산지니<br>AI</div>
+        <div class="ach-desc">국립대학 최초 AI 에이전트 서비스 공식 출시</div>
+        <div class="ach-deco"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPT -->
+<section class="dept-section">
+  <div class="container">
+    <p class="s-eyebrow">AI COLLEGE</p>
+    <h2 class="s-title">AI 대학 <span class="acc">4개 학부</span></h2>
+    <p class="s-sub">2027년 신설 예정인 AI 대학은 4개 학부 총 347명 정원으로 구성됩니다.</p>
+    <div class="dept-grid">
+      <div class="dept-col">
+        <div class="dept-num">DEPT 01</div>
+        <div class="dept-icon">💻</div>
+        <div class="dept-name">AI 컴퓨팅 학부</div>
+        <div class="dept-desc">반도체·양자컴퓨팅 기반 고성능 AI 시스템 설계 전문가 양성. 황원주 교수 주도 양자 AI 트랙.</div>
+        <div class="dept-pills"><span class="dept-pill">AI 시스템</span><span class="dept-pill">반도체</span><span class="dept-pill">양자 AI</span></div>
+        <div class="dept-footer">황원주 교수 주도</div>
+      </div>
+      <div class="dept-col">
+        <div class="dept-num">DEPT 02</div>
+        <div class="dept-icon">📊</div>
+        <div class="dept-name">데이터사이언스·통계 학부</div>
+        <div class="dept-desc">빅데이터 분석·AI 통계 모델링 전문 인재 양성. 데이터 기반 의사결정 교육.</div>
+        <div class="dept-pills"><span class="dept-pill">데이터 분석</span><span class="dept-pill">AI 통계</span><span class="dept-pill">BI</span></div>
+        <div class="dept-footer">데이터 기반 교육</div>
+      </div>
+      <div class="dept-col">
+        <div class="dept-num">DEPT 03</div>
+        <div class="dept-icon">⚙️</div>
+        <div class="dept-name">소재공학·산업공학 학부</div>
+        <div class="dept-desc">AI 기반 스마트 제조·신소재 개발 융합 교육. 부산 제조업 AI 전환 선도.</div>
+        <div class="dept-pills"><span class="dept-pill">스마트팩토리</span><span class="dept-pill">AI 소재</span><span class="dept-pill">산업 AI</span></div>
+        <div class="dept-footer">제조·소재 융합</div>
+      </div>
+      <div class="dept-col">
+        <div class="dept-num">DEPT 04</div>
+        <div class="dept-icon">🌐</div>
+        <div class="dept-name">AX 융합 학부</div>
+        <div class="dept-desc">DX·XR 기반 AI 전환(AX) 리더십 교육. 송길태 교수 주도 메타버스·XR 연구.</div>
+        <div class="dept-pills"><span class="dept-pill">AX 전략</span><span class="dept-pill">XR</span><span class="dept-pill">DX 컨설팅</span></div>
+        <div class="dept-footer">송길태 교수 주도</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="research-section">
+  <div class="container">
+    <p class="s-eyebrow">RESEARCH</p>
+    <h2 class="s-title">핵심 <span class="acc">연구 분야</span></h2>
+    <p class="s-sub">세계 수준의 AI 연구로 국가 경쟁력을 높입니다</p>
+    <div class="res-grid-premium">
+      <div class="res-premium r1">
+        <div class="rp-head"><div class="rp-icon b">🤖</div><div class="rp-title">로보틱스 & 자율 시스템</div></div>
+        <div class="rp-kw"><span>강화학습</span><span>제어공학</span><span>센서퓨전</span></div>
+        <div class="rp-body">인간형 로봇 AI, 자율주행, 로봇 제어 시스템 연구. RoboCup 2025 세계 챔피언 달성.</div>
+        <div class="rp-foot"><span class="val">세계 1위</span><span class="lbl">RoboCup 2025 / 이승준 교수</span></div>
+      </div>
+      <div class="res-premium r2">
+        <div class="rp-head"><div class="rp-icon g">⚡</div><div class="rp-title">양자 컴퓨팅 AI</div></div>
+        <div class="rp-kw"><span>양자ML</span><span>QPU</span><span>하이브리드</span></div>
+        <div class="rp-body">양자-고전 하이브리드 알고리즘 및 양자 머신러닝 기초 연구.</div>
+        <div class="rp-foot"><span class="val">3건</span><span class="lbl">국제 공동연구 / 황원주 교수</span></div>
+      </div>
+      <div class="res-premium r3">
+        <div class="rp-head"><div class="rp-icon p">🌐</div><div class="rp-title">AX·DX·XR 융합 연구</div></div>
+        <div class="rp-kw"><span>메타버스</span><span>DX전략</span><span>XR</span></div>
+        <div class="rp-body">AI 전환·디지털 전환·확장현실 3대 기술 축 기반 산업 융합 연구.</div>
+        <div class="rp-foot"><span class="val">RISE 연계</span><span class="lbl">956억 사업 / 송길태 교수</span></div>
+      </div>
+      <div class="res-premium r4">
+        <div class="rp-head"><div class="rp-icon a">🧬</div><div class="rp-title">AI 바이오·헬스케어</div></div>
+        <div class="rp-kw"><span>의료AI</span><span>신약개발</span><span>유전체</span></div>
+        <div class="rp-body">의료영상 AI, 신약 개발 AI, 유전체 분석. 부산 바이오 클러스터 연계 실증.</div>
+        <div class="rp-foot"><span class="val">12건</span><span class="lbl">임상 협력 과제</span></div>
+      </div>
+      <div class="res-premium r5">
+        <div class="rp-head"><div class="rp-icon r">🏭</div><div class="rp-title">스마트 제조 AI</div></div>
+        <div class="rp-kw"><span>스마트팩토리</span><span>예측정비</span><span>품질AI</span></div>
+        <div class="rp-body">부산 제조업 AI 전환 선도. 스마트 팩토리 실증 기반 응용 연구.</div>
+        <div class="rp-foot"><span class="val">15+</span><span class="lbl">기업 협력 과제</span></div>
+      </div>
+      <div class="res-premium r6">
+        <div class="rp-head"><div class="rp-icon c">🚢</div><div class="rp-title">해양·물류 AI</div></div>
+        <div class="rp-kw"><span>항만AI</span><span>물류최적화</span><span>해양센서</span></div>
+        <div class="rp-body">부산항 AI 기반 물류 최적화·해양 빅데이터 분석 연구. 부산항만공사 협력.</div>
+        <div class="rp-foot"><span class="val">부산항</span><span class="lbl">항만공사 산학 협력</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section class="faculty-section">
+  <div class="container">
+    <p class="s-eyebrow">FACULTY</p>
+    <h2 class="s-title">주요 <span class="acc">교수진</span></h2>
+    <p class="s-sub">세계 수준의 연구자들이 AI 거점대학을 이끕니다</p>
+    <div class="faculty-grid">
+      <div class="faculty-card">
+        <div class="fc-avatar f1" style="padding:0;overflow:hidden"><img src="https://cdn.iusm.co.kr/news/photo/202405/1039474_589255_355.jpg" alt="황원주 교수" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"></div>
+        <div class="fc-info">
+          <div class="fc-name">황원주 교수</div>
+          <div class="fc-dept">AI 컴퓨팅 학부</div>
+          <div class="fc-field">양자 AI, 양자-고전 하이브리드 컴퓨팅, 양자 머신러닝</div>
+          <div class="fc-badges"><span class="fc-badge">양자AI</span><span class="fc-badge">SCI 35편+</span></div>
+        </div>
+      </div>
+      <div class="faculty-card">
+        <div class="fc-avatar f2">👨‍💻</div>
+        <div class="fc-info">
+          <div class="fc-name">송길태 교수</div>
+          <div class="fc-dept">AX 융합 학부</div>
+          <div class="fc-field">AX/DX/XR 기술 전환, 디지털 혁신 전략, 메타버스</div>
+          <div class="fc-badges"><span class="fc-badge" style="background:var(--green-pale);color:var(--green)">AX/DX/XR</span><span class="fc-badge" style="background:var(--green-pale);color:var(--green)">산학 20+건</span></div>
+        </div>
+      </div>
+      <div class="faculty-card">
+        <div class="fc-avatar f3" style="padding:0;overflow:hidden"><img src="https://ece.pusan.ac.kr/sites/ece/atchmnfl/pnuProfl/1305/temp_1534841245917100.jpg" alt="이승준 교수" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"></div>
+        <div class="fc-info">
+          <div class="fc-name">이승준 교수</div>
+          <div class="fc-dept">AI 컴퓨팅 학부</div>
+          <div class="fc-field">로보틱스, 자율 시스템, RoboCup 아누비스 지도교수</div>
+          <div class="fc-badges"><span class="fc-badge" style="background:#EEF4FB;color:#143F90">로보틱스</span><span class="fc-badge" style="background:#EEF4FB;color:#143F90">세계 #1</span></div>
+        </div>
+      </div>
+      <div class="faculty-card">
+        <div class="fc-avatar f4">📊</div>
+        <div class="fc-info">
+          <div class="fc-name">데이터사이언스팀</div>
+          <div class="fc-dept">데이터사이언스·통계 학부</div>
+          <div class="fc-field">빅데이터 분석, AI 통계 모델링, 비즈니스 인텔리전스</div>
+          <div class="fc-badges"><span class="fc-badge" style="background:#EEF4FB;color:#0075C9">데이터</span><span class="fc-badge" style="background:#EEF4FB;color:#0075C9">통계AI</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news-section">
+  <div class="container">
+    <p class="s-eyebrow">NEWS</p>
+    <h2 class="s-title">최신 <span class="acc">소식</span></h2>
+    <div class="news-grid-modern">
+      <div class="nm-card feature">
+        <div class="nm-img" style="height:280px;background:url('https://cdn.aitimes.kr/news/photo/202507/35816_54408_5836.jpg') center/cover no-repeat"><span class="cat">로보틱스</span></div>
+        <div class="nm-body">
+          <h3>부산대 아누비스, RoboCup 2025 세계 챔피언 — 인간형 로봇 리그 전 부문 석권</h3>
+          <p>이승준 교수 지도 아래 개발된 아누비스 로봇이 RoboCup 2025 전 부문을 석권했습니다.</p>
+          <div class="meta"><span>📅 2025.07.15</span><span>👁 12,450</span></div>
+        </div>
+      </div>
+      <div class="nm-card">
+        <div class="nm-img" style="height:140px;background:url('https://news.nateimg.co.kr/orgImg/jo/2026/05/14/3d4a6b1b-e53a-4fc8-9455-fee2802995f9.jpg') center/cover no-repeat"><span class="cat">산학협력</span></div>
+        <div class="nm-body"><h3>Google AI 교육 협약 체결</h3><div class="meta"><span>📅 2026.05.13</span></div></div>
+      </div>
+      <div class="nm-card">
+        <div class="nm-img" style="height:140px;background:url('https://upload.wikimedia.org/wikipedia/commons/b/b3/PNU_Busan_campus_1.JPG') center/cover no-repeat"><span class="cat">AI 에이전트</span></div>
+        <div class="nm-body"><h3>산지니 AI — 국립대 최초 AI 에이전트 출시</h3><div class="meta"><span>📅 2025.09.01</span></div></div>
+      </div>
+      <div class="nm-card">
+        <div class="nm-img" style="height:140px;background:url('https://upload.wikimedia.org/wikipedia/commons/3/3d/PNU_Campus_Belt.jpg') center/cover no-repeat"><span class="cat">랭킹</span></div>
+        <div class="nm-body"><h3>QS 세계 473위 — 51계단 대도약</h3><div class="meta"><span>📅 2025.06.18</span></div></div>
+      </div>
+      <div class="nm-card">
+        <div class="nm-img" style="height:140px;background:url('https://www.pusan.ac.kr/_UPLOAD/IMAGE/Board/19/2025/2/Ecg31DVOltDxHy0h.JPG') center/cover no-repeat"><span class="cat">사업</span></div>
+        <div class="nm-body"><h3>RISE 사업 956억 원 최종 확정</h3><div class="meta"><span>📅 2025.03.20</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTICE -->
+<section class="notice-section">
+  <div class="container">
+    <div class="notice-col-grid">
+      <div class="notice-panel">
+        <div class="np-head"><h3>📋 공지사항</h3><a href="#">전체 →</a></div>
+        <div class="np-row"><span class="np-badge n">NEW</span><span class="np-title">AI 대학 2027년 신입생 모집 계획 안내</span><span class="np-date">05.15</span></div>
+        <div class="np-row"><span class="np-badge h">HOT</span><span class="np-title">RISE 사업 2025 성과보고회 개최 안내</span><span class="np-date">05.10</span></div>
+        <div class="np-row"><span class="np-badge n">NEW</span><span class="np-title">장영실 AI 연구원 연구원 채용 공고</span><span class="np-date">05.08</span></div>
+        <div class="np-row"><span class="np-badge g">공지</span><span class="np-title">AI 대학원 2학기 입학 설명회</span><span class="np-date">04.28</span></div>
+        <div class="np-row"><span class="np-badge g">공지</span><span class="np-title">Google AI 협약 관련 설명회 안내</span><span class="np-date">04.20</span></div>
+      </div>
+      <div class="notice-panel">
+        <div class="np-head"><h3>📰 최신 뉴스</h3><a href="#">전체 →</a></div>
+        <div class="np-row"><span class="np-badge n">NEW</span><span class="np-title">RoboCup 2025 우승 관련 언론 보도 모음</span><span class="np-date">07.18</span></div>
+        <div class="np-row"><span class="np-badge h">HOT</span><span class="np-title">AI 거점대학 선정 전국 언론 보도</span><span class="np-date">03.25</span></div>
+        <div class="np-row"><span class="np-badge g">보도</span><span class="np-title">QS 473위 — 부산일보·국제신문 보도</span><span class="np-date">06.20</span></div>
+        <div class="np-row"><span class="np-badge g">보도</span><span class="np-title">산지니 AI 서비스 론칭 보도 자료</span><span class="np-date">09.05</span></div>
+        <div class="np-row"><span class="np-badge g">보도</span><span class="np-title">THE 세계 영향력 13위 공식 발표</span><span class="np-date">04.01</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners-section">
+  <div class="container">
+    <div class="partners-inner">
+      <p class="s-eyebrow" style="text-align:center">PARTNERS</p>
+      <h2 class="s-title">파트너십 <span class="acc">네트워크</span></h2>
+      <p class="s-sub" style="text-align:center">산·학·연·관이 함께 만드는 AI 생태계</p>
+      <div class="partners-scroll">
+        <div class="p-chip">🏛️ 교육부</div>
+        <div class="p-chip">🔍 Google</div>
+        <div class="p-chip">💾 삼성전자</div>
+        <div class="p-chip">📱 LG AI 연구원</div>
+        <div class="p-chip">💬 카카오</div>
+        <div class="p-chip">🚗 현대자동차</div>
+        <div class="p-chip">🏙️ 부산시</div>
+        <div class="p-chip">🔬 ETRI</div>
+        <div class="p-chip">🎓 KAIST</div>
+        <div class="p-chip">🌍 MIT CSAIL</div>
+        <div class="p-chip">🖥️ NHN</div>
+        <div class="p-chip">⚓ 부산항만공사</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="ft-brand-logo">부산대학교 AI 거점대학</div>
+        <div class="ft-brand-desc">부산광역시 금정구 부산대학로63번길 2<br>Tel: 051-510-1114 | ai-hub@pusan.ac.kr<br><br>© 2025 Pusan National University. All rights reserved.</div>
+      </div>
+      <div>
+        <h4>AI 거점대학</h4>
+        <ul><li><a href="#">비전 및 목표</a></li><li><a href="#">추진 전략</a></li><li><a href="#">조직 안내</a></li></ul>
+      </div>
+      <div>
+        <h4>교육 기관</h4>
+        <ul><li><a href="#">AI 대학</a></li><li><a href="#">AI 대학원</a></li><li><a href="#">AI 융합교육원</a></li><li><a href="#">장영실 연구원</a></li></ul>
+      </div>
+      <div>
+        <h4>빠른 링크</h4>
+        <ul><li><a href="#">입학 안내</a></li><li><a href="#">연구 성과</a></li><li><a href="#">채용 공고</a></li><li><a href="#">언론 보도</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Pusan National University AI Hub University</p>
+      <span class="wm-badge">시안 08 — Modern Premium</span>
+    </div>
+  </div>
+</footer>
+
+<div class="wm">시안 08 — Modern Premium</div>
+</body>
+</html>

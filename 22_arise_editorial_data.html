@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부산대학교 AI 거점대학사업 — Editorial Data | arise-ai.pusan.ac.kr</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --pnu-blue: #005BAA;
+  --pnu-blue-dark: #143F90;
+  --ink: #0A0A0A;
+  --paper: #FAFAF6;
+  --paper-warm: #F4F0E8;
+  --serif-h: #1A1A1A;
+  --body: #2D2D2D;
+  --muted: #6B6B6B;
+  --hair: #1A1A1A;
+  --rule: #D8D2C2;
+  --rule-soft: #E8E2D2;
+  --accent-red: #B83A4B;
+  --accent-gold: #C39B3A;
+  --accent-green: #2D5A3D;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Noto Sans KR','Inter',sans-serif;
+  background:var(--paper);
+  color:var(--body);
+  font-size:15px;
+  line-height:1.75;
+  word-break:keep-all;
+  -webkit-font-smoothing:antialiased;
+}
+a { text-decoration:none; color:inherit; }
+.serif { font-family:'Noto Serif KR', serif; }
+.mono { font-family:'IBM Plex Mono', monospace; }
+.container { max-width:1280px; margin:0 auto; padding:0 36px; }
+.container-narrow { max-width:1080px; margin:0 auto; padding:0 36px; }
+
+/* ── MASTHEAD ── */
+.masthead { background:var(--paper); border-bottom:1px solid var(--ink); }
+.masthead-top { padding:8px 0; border-bottom:1px solid var(--rule); }
+.masthead-top .container { display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--muted); font-family:'IBM Plex Mono', monospace; letter-spacing:.03em; }
+.masthead-top a { color:var(--muted); margin-left:18px; transition:color .15s; }
+.masthead-top a:hover { color:var(--ink); }
+.mt-date { font-weight:600; color:var(--ink); }
+.masthead-main { padding:28px 0 18px; }
+.masthead-flag { display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.flag-left { display:flex; align-items:baseline; gap:18px; }
+.flag-issue { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); padding-top:6px; }
+.flag-title { font-family:'Noto Serif KR', serif; font-weight:900; font-size:42px; color:var(--ink); letter-spacing:-.04em; line-height:1; }
+.flag-title em { font-style:italic; color:var(--accent-red); }
+.flag-meta { display:flex; gap:18px; align-items:center; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--muted); letter-spacing:.05em; text-transform:uppercase; }
+.flag-meta-dot { width:5px; height:5px; border-radius:50%; background:var(--accent-red); animation:pulse 2s ease infinite; }
+@keyframes pulse { 0%,100% {opacity:1} 50% {opacity:.3} }
+
+nav.editorial-nav { padding:14px 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--ink); position:sticky; top:0; z-index:100; background:var(--paper); }
+.nav-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.nav-sections { display:flex; gap:0; }
+.nav-section { padding:6px 18px; font-size:12px; font-weight:700; color:var(--ink); letter-spacing:.05em; text-transform:uppercase; font-family:'IBM Plex Mono', monospace; border-right:1px solid var(--rule); transition:color .15s; cursor:pointer; }
+.nav-section:first-child { padding-left:0; }
+.nav-section:last-child { border-right:none; }
+.nav-section:hover { color:var(--accent-red); }
+.nav-section.active { color:var(--accent-red); }
+.nav-search { display:flex; align-items:center; gap:12px; }
+.nav-search-input { padding:6px 12px; border:1px solid var(--rule); border-radius:0; font-size:12px; color:var(--ink); background:transparent; width:180px; font-family:'IBM Plex Mono', monospace; }
+.nav-search-input:focus { outline:none; border-color:var(--ink); }
+.nav-subscribe { padding:6px 18px; background:var(--ink); color:var(--paper); font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; font-family:'IBM Plex Mono', monospace; }
+
+/* ── HERO EDITORIAL ── */
+.hero { padding:64px 0; border-bottom:1px solid var(--ink); }
+.hero-grid { display:grid; grid-template-columns:2fr 1fr; gap:48px; }
+.hero-main { border-right:1px solid var(--rule); padding-right:48px; }
+.hero-section-tag { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--accent-red); letter-spacing:.12em; text-transform:uppercase; margin-bottom:18px; font-weight:700; }
+.hero-headline { font-family:'Noto Serif KR', serif; font-size:clamp(2.2rem, 4.6vw, 3.6rem); font-weight:900; color:var(--ink); line-height:1.1; letter-spacing:-.045em; margin-bottom:24px; }
+.hero-headline em { font-style:italic; color:var(--accent-red); font-weight:900; }
+.hero-deck { font-family:'Noto Serif KR', serif; font-size:18px; color:var(--serif-h); font-style:italic; line-height:1.6; margin-bottom:28px; max-width:680px; }
+.hero-byline { display:flex; gap:14px; align-items:center; padding-top:18px; border-top:1px solid var(--rule); font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted); letter-spacing:.04em; }
+.hero-byline strong { color:var(--ink); font-weight:700; }
+
+.hero-sidebar { padding:0; }
+.dataviz-card { background:#fff; border:1px solid var(--ink); padding:28px; margin-bottom:22px; position:relative; }
+.dvc-tag { position:absolute; top:-12px; left:18px; background:var(--ink); color:var(--paper); padding:3px 12px; font-family:'IBM Plex Mono', monospace; font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.dvc-num { font-family:'Noto Serif KR', serif; font-size:60px; font-weight:900; color:var(--accent-red); letter-spacing:-.04em; line-height:1; margin-bottom:8px; }
+.dvc-num span { font-size:24px; color:var(--ink); }
+.dvc-lbl { font-size:14px; font-weight:700; color:var(--ink); line-height:1.4; margin-bottom:6px; }
+.dvc-desc { font-size:12.5px; color:var(--muted); line-height:1.6; }
+
+/* ── BUDGET INFOGRAPHIC ── */
+.budget-section { background:#fff; padding:80px 0; border-bottom:1px solid var(--ink); }
+.budget-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px; padding-bottom:24px; border-bottom:1px solid var(--ink); }
+.budget-eyebrow { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--accent-red); letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; font-weight:700; }
+.budget-title { font-family:'Noto Serif KR', serif; font-size:2.4rem; font-weight:900; color:var(--ink); letter-spacing:-.04em; line-height:1.2; }
+.budget-title em { font-style:italic; color:var(--accent-red); }
+.budget-source { font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--muted); letter-spacing:.05em; text-align:right; }
+
+.budget-flow { position:relative; padding:32px 0; }
+/* Horizontal bar chart */
+.bar-row { display:grid; grid-template-columns:200px 1fr 100px; gap:14px; align-items:center; padding:14px 0; border-bottom:1px solid var(--rule-soft); }
+.bar-label { font-size:13.5px; color:var(--ink); font-weight:600; }
+.bar-label small { display:block; font-size:10.5px; color:var(--muted); font-weight:400; margin-top:2px; font-family:'IBM Plex Mono', monospace; letter-spacing:.04em; }
+.bar-track { height:24px; background:var(--paper-warm); position:relative; border-radius:0; }
+.bar-fill { height:100%; background:var(--ink); display:flex; align-items:center; justify-content:flex-end; padding-right:10px; }
+.bar-fill.b1 { background:var(--ink); width:48%; }
+.bar-fill.b2 { background:var(--pnu-blue); width:31%; }
+.bar-fill.b3 { background:var(--accent-red); width:10.5%; }
+.bar-fill.b4 { background:var(--accent-green); width:4.5%; }
+.bar-fill.b5 { background:var(--accent-gold); width:2%; }
+.bar-fill.b6 { background:#7C3AED; width:1.5%; }
+.bar-fill.b7 { background:#94A3B8; width:2.4%; }
+.bar-value { text-align:right; font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:700; color:var(--ink); }
+
+.budget-summary { margin-top:32px; padding-top:24px; border-top:2px solid var(--ink); display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+.bs-cell { text-align:center; }
+.bs-num { font-family:'Noto Serif KR', serif; font-size:38px; font-weight:900; color:var(--ink); letter-spacing:-.04em; line-height:1; }
+.bs-num.red { color:var(--accent-red); }
+.bs-lbl { font-size:11.5px; color:var(--muted); margin-top:6px; font-family:'IBM Plex Mono', monospace; letter-spacing:.05em; text-transform:uppercase; }
+
+/* ── PILLARS DETAIL ── */
+.pillars-section { padding:80px 0; border-bottom:1px solid var(--ink); }
+.pillars-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0; border-top:1px solid var(--ink); border-left:1px solid var(--ink); }
+.pillar-cell { padding:42px 36px; border-right:1px solid var(--ink); border-bottom:1px solid var(--ink); background:var(--paper); position:relative; transition:background .25s; }
+.pillar-cell:hover { background:#fff; }
+.pillar-letter { position:absolute; top:24px; right:36px; font-family:'Noto Serif KR', serif; font-size:90px; font-weight:900; color:var(--rule); line-height:1; letter-spacing:-.05em; }
+.pillar-num { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:.1em; margin-bottom:14px; }
+.pillar-heading { font-family:'Noto Serif KR', serif; font-size:26px; font-weight:800; color:var(--ink); letter-spacing:-.025em; line-height:1.2; margin-bottom:6px; }
+.pillar-heading em { font-style:italic; color:var(--accent-red); }
+.pillar-en { font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted); letter-spacing:.05em; margin-bottom:18px; }
+.pillar-lead { font-family:'Noto Serif KR', serif; font-size:15.5px; color:var(--body); line-height:1.7; margin-bottom:20px; font-style:italic; }
+.pillar-bullets { font-size:13.5px; color:var(--body); line-height:1.7; }
+.pillar-bullets div { padding:7px 0; border-bottom:1px dashed var(--rule); display:flex; gap:10px; }
+.pillar-bullets div:last-child { border-bottom:none; }
+.pillar-bullets b { color:var(--ink); font-weight:700; }
+.pillar-bullets .ck { color:var(--accent-green); flex-shrink:0; }
+
+/* ── ROADMAP TABLE ── */
+.roadmap-section { background:#fff; padding:80px 0; border-bottom:1px solid var(--ink); }
+.roadmap-header { margin-bottom:32px; padding-bottom:18px; border-bottom:1px solid var(--ink); }
+.rm-table { width:100%; border-collapse:collapse; }
+.rm-table th { padding:14px 16px; text-align:left; font-family:'IBM Plex Mono', monospace; font-size:10.5px; font-weight:800; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; border-bottom:2px solid var(--ink); }
+.rm-table th.yr { background:var(--paper-warm); width:18%; text-align:center; font-size:13px; color:var(--ink); border-right:1px solid var(--rule); }
+.rm-table th.yr.now { background:var(--ink); color:var(--paper); }
+.rm-table th.yr-h { width:13%; }
+.rm-table td { padding:14px 16px; font-size:13px; color:var(--body); border-bottom:1px solid var(--rule); border-right:1px solid var(--rule); vertical-align:top; line-height:1.55; }
+.rm-table td:last-child { border-right:none; }
+.rm-table td.cat { background:var(--paper); font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:700; color:var(--ink); letter-spacing:.05em; text-transform:uppercase; width:13%; }
+.rm-table td.done { color:var(--accent-green); }
+.rm-table td.now { background:#FFFBEB; color:var(--ink); font-weight:600; }
+.rm-table td b { color:var(--accent-red); font-weight:700; }
+
+/* ── ACHIEVEMENT GRID ── */
+.achievement-section { padding:80px 0; border-bottom:1px solid var(--ink); }
+.ach-header { margin-bottom:42px; padding-bottom:24px; border-bottom:1px solid var(--ink); display:flex; justify-content:space-between; align-items:flex-end; }
+.ach-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--ink); border-left:1px solid var(--ink); }
+.ach-card { padding:32px 28px; border-right:1px solid var(--ink); border-bottom:1px solid var(--ink); background:#fff; transition:background .25s; }
+.ach-card:hover { background:var(--paper-warm); }
+.ach-card.feature { grid-column:span 2; grid-row:span 2; background:var(--ink); color:var(--paper); padding:48px 42px; position:relative; }
+.ach-card.feature::before { content:''; position:absolute; top:0; left:0; right:0; height:6px; background:linear-gradient(90deg, var(--accent-red), var(--accent-gold)); }
+.ach-card.feature:hover { background:var(--ink); }
+.ach-meta { display:flex; gap:12px; align-items:center; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:18px; }
+.ach-card.feature .ach-meta { color:rgba(250,250,246,.6); }
+.ach-meta span:not(:last-child)::after { content:'·'; margin-left:12px; color:var(--rule); }
+.ach-headline { font-family:'Noto Serif KR', serif; font-size:22px; font-weight:800; color:var(--ink); letter-spacing:-.02em; line-height:1.25; margin-bottom:12px; }
+.ach-card.feature .ach-headline { font-size:38px; color:var(--paper); line-height:1.15; }
+.ach-deck { font-size:13.5px; color:var(--body); line-height:1.7; margin-bottom:18px; }
+.ach-card.feature .ach-deck { font-size:16px; color:rgba(250,250,246,.78); font-family:'Noto Serif KR', serif; font-style:italic; }
+.ach-numbers { display:flex; gap:24px; padding-top:18px; border-top:1px solid var(--rule); }
+.ach-card.feature .ach-numbers { border-color:rgba(250,250,246,.18); }
+.ach-num-cell { }
+.ach-num { font-family:'Noto Serif KR', serif; font-size:28px; font-weight:900; color:var(--accent-red); letter-spacing:-.03em; line-height:1; }
+.ach-card.feature .ach-num { color:var(--accent-gold); font-size:42px; }
+.ach-num-lbl { font-size:10.5px; color:var(--muted); margin-top:4px; font-family:'IBM Plex Mono', monospace; letter-spacing:.05em; text-transform:uppercase; }
+.ach-card.feature .ach-num-lbl { color:rgba(250,250,246,.65); }
+
+/* ── HUB DIAGRAM ── */
+.hub-section { background:var(--paper-warm); padding:80px 0; border-bottom:1px solid var(--ink); }
+.hub-diagram { background:#fff; border:1px solid var(--ink); padding:48px; }
+.hub-svg { display:block; margin:0 auto; }
+
+/* ── NEWS COLUMN ── */
+.news-section { padding:80px 0; border-bottom:1px solid var(--ink); background:#fff; }
+.news-grid-3col { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:0; border-top:1px solid var(--ink); }
+.news-col { padding:32px 28px; border-right:1px solid var(--rule); }
+.news-col:last-child { border-right:none; }
+.news-col h3 { font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:800; color:var(--accent-red); letter-spacing:.12em; text-transform:uppercase; margin-bottom:22px; padding-bottom:10px; border-bottom:2px solid var(--ink); }
+.news-art { padding:14px 0; border-bottom:1px solid var(--rule); }
+.news-art:last-child { border-bottom:none; }
+.na-cat { display:inline-block; padding:1px 8px; background:var(--paper-warm); font-family:'IBM Plex Mono', monospace; font-size:9.5px; font-weight:800; color:var(--ink); letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
+.na-cat.red { background:var(--accent-red); color:var(--paper); }
+.na-cat.gold { background:var(--accent-gold); color:var(--ink); }
+.na-headline { font-family:'Noto Serif KR', serif; font-size:15px; font-weight:700; color:var(--ink); line-height:1.4; letter-spacing:-.015em; margin-bottom:5px; }
+.na-headline:hover { color:var(--accent-red); }
+.na-summary { font-size:12.5px; color:var(--body); line-height:1.55; margin-bottom:6px; }
+.na-meta { font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--muted); letter-spacing:.05em; }
+.news-art.lead .na-headline { font-size:22px; line-height:1.25; margin-bottom:8px; }
+.news-art.lead .na-summary { font-size:13.5px; font-family:'Noto Serif KR', serif; font-style:italic; }
+
+/* ── COMPETITORS / RANKING ── */
+.ranking-section { padding:80px 0; border-bottom:1px solid var(--ink); }
+.ranking-table { width:100%; border-collapse:collapse; border:1px solid var(--ink); margin-top:32px; background:#fff; }
+.ranking-table th { padding:14px 18px; text-align:left; background:var(--ink); color:var(--paper); font-family:'IBM Plex Mono', monospace; font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; border-right:1px solid rgba(250,250,246,.15); }
+.ranking-table th:last-child { border-right:none; }
+.ranking-table td { padding:14px 18px; font-size:13.5px; color:var(--body); border-right:1px solid var(--rule); border-bottom:1px solid var(--rule); vertical-align:middle; }
+.ranking-table td:last-child { border-right:none; }
+.ranking-table tr:last-child td { border-bottom:none; }
+.ranking-table tr.highlight { background:#FFFBEB; }
+.ranking-table tr.highlight td { font-weight:600; }
+.ranking-table tr.highlight td:first-child { color:var(--accent-red); font-weight:800; }
+.ranking-table .yr-num { font-family:'IBM Plex Mono', monospace; font-weight:700; color:var(--ink); }
+.ranking-table .delta { color:var(--accent-green); font-family:'IBM Plex Mono', monospace; font-size:11.5px; font-weight:700; }
+.ranking-table .delta::before { content:'↑ '; }
+
+/* ── PARTNERS BAND ── */
+.partners-section { padding:64px 0; background:var(--ink); color:var(--paper); border-bottom:1px solid var(--ink); }
+.partners-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:36px; padding-bottom:18px; border-bottom:1px solid rgba(250,250,246,.2); }
+.partners-eyebrow { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--accent-gold); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px; }
+.partners-title { font-family:'Noto Serif KR', serif; font-size:2rem; font-weight:900; color:var(--paper); letter-spacing:-.03em; }
+.partners-list { display:grid; grid-template-columns:repeat(8,1fr); gap:0; }
+.p-item { padding:18px 12px; text-align:center; border-right:1px solid rgba(250,250,246,.1); }
+.p-item:last-child { border-right:none; }
+.p-item-name { font-size:12.5px; color:rgba(250,250,246,.78); font-weight:600; }
+.p-item-cat { display:block; font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:rgba(250,250,246,.4); margin-top:4px; letter-spacing:.05em; text-transform:uppercase; }
+
+/* ── PEN PUSH ── */
+.pen-push { padding:64px 0; border-bottom:1px solid var(--ink); }
+.pp-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+.pp-quote { font-family:'Noto Serif KR', serif; font-size:36px; font-weight:700; color:var(--ink); line-height:1.3; letter-spacing:-.025em; font-style:italic; }
+.pp-quote::before { content:'"'; font-size:80px; color:var(--accent-red); line-height:0.5; vertical-align:-22px; margin-right:6px; }
+.pp-quote::after { content:'"'; font-size:80px; color:var(--accent-red); line-height:0.5; vertical-align:-22px; margin-left:6px; }
+.pp-attr { margin-top:24px; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; }
+.pp-attr strong { color:var(--ink); font-weight:700; }
+.pp-side { padding:28px; background:var(--ink); color:var(--paper); }
+.pp-side h3 { font-family:'Noto Serif KR', serif; font-size:24px; color:var(--paper); margin-bottom:16px; letter-spacing:-.02em; }
+.pp-side p { font-size:14px; color:rgba(250,250,246,.78); line-height:1.7; margin-bottom:18px; }
+.pp-btn { display:inline-flex; align-items:center; gap:10px; padding:11px 22px; background:var(--accent-gold); color:var(--ink); font-family:'IBM Plex Mono', monospace; font-size:11.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+
+/* ── FOOTER ── */
+.editorial-footer { background:var(--paper); padding:48px 0 24px; }
+.ef-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:36px; border-bottom:1px solid var(--ink); }
+.ef-mast { font-family:'Noto Serif KR', serif; font-size:28px; font-weight:900; color:var(--ink); margin-bottom:14px; letter-spacing:-.03em; }
+.ef-mast em { color:var(--accent-red); font-style:italic; }
+.ef-issue { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); margin-bottom:18px; letter-spacing:.04em; }
+.ef-desc { font-size:13px; color:var(--body); line-height:1.75; max-width:380px; }
+.ef-col h4 { font-family:'IBM Plex Mono', monospace; font-size:10px; font-weight:800; color:var(--ink); letter-spacing:.12em; text-transform:uppercase; margin-bottom:14px; padding-bottom:6px; border-bottom:1px solid var(--ink); }
+.ef-col a { display:block; font-size:13px; color:var(--body); margin-bottom:9px; transition:color .15s; }
+.ef-col a:hover { color:var(--accent-red); }
+.ef-bottom { padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--muted); letter-spacing:.04em; }
+.ef-policy { display:flex; gap:18px; }
+.ef-policy a { color:var(--muted); transition:color .15s; }
+.ef-policy a:hover { color:var(--ink); }
+
+@media (max-width:1024px){
+  .hero-grid, .pillars-grid, .ach-grid, .news-grid-3col, .pp-grid { grid-template-columns:1fr; }
+  .partners-list { grid-template-columns:repeat(4,1fr); }
+  .budget-summary { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <!-- Top strip -->
+  <div class="masthead-top">
+    <div class="container">
+      <div class="mt-left">
+        <span class="mt-date">2026년 5월 26일 화요일</span>
+        <span style="margin-left:14px">제5권 · 통권 제48호</span>
+      </div>
+      <div>
+        <a href="https://www.pusan.ac.kr">부산대학교 ↗</a>
+        <a href="#">로그인</a>
+        <a href="#">구독 신청</a>
+        <a href="#">KOR / ENG</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flag -->
+  <div class="masthead-main">
+    <div class="container masthead-flag">
+      <div class="flag-left">
+        <div class="flag-issue">VOL. 5<br>NO. 048</div>
+        <div>
+          <div class="flag-title">ARISE <em>PNU</em></div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--muted); margin-top:6px; letter-spacing:.06em; text-transform:uppercase;">부산대학교 AI 거점대학육성사업단 · arise-ai.pusan.ac.kr</div>
+        </div>
+      </div>
+      <div class="flag-meta">
+        <span class="flag-meta-dot"></span>
+        <span>LIVE — 사업 진행 중</span>
+        <span>·</span>
+        <span>2025 – 2030</span>
+        <span>·</span>
+        <span>예산 1,000억/년</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav class="editorial-nav">
+  <div class="container nav-inner">
+    <div class="nav-sections">
+      <div class="nav-section active">홈</div>
+      <div class="nav-section">사업 소개</div>
+      <div class="nav-section">핵심 사업</div>
+      <div class="nav-section">성과</div>
+      <div class="nav-section">파트너십</div>
+      <div class="nav-section">알림마당</div>
+      <div class="nav-section">자료실</div>
+    </div>
+    <div class="nav-search">
+      <input class="nav-search-input" type="text" placeholder="Search archive ↗">
+      <button class="nav-subscribe">참여 신청 →</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO EDITORIAL -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <article class="hero-main">
+        <div class="hero-section-tag">Special Report · A.U.R.A 2.0 Master Plan</div>
+        <h1 class="hero-headline">AI 시대의 중심축,<br>"<em>PNU Core AXIS</em>"<br>대전환 마스터플랜 가동</h1>
+        <p class="hero-deck">부산대학교가 80주년을 맞아 발표한 A.U.R.A 2.0 마스터플랜은 AI 철학·융합 연구·증강 인재·적응형 행정의 4대 축으로 동남권 AX 생태계를 재편한다. 2년간 100억 원의 자체 투자에 더해 정부 국책 사업 3,111억 원 누적 수주.</p>
+        <div class="hero-byline">
+          <span><strong>By</strong> 박상후 대외·전략부총장</span>
+          <span>· 2026.02.09 발표</span>
+          <span>· 21분 read</span>
+          <span>· <a href="#" style="color:var(--accent-red);text-decoration:underline">전문 보기</a></span>
+        </div>
+      </article>
+      <aside class="hero-sidebar">
+        <div class="dataviz-card">
+          <div class="dvc-tag">KEY FIGURE</div>
+          <div class="dvc-num">3,111<span>억</span></div>
+          <div class="dvc-lbl">국책 사업 누적 수주 (2023–현재)</div>
+          <div class="dvc-desc">글로컬·RISE·SW중심대학·반도체·양자·AI부트캠프 등 8개 대형 사업 동시 운영.</div>
+        </div>
+        <div class="dataviz-card" style="border-color:var(--accent-red)">
+          <div class="dvc-tag" style="background:var(--accent-red)">TARGET 2030</div>
+          <div class="dvc-num" style="color:var(--ink)">Top 200</div>
+          <div class="dvc-lbl">세계 대학 종합 순위 진입</div>
+          <div class="dvc-desc">현재 QS 473위 (국립 1위, 3년 연속). 100주년(2046) Top 100 진입 목표.</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET INFOGRAPHIC -->
+<section class="budget-section">
+  <div class="container">
+    <div class="budget-header">
+      <div>
+        <div class="budget-eyebrow">Section I — Funding Architecture</div>
+        <div class="budget-title">총 사업비 <em>3,111억 원</em>의 구조</div>
+      </div>
+      <div class="budget-source">
+        SOURCE: 부산대학교 기획처<br>
+        UPDATED: 2026.05.26
+      </div>
+    </div>
+
+    <div class="budget-flow">
+      <div class="bar-row">
+        <div class="bar-label">글로컬대학 30<small>2023 — 2027 / Min. of Education</small></div>
+        <div class="bar-track"><div class="bar-fill b1">1,500억</div></div>
+        <div class="bar-value">48.2%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">RISE 사업<small>2025 — 2029 / Min. of Edu × Busan</small></div>
+        <div class="bar-track"><div class="bar-fill b2">956억</div></div>
+        <div class="bar-value">30.7%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">반도체 특성화대학<small>2023 — 2026 / KIAT</small></div>
+        <div class="bar-track"><div class="bar-fill b3">328억</div></div>
+        <div class="bar-value">10.5%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">SW 중심대학 2단계<small>2023 — 2028 / MSIT</small></div>
+        <div class="bar-track"><div class="bar-fill b4">142억</div></div>
+        <div class="bar-value">4.6%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">AI 첨단산업 부트캠프<small>2026 — 2030 / Min. of Edu × KIAT</small></div>
+        <div class="bar-track"><div class="bar-fill b7">75억</div></div>
+        <div class="bar-value">2.4%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">AI 융합 대학원 2기<small>2023 — 2026 / IITP</small></div>
+        <div class="bar-track"><div class="bar-fill b5">63억</div></div>
+        <div class="bar-value">2.0%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">양자과학기술 원천연구<small>2025 — 2029 / MSIT</small></div>
+        <div class="bar-track"><div class="bar-fill b6">47억</div></div>
+        <div class="bar-value">1.5%</div>
+      </div>
+    </div>
+
+    <div class="budget-summary">
+      <div class="bs-cell">
+        <div class="bs-num red">8<span style="font-size:18px">개</span></div>
+        <div class="bs-lbl">동시 운영 대형 사업</div>
+      </div>
+      <div class="bs-cell">
+        <div class="bs-num">5<span style="font-size:18px">년</span></div>
+        <div class="bs-lbl">평균 사업 기간</div>
+      </div>
+      <div class="bs-cell">
+        <div class="bs-num">3<span style="font-size:18px">개</span></div>
+        <div class="bs-lbl">정부 부처 협력</div>
+      </div>
+      <div class="bs-cell">
+        <div class="bs-num red">1,000<span style="font-size:18px">억</span></div>
+        <div class="bs-lbl">AI 거점 본 사업 (2028~/년)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS DETAIL -->
+<section class="pillars-section">
+  <div class="container">
+    <div class="ach-header" style="border-bottom:1px solid var(--ink); padding-bottom:24px; margin-bottom:0">
+      <div>
+        <div class="budget-eyebrow">Section II — Strategic Pillars</div>
+        <div class="budget-title">A.U.R.A 2.0의 <em>4대 전략 축</em></div>
+      </div>
+      <div class="budget-source">
+        DECLARED · 2026.02.09<br>
+        DURATION · 2025 – 2027 (3yr)
+      </div>
+    </div>
+
+    <div class="pillars-grid">
+      <div class="pillar-cell">
+        <div class="pillar-letter">A</div>
+        <div class="pillar-num">PILLAR · 01</div>
+        <h3 class="pillar-heading">AI 철학 수립</h3>
+        <div class="pillar-en">AI Philosophy</div>
+        <p class="pillar-lead">"AI 시대 대학의 본질을 재정의하고, 윤리·인문학적 토대 위에 모든 구성원이 AI를 능동적으로 활용하는 문화를 구축한다."</p>
+        <div class="pillar-bullets">
+          <div><i class="fas fa-check ck"></i><span><b>AI 윤리·사용 가이드라인 v1</b> 제정 (2025)</span></div>
+          <div><i class="fas fa-check ck"></i><span>전 구성원 <b>AI 리터러시 의무 교육</b> (2026~)</span></div>
+          <div><i class="fas fa-check ck"></i><span>AI 시대 <b>인문학 융합 프로그램</b> 신설</span></div>
+          <div><i class="fas fa-check ck"></i><span><b>"인공지능과 디지털 사고"</b> 전교 필수 (3학점)</span></div>
+        </div>
+      </div>
+
+      <div class="pillar-cell">
+        <div class="pillar-letter">U</div>
+        <div class="pillar-num">PILLAR · 02</div>
+        <h3 class="pillar-heading">융합 연구 추진</h3>
+        <div class="pillar-en">Unified Research</div>
+        <p class="pillar-lead">"학문 경계를 넘어 양자·해양·의료·소재 등 국가 전략 분야의 AI 융합 연구를 가속화하고, 산업 현장으로 직접 이전한다."</p>
+        <div class="pillar-bullets">
+          <div><i class="fas fa-check ck"></i><span><b>장영실 AI 융합연구원</b> 개원 (2025.12)</span></div>
+          <div><i class="fas fa-check ck"></i><span><b>양자AI 47억원</b> · 위상초전도체 (2025–29)</span></div>
+          <div><i class="fas fa-check ck"></i><span>삼성중공업 / 은성의료재단 / 한국재료연 협력센터</span></div>
+          <div><i class="fas fa-check ck"></i><span>스탠퍼드 · ETRI · 한국전기연 글로벌 협력</span></div>
+        </div>
+      </div>
+
+      <div class="pillar-cell">
+        <div class="pillar-letter">R</div>
+        <div class="pillar-num">PILLAR · 03</div>
+        <h3 class="pillar-heading">증강 인재 양성</h3>
+        <div class="pillar-en">Reinforced Education</div>
+        <p class="pillar-lead">"학부 신설 · AI 부트캠프 · 적응형 학습 시스템으로 차세대 AI 인재를 양성하고, AX 부트캠프와 마이크로디그리로 재직자 역량을 강화한다."</p>
+        <div class="pillar-bullets">
+          <div><i class="fas fa-check ck"></i><span><b>AI 대학 신설</b> (2027.03 · 4학부 347명)</span></div>
+          <div><i class="fas fa-check ck"></i><span><b>AI 첨단산업 부트캠프</b> 75억 · 7개 트랙</span></div>
+          <div><i class="fas fa-check ck"></i><span>AI·SW <b>마에스트로</b> 부산센터 150명/년</span></div>
+          <div><i class="fas fa-check ck"></i><span><b>LG전자 스마트가전</b> 채용연계 (2027 · 30명)</span></div>
+        </div>
+      </div>
+
+      <div class="pillar-cell">
+        <div class="pillar-letter">A</div>
+        <div class="pillar-num">PILLAR · 04</div>
+        <h3 class="pillar-heading">적응형 행정 구축</h3>
+        <div class="pillar-en">Adaptive Administration</div>
+        <p class="pillar-lead">"산지니 AI 플랫폼을 중심으로 LMS AI 조교 · 다국어 통번역 등 AI 인프라로 대학 운영 효율을 극대화한다."</p>
+        <div class="pillar-bullets">
+          <div><i class="fas fa-check ck"></i><span><b>산지니 AI</b> 국립대 최초 (2025.12)</span></div>
+          <div><i class="fas fa-check ck"></i><span><b>AI 통번역 안경</b> 20개 언어 · 98% 정확도</span></div>
+          <div><i class="fas fa-check ck"></i><span><b>지도교수상담 AI 도우미</b> 시범 운영</span></div>
+          <div><i class="fas fa-check ck"></i><span><b>Google AI Ecosystem</b> 전면 도입 (2026.06)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP TABLE -->
+<section class="roadmap-section">
+  <div class="container">
+    <div class="roadmap-header">
+      <div class="budget-eyebrow">Section III — 3-Year Roadmap</div>
+      <div class="budget-title">2025 – 2027 <em>분야별 추진 일정</em></div>
+    </div>
+    <table class="rm-table">
+      <thead>
+        <tr>
+          <th class="yr-h">분야</th>
+          <th class="yr">2025 · 기반 구축</th>
+          <th class="yr now">2026 · 실행 단계</th>
+          <th class="yr">2027 · 확산</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cat">정책</td>
+          <td class="done">✓ AX 선도위 발족<br>✓ AI 윤리 가이드라인 v1</td>
+          <td class="now"><b>● AI 거점대학 신청</b><br>● 의과대학 AX 추진단 출범</td>
+          <td>○ 성과 공유 및 모델 확산</td>
+        </tr>
+        <tr>
+          <td class="cat">교육</td>
+          <td class="done">✓ 산지니 AI 론칭<br>✓ 다국어 통번역 서비스</td>
+          <td class="now">● AI 적응형 학습 시스템<br>● AI 역량 배지 제도</td>
+          <td>○ <b>AI 대학 첫 신입생 입학 (347명)</b><br>○ Pentomino 교육과정 시행</td>
+        </tr>
+        <tr>
+          <td class="cat">연구</td>
+          <td class="done">✓ 장영실 AI 융합연구원 개원<br>✓ 양자AI 47억 사업 선정</td>
+          <td class="now">● 연구 AI Boost-up 시스템<br>● 산업체 협력센터 3개 운영</td>
+          <td>○ AI 융합 성과 글로벌 확산<br>○ 차세대 양자컴퓨터 소재 시연</td>
+        </tr>
+        <tr>
+          <td class="cat">행정</td>
+          <td class="done">✓ AX·정보화혁신본부 신설</td>
+          <td class="now">● LMS AI 조교 서비스<br>● AI 행정 시스템 단계 도입</td>
+          <td>○ AI 기반 전 행정 자동화</td>
+        </tr>
+        <tr>
+          <td class="cat">인프라</td>
+          <td class="done">✓ IT관 준공 (267억·13,161㎡)<br>✓ GPU 서버 확충</td>
+          <td class="now">● <b>Google AI Ecosystem 도입 (6월)</b><br>● Reference University 지정</td>
+          <td>○ AI 인프라 고도화<br>○ 양자 컴퓨팅 시범 인프라</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievement-section">
+  <div class="container">
+    <div class="ach-header">
+      <div>
+        <div class="budget-eyebrow">Section IV — Achievements</div>
+        <div class="budget-title">대표 <em>성과 갤러리</em></div>
+      </div>
+      <a href="#" style="font-family:'IBM Plex Mono', monospace; font-size:11.5px; font-weight:800; color:var(--accent-red); letter-spacing:.06em; text-transform:uppercase; display:inline-flex; align-items:center; gap:6px">All Records →</a>
+    </div>
+
+    <div class="ach-grid">
+      <!-- Feature: RoboCup -->
+      <article class="ach-card feature">
+        <div class="ach-meta">
+          <span>FEATURED</span><span>2025.08.21</span><span>By Lee Seung-Jun · 전기공학부</span>
+        </div>
+        <h2 class="ach-headline">"TidyBoy"가 세계를 압도하다 — RoboCup 2025 챔피언십 우승</h2>
+        <p class="ach-deck">37개국 1,500팀이 참가한 2025 RoboCup. 부산대 자체 개발 휴머노이드 'Anubis'가 8개 미션을 완벽히 수행하며 역대 최고기록을 세웠다. 칭화·도쿄대·EPFL·KCL을 격파한 첫 한국 대학팀.</p>
+        <div class="ach-numbers">
+          <div class="ach-num-cell"><div class="ach-num">8/8</div><div class="ach-num-lbl">미션 완수</div></div>
+          <div class="ach-num-cell"><div class="ach-num">37<span style="font-size:18px">개국</span></div><div class="ach-num-lbl">참가국</div></div>
+          <div class="ach-num-cell"><div class="ach-num">1<span style="font-size:18px">위</span></div><div class="ach-num-lbl">최종 순위</div></div>
+        </div>
+      </article>
+
+      <article class="ach-card">
+        <div class="ach-meta"><span>2025.06</span><span>Awards</span></div>
+        <h3 class="ach-headline">국내 최초 양자AI 47억 원 사업 선정</h3>
+        <p class="ach-deck">위상초전도체 개발 5년 과제 · 옥종목 교수팀</p>
+      </article>
+
+      <article class="ach-card">
+        <div class="ach-meta"><span>2025.12</span><span>Partnership</span></div>
+        <h3 class="ach-headline">장영실 AI 융합연구원 개원 · 산학 3건 동시</h3>
+        <p class="ach-deck">삼성중공업·은성의료재단·재료연 협력센터 출범</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- HUB DIAGRAM -->
+<section class="hub-section">
+  <div class="container">
+    <div class="ach-header">
+      <div>
+        <div class="budget-eyebrow">Section V — Ecosystem Diagram</div>
+        <div class="budget-title">부산대 <em>AI 거점 추진 체계</em></div>
+      </div>
+      <div class="budget-source">DIAGRAM · 5-component AX system</div>
+    </div>
+
+    <div class="hub-diagram">
+      <svg class="hub-svg" width="900" height="380" viewBox="0 0 900 380">
+        <defs>
+          <marker id="arrow1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--muted)"/>
+          </marker>
+        </defs>
+        <!-- External flows -->
+        <text x="60" y="78" font-family="IBM Plex Mono" font-size="11" fill="#6B6B6B" font-weight="700">EXTERNAL</text>
+        <rect x="60" y="100" width="130" height="34" fill="none" stroke="#1A1A1A" stroke-width="1.5"/>
+        <text x="125" y="122" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#1A1A1A">동남권 기업</text>
+        <rect x="60" y="150" width="130" height="34" fill="none" stroke="#1A1A1A" stroke-width="1.5"/>
+        <text x="125" y="172" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#1A1A1A">공공 기관</text>
+        <line x1="195" y1="117" x2="240" y2="160" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow1)"/>
+        <line x1="195" y1="167" x2="240" y2="180" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow1)"/>
+
+        <text x="710" y="78" font-family="IBM Plex Mono" font-size="11" fill="#6B6B6B" font-weight="700">EXTERNAL</text>
+        <rect x="710" y="100" width="130" height="34" fill="none" stroke="#1A1A1A" stroke-width="1.5"/>
+        <text x="775" y="122" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#1A1A1A">연구 기관</text>
+        <rect x="710" y="150" width="130" height="34" fill="none" stroke="#1A1A1A" stroke-width="1.5"/>
+        <text x="775" y="172" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#1A1A1A">각급 학교</text>
+        <line x1="705" y1="117" x2="660" y2="160" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow1)"/>
+        <line x1="705" y1="167" x2="660" y2="180" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow1)"/>
+
+        <!-- Left support: AI 융합교육원 -->
+        <g>
+          <circle cx="290" cy="200" r="68" fill="#FAFAF6" stroke="#2D5A3D" stroke-width="2.5"/>
+          <text x="290" y="195" text-anchor="middle" font-family="Noto Sans KR" font-size="13" font-weight="800" fill="#1A1A1A">AI 융합</text>
+          <text x="290" y="215" text-anchor="middle" font-family="Noto Sans KR" font-size="13" font-weight="800" fill="#1A1A1A">교육원</text>
+        </g>
+
+        <!-- Right support: 장영실연구원 -->
+        <g>
+          <circle cx="610" cy="200" r="68" fill="#FAFAF6" stroke="#B83A4B" stroke-width="2.5"/>
+          <text x="610" y="190" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="800" fill="#1A1A1A">장영실 AI</text>
+          <text x="610" y="207" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="800" fill="#1A1A1A">융합연구원</text>
+          <text x="610" y="225" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#6B6B6B">airc</text>
+        </g>
+
+        <!-- Center: AI 대학 -->
+        <g>
+          <circle cx="450" cy="200" r="78" fill="#1A1A1A" stroke="#C39B3A" stroke-width="3"/>
+          <text x="450" y="195" text-anchor="middle" font-family="Noto Sans KR" font-size="16" font-weight="900" fill="#C39B3A">AI 대학</text>
+          <text x="450" y="215" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" font-weight="700" fill="#FAFAF6">ADP + X</text>
+          <text x="450" y="232" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="rgba(250,250,246,.6)">ai.pusan.ac.kr</text>
+        </g>
+
+        <!-- Surrounding nodes around AI 대학 -->
+        <!-- Top: X (AX융합학부) -->
+        <circle cx="450" cy="80" r="34" fill="#3730A3"/>
+        <text x="450" y="78" text-anchor="middle" font-family="Noto Sans KR" font-size="14" font-weight="900" fill="#fff">X</text>
+        <text x="450" y="95" text-anchor="middle" font-family="Noto Sans KR" font-size="9" fill="rgba(255,255,255,.85)">AX융합학부</text>
+
+        <!-- Right-mid: Process -->
+        <circle cx="540" cy="200" r="30" fill="#005BAA"/>
+        <text x="540" y="198" text-anchor="middle" font-family="Noto Sans KR" font-size="10" font-weight="800" fill="#fff">Process</text>
+        <text x="540" y="212" text-anchor="middle" font-family="Noto Sans KR" font-size="8" fill="rgba(255,255,255,.85)">산업공학부</text>
+
+        <!-- Left-mid: Data -->
+        <circle cx="360" cy="200" r="30" fill="#005BAA"/>
+        <text x="360" y="198" text-anchor="middle" font-family="Noto Sans KR" font-size="11" font-weight="800" fill="#fff">Data</text>
+        <text x="360" y="212" text-anchor="middle" font-family="Noto Sans KR" font-size="8" fill="rgba(255,255,255,.85)">DS·통계</text>
+
+        <!-- Bottom: AI -->
+        <circle cx="450" cy="318" r="32" fill="#005BAA"/>
+        <text x="450" y="316" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="900" fill="#fff">AI</text>
+        <text x="450" y="330" text-anchor="middle" font-family="Noto Sans KR" font-size="8" fill="rgba(255,255,255,.85)">AI컴퓨터공학부</text>
+
+        <!-- Bottom base: AX 정보화 혁신본부 -->
+        <rect x="270" y="345" width="360" height="26" fill="#1A1A1A"/>
+        <text x="450" y="362" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#FAFAF6">AX 정보화 혁신본부 (uitc.pusan.ac.kr)</text>
+
+        <!-- Connecting lines -->
+        <line x1="358" y1="200" x2="372" y2="200" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="3 2"/>
+        <line x1="528" y1="200" x2="542" y2="200" stroke="#1A1A1A" stroke-width="1" stroke-dasharray="3 2"/>
+
+        <!-- Diagram caption -->
+        <text x="450" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#6B6B6B" letter-spacing="0.1em">PNU AX TRANSFORMATION SCHEMATIC</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS COLUMN -->
+<section class="news-section">
+  <div class="container">
+    <div class="roadmap-header">
+      <div class="budget-eyebrow">Section VI — Dispatches</div>
+      <div class="budget-title">최근 <em>소식</em></div>
+    </div>
+    <div class="news-grid-3col">
+      <!-- Lead news column -->
+      <div class="news-col">
+        <h3>Lead Story</h3>
+        <article class="news-art lead">
+          <span class="na-cat red">속보</span>
+          <h4 class="na-headline">Google for Education, 부산대 전면 도입 — 국내 대학 최초</h4>
+          <p class="na-summary">2026년 6월부터 교원·학생 전원에게 Google Workspace Edu Plus + AI Pro 무제한 제공. 산지니 AI에 Gemini 모델 통합.</p>
+          <div class="na-meta">2026.05.13 · KEVIN KELLS (GOOGLE) · 80주년 협약</div>
+        </article>
+        <article class="news-art">
+          <span class="na-cat gold">수상</span>
+          <h4 class="na-headline">RoboCup 2025 우승 — 8/8 미션 완수 역대 최고기록</h4>
+          <p class="na-summary">이승준 교수팀 'TidyBoy', 칭화·도쿄대·KCL 등 1,500팀 격파.</p>
+          <div class="na-meta">2025.08.21 · 휴머노이드 ANUBIS</div>
+        </article>
+        <article class="news-art">
+          <span class="na-cat">협약</span>
+          <h4 class="na-headline">국내 최초 양자AI 47억원 사업 선정</h4>
+          <p class="na-summary">위상초전도체 개발 5년 과제 · 옥종목 교수팀.</p>
+          <div class="na-meta">2025.06.15 · MSIT</div>
+        </article>
+      </div>
+
+      <!-- Mid column -->
+      <div class="news-col">
+        <h3>Education</h3>
+        <article class="news-art">
+          <span class="na-cat">사업</span>
+          <h4 class="na-headline">AI 첨단산업 부트캠프 75억 신규 선정</h4>
+          <p class="na-summary">7개 트랙 · 5년 · 35개 산업체 참여 (AWS·NVIDIA·LG·한화·BNK 등).</p>
+          <div class="na-meta">2026.02.28 · KIAT</div>
+        </article>
+        <article class="news-art">
+          <span class="na-cat">학사</span>
+          <h4 class="na-headline">AI 대학 2027 신설 — 4학부 347명 정원 확정</h4>
+          <p class="na-summary">AI컴퓨팅·DS통계·산업공학·AX융합 + 전교 필수 'AI와 디지털사고'.</p>
+          <div class="na-meta">2026.04.10</div>
+        </article>
+        <article class="news-art">
+          <span class="na-cat">협약</span>
+          <h4 class="na-headline">LG전자 스마트가전공학과 신설 (2027)</h4>
+          <p class="na-summary">부산대 첫 대기업 채용연계 학부 계약학과. 30명 정원, 등록금 전액.</p>
+          <div class="na-meta">2026.03.12</div>
+        </article>
+      </div>
+
+      <!-- Right column -->
+      <div class="news-col">
+        <h3>Research & Events</h3>
+        <article class="news-art">
+          <span class="na-cat">연구</span>
+          <h4 class="na-headline">장영실 연구원, 산학 3건 동시 협약</h4>
+          <p class="na-summary">삼성중공업·은성의료재단·한국재료연구원 협력센터 출범.</p>
+          <div class="na-meta">2025.12.30 · IT관 개원</div>
+        </article>
+        <article class="news-art">
+          <span class="na-cat">행사</span>
+          <h4 class="na-headline">2026 부산 AI 서밋 · Fei-Fei Li 기조강연</h4>
+          <p class="na-summary">스탠퍼드 HAI 디렉터 초청. BEXCO. 5,000명 규모.</p>
+          <div class="na-meta">2026.06.15</div>
+        </article>
+        <article class="news-art">
+          <span class="na-cat">기술</span>
+          <h4 class="na-headline">AI 통번역 안경 도입 — 20개 언어 98%</h4>
+          <p class="na-summary">대학 최초 강의실·국제교류 활용. 엑스퍼트아이엔씨㈫ 협업.</p>
+          <div class="na-meta">2025.10 · CES 출품</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RANKING TABLE -->
+<section class="ranking-section">
+  <div class="container">
+    <div class="roadmap-header">
+      <div class="budget-eyebrow">Section VII — Competitive Position</div>
+      <div class="budget-title">글로벌 <em>경쟁 위상</em> 변동</div>
+    </div>
+    <table class="ranking-table">
+      <thead>
+        <tr>
+          <th>지표</th>
+          <th>2024</th>
+          <th>2025</th>
+          <th>2026 (현재)</th>
+          <th>변동</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight">
+          <td>QS World University</td>
+          <td class="yr-num">552</td>
+          <td class="yr-num">524</td>
+          <td class="yr-num">473</td>
+          <td class="delta">51</td>
+          <td>국립대 1위 (3년 연속)</td>
+        </tr>
+        <tr>
+          <td>QS Asia University</td>
+          <td class="yr-num">86</td>
+          <td class="yr-num">81</td>
+          <td class="yr-num">76</td>
+          <td class="delta">5</td>
+          <td>한국 종합대 상위권</td>
+        </tr>
+        <tr>
+          <td>THE World Impact</td>
+          <td class="yr-num">42</td>
+          <td class="yr-num">28</td>
+          <td class="yr-num">13</td>
+          <td class="delta">15</td>
+          <td>역대 최고 (지속가능성)</td>
+        </tr>
+        <tr>
+          <td>QS Sustainability</td>
+          <td class="yr-num">312</td>
+          <td class="yr-num">268</td>
+          <td class="yr-num">238</td>
+          <td class="delta">30</td>
+          <td>해양·기후 강점</td>
+        </tr>
+        <tr class="highlight">
+          <td>AI 분야 (자체 지표)</td>
+          <td class="yr-num">—</td>
+          <td class="yr-num">국내 12위</td>
+          <td class="yr-num">국내 8위</td>
+          <td class="delta">4</td>
+          <td>목표: 2030 국내 Top 3</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PARTNERS BAND -->
+<section class="partners-section">
+  <div class="container">
+    <div class="partners-header">
+      <div>
+        <div class="partners-eyebrow">Section VIII — Strategic Partners</div>
+        <div class="partners-title">함께 만드는 <em style="color:var(--accent-gold);font-style:italic">AI 생태계</em></div>
+      </div>
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:rgba(250,250,246,.5); text-align:right">
+        TOTAL · 35+ PARTNERS<br>
+        UPDATED · 2026.05
+      </div>
+    </div>
+    <div class="partners-list">
+      <div class="p-item"><div class="p-item-name">Google</div><span class="p-item-cat">Global AI</span></div>
+      <div class="p-item"><div class="p-item-name">AWS</div><span class="p-item-cat">Cloud</span></div>
+      <div class="p-item"><div class="p-item-name">NVIDIA</div><span class="p-item-cat">Physical AI</span></div>
+      <div class="p-item"><div class="p-item-name">Upstage</div><span class="p-item-cat">생성형 AI</span></div>
+      <div class="p-item"><div class="p-item-name">삼성중공업</div><span class="p-item-cat">해양 AI</span></div>
+      <div class="p-item"><div class="p-item-name">LG전자</div><span class="p-item-cat">계약학과</span></div>
+      <div class="p-item"><div class="p-item-name">은성의료재단</div><span class="p-item-cat">의료 AI</span></div>
+      <div class="p-item"><div class="p-item-name">한국재료연</div><span class="p-item-cat">소재 AI</span></div>
+      <div class="p-item"><div class="p-item-name">교육부</div><span class="p-item-cat">정부</span></div>
+      <div class="p-item"><div class="p-item-name">과기정통부</div><span class="p-item-cat">정부</span></div>
+      <div class="p-item"><div class="p-item-name">부산광역시</div><span class="p-item-cat">RISE</span></div>
+      <div class="p-item"><div class="p-item-name">Stanford</div><span class="p-item-cat">학술</span></div>
+      <div class="p-item"><div class="p-item-name">ETRI</div><span class="p-item-cat">연구</span></div>
+      <div class="p-item"><div class="p-item-name">한화</div><span class="p-item-cat">방산 AI</span></div>
+      <div class="p-item"><div class="p-item-name">BNK은행</div><span class="p-item-cat">금융 AI</span></div>
+      <div class="p-item"><div class="p-item-name">+20</div><span class="p-item-cat">More</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PEN PUSH -->
+<section class="pen-push">
+  <div class="container">
+    <div class="pp-grid">
+      <blockquote class="pp-quote">
+        국가 사업 수주가 최우선 과제다. 특화 연구 대학과 함께, AI 거점대학 선정은 부산대의 다음 10년을 결정한다.
+        <div class="pp-attr"><strong>최재원</strong> · 부산대학교 총장 (2026년 신년사)</div>
+      </blockquote>
+      <div class="pp-side">
+        <h3>참여 신청 / Join Us</h3>
+        <p>학생·교원·연구원·산업체로서 부산대 AI 거점사업에 참여하실 수 있습니다. AI 부트캠프, 산학 협력, 인턴십 등 다양한 트랙을 제공합니다.</p>
+        <a href="#" class="pp-btn">참여 신청서 작성 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="editorial-footer">
+  <div class="container">
+    <div class="ef-top">
+      <div>
+        <div class="ef-mast">ARISE <em>PNU</em></div>
+        <div class="ef-issue">VOL. 5 · NO. 048 · 2026.05.26</div>
+        <div class="ef-desc">부산대학교 AI 거점대학육성사업단의 공식 매체. A.U.R.A 2.0 마스터플랜에 따라 동남권 AX 생태계의 진행 상황을 기록하고 공유합니다.</div>
+      </div>
+      <div class="ef-col">
+        <h4>Sections</h4>
+        <a href="#">사업 소개</a>
+        <a href="#">A.U.R.A 2.0</a>
+        <a href="#">핵심 사업</a>
+        <a href="#">성과</a>
+        <a href="#">파트너십</a>
+      </div>
+      <div class="ef-col">
+        <h4>Sites</h4>
+        <a href="https://www.pusan.ac.kr">부산대학교 ↗</a>
+        <a href="https://ai.pusan.ac.kr">AI 대학 ↗</a>
+        <a href="https://airc.pusan.ac.kr">장영실연구원 ↗</a>
+        <a href="https://aiedu.pusan.ac.kr">AI 교육원 ↗</a>
+        <a href="https://uitc.pusan.ac.kr">AX·정보화 ↗</a>
+      </div>
+      <div class="ef-col">
+        <h4>Contact</h4>
+        <a href="#">arise@pusan.ac.kr</a>
+        <a href="#">☎ 051-510-0000</a>
+        <a href="#">📍 IT관 3층</a>
+        <a href="#">구독 / Subscribe</a>
+        <a href="#">자료 요청</a>
+      </div>
+    </div>
+    <div class="ef-bottom">
+      <div>© 2026 PUSAN NATIONAL UNIVERSITY · ARISE PNU · ALL RIGHTS RESERVED</div>
+      <div class="ef-policy">
+        <a href="#">PRIVACY</a>
+        <a href="#">TERMS</a>
+        <a href="#">ACCESSIBILITY</a>
+        <a href="#">SITEMAP</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

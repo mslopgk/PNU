@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부산대학교 AI 대학 — Modern Premium · Sandgini Theme | ai.pusan.ac.kr</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --blue: #005BAA;
+  --blue-light: #0075C9;
+  --blue-pale: #EEF5FF;
+  --green: #00A651;
+  --green-pale: #ECFAF3;
+  --navy: #0B1A3E;
+  --gold: #C39B3A;
+  --gold-bright: #D4AB48;
+  --ink: #0F172A;
+  --mid: #64748B;
+  --text-b: #475569;
+  --lite: #F8FAFD;
+  --border: rgba(0,91,170,.12);
+  --white: #fff;
+  --glass: rgba(255,255,255,.65);
+  --glass-border: rgba(255,255,255,.8);
+  --ff:'Pretendard Variable',Pretendard,sans-serif;
+  --shadow:0 8px 32px rgba(0,91,170,.12);
+  --shadow-lg:0 20px 60px rgba(0,91,170,.18);
+}
+body { font-family:var(--ff); color:var(--ink); background:var(--lite); line-height:1.6; overflow-x:hidden; }
+a { text-decoration:none; color:inherit; }
+.container { max-width:1300px; margin:0 auto; padding:0 32px; }
+.mono { font-family:'JetBrains Mono', monospace; }
+.outfit { font-family:'Outfit', sans-serif; }
+
+/* ── BLOBS ── */
+.blob-container { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.blob { position:absolute; border-radius:50%; filter:blur(80px); opacity:.16; animation:drift 12s ease-in-out infinite; }
+.blob1 { width:620px; height:620px; background:radial-gradient(circle, var(--blue), var(--blue-light)); top:-100px; left:-100px; animation-delay:0s; }
+.blob2 { width:500px; height:500px; background:radial-gradient(circle, var(--green), #34D399); bottom:-100px; right:-50px; animation-delay:-4s; }
+.blob3 { width:420px; height:420px; background:radial-gradient(circle, var(--gold), var(--blue)); top:40%; right:20%; animation-delay:-8s; opacity:.1; }
+@keyframes drift { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-20px) scale(1.05)} 66%{transform:translate(-20px,30px) scale(.97)} }
+
+/* ── HEADER ── */
+.hdr { position:sticky; top:0; z-index:100; backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); background:rgba(248,250,253,.85); border-bottom:1px solid var(--border); }
+.hdr-inner { max-width:1340px; margin:0 auto; padding:.9rem 2rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.logo-wrap { display:flex; align-items:center; gap:.85rem; }
+.logo-pill { background:linear-gradient(135deg, var(--blue), var(--blue-light)); padding:.55rem 1.1rem; border-radius:10px; display:flex; align-items:center; gap:.5rem; box-shadow:0 4px 14px rgba(0,91,170,.25); }
+.logo-pill svg { width:20px; height:20px; fill:none; stroke:#fff; stroke-width:2.2; }
+.logo-pill span { font-size:.82rem; font-weight:800; color:#fff; letter-spacing:-.01em; }
+.logo-sub { display:flex; flex-direction:column; }
+.logo-name { font-size:.85rem; font-weight:800; color:var(--ink); letter-spacing:-.015em; }
+.logo-en { font-size:.7rem; color:var(--mid); font-family:'JetBrains Mono', monospace; margin-top:1px; }
+
+nav { display:flex; gap:.2rem; align-items:center; }
+.nav-a { padding:.55rem 1rem; font-size:.85rem; font-weight:600; color:var(--mid); border-radius:8px; transition:all .2s; position:relative; cursor:pointer; }
+.nav-a:hover { background:var(--blue-pale); color:var(--blue); }
+.nav-a i { font-size:9px; margin-left:4px; opacity:.5; }
+.hdr-btns { display:flex; gap:.5rem; align-items:center; margin-left:14px; }
+.btn-ghost { padding:.55rem 1rem; border-radius:8px; font-size:.8rem; font-weight:600; border:1.5px solid var(--border); color:var(--blue); background:transparent; cursor:pointer; font-family:var(--ff); transition:all .2s; }
+.btn-ghost:hover { background:var(--blue-pale); }
+.btn-solid { display:inline-flex; align-items:center; gap:8px; padding:.55rem 1.2rem; border-radius:8px; font-size:.82rem; font-weight:700; border:none; background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; cursor:pointer; font-family:var(--ff); box-shadow:0 4px 14px rgba(0,91,170,.32); transition:all .2s; }
+.btn-solid:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,91,170,.4); }
+
+/* ── HERO ── */
+.hero { position:relative; min-height:94vh; display:flex; align-items:center; overflow:hidden; padding:60px 2rem; }
+.hero-bg { position:absolute; inset:0; background:linear-gradient(160deg, var(--blue-pale) 0%, var(--lite) 50%, #F0FFF8 100%); }
+.hero-grid-pattern { position:absolute; inset:0; background-image:linear-gradient(rgba(0,91,170,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,91,170,.04) 1px,transparent 1px); background-size:48px 48px; }
+
+.hero-content { position:relative; z-index:1; max-width:1300px; margin:0 auto; width:100%; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+
+.hero-left { position:relative; }
+.hl-badge { display:inline-flex; align-items:center; gap:.5rem; background:linear-gradient(135deg, rgba(0,91,170,.08), rgba(0,166,81,.08)); border:1px solid rgba(0,91,170,.2); padding:.5rem 1.1rem; border-radius:100px; font-size:.74rem; font-weight:800; color:var(--blue); letter-spacing:.06em; margin-bottom:1.5rem; }
+.hl-badge::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--green); animation:pulse 2s ease infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:.6} }
+
+.hl-headline { font-size:clamp(2.4rem, 5vw, 3.6rem); font-weight:900; line-height:1.1; letter-spacing:-.05em; color:var(--ink); margin-bottom:1.2rem; }
+.hl-headline .grad { background:linear-gradient(135deg, var(--blue), var(--blue-light), var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hl-headline .accent { color:var(--gold); font-style:italic; }
+.hl-deck { font-size:1.05rem; color:var(--mid); margin:1.4rem 0 2rem; line-height:1.75; max-width:520px; }
+.cta-row { display:flex; gap:.8rem; align-items:center; flex-wrap:wrap; }
+.cta-primary { display:inline-flex; align-items:center; gap:.55rem; background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; padding:.95rem 2rem; border-radius:12px; font-size:.95rem; font-weight:700; box-shadow:0 6px 22px rgba(0,91,170,.35); transition:all .25s; }
+.cta-primary:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(0,91,170,.42); }
+.cta-secondary { display:inline-flex; align-items:center; gap:.5rem; color:var(--blue); font-size:.9rem; font-weight:600; padding:.95rem 1.7rem; border-radius:12px; border:1.5px solid rgba(0,91,170,.2); background:rgba(255,255,255,.75); backdrop-filter:blur(10px); transition:all .2s; }
+.cta-secondary:hover { background:#fff; }
+
+.hl-meta { margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border); display:flex; gap:1.5rem; flex-wrap:wrap; }
+.hl-meta-item { display:flex; align-items:center; gap:.7rem; }
+.hlm-icon { width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,.7); display:flex; align-items:center; justify-content:center; color:var(--blue); font-size:14px; flex-shrink:0; }
+.hlm-text { display:flex; flex-direction:column; }
+.hlm-num { font-size:14px; font-weight:800; color:var(--ink); letter-spacing:-.02em; }
+.hlm-lbl { font-size:11px; color:var(--mid); }
+
+/* Hero right — Sandgini AI card stack */
+.hero-right { position:relative; }
+.card-stack { position:relative; height:540px; }
+.stack-card { position:absolute; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); background:var(--glass); border:1px solid var(--glass-border); border-radius:24px; box-shadow:var(--shadow-lg); }
+
+.stack-card.main { width:380px; height:340px; top:50%; left:50%; transform:translate(-50%, -50%); padding:2rem; z-index:3; background:rgba(255,255,255,.92); }
+.main-card-icon { font-size:2.8rem; margin-bottom:.8rem; }
+.main-card-tag { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; background:linear-gradient(135deg, rgba(195,155,58,.2), rgba(195,155,58,.1)); border:1px solid rgba(195,155,58,.3); border-radius:100px; font-size:10.5px; font-weight:800; color:var(--gold); letter-spacing:.08em; text-transform:uppercase; margin-bottom:14px; font-family:'JetBrains Mono', monospace; }
+.main-card-title { font-size:1.1rem; font-weight:800; color:var(--ink); margin-bottom:.5rem; line-height:1.35; }
+.main-card-desc { font-size:.82rem; color:var(--mid); line-height:1.7; margin-bottom:1.2rem; }
+.main-card-stat { display:flex; gap:1.2rem; padding-top:1.1rem; border-top:1px solid var(--border); }
+.mcs-cell { flex:1; }
+.mcs-n { font-size:1.5rem; font-weight:900; color:var(--blue); letter-spacing:-.04em; line-height:1; font-family:'Inter', sans-serif; }
+.mcs-l { font-size:.66rem; color:var(--mid); margin-top:.2rem; }
+
+.stack-card.sec1 { width:240px; height:170px; top:2%; right:0; transform:rotate(5deg); z-index:1; padding:1.4rem; background:linear-gradient(135deg, rgba(0,91,170,.92), rgba(0,113,204,.92)); color:#fff; }
+.stack-card.sec2 { width:220px; height:160px; bottom:5%; left:-5%; transform:rotate(-5deg); z-index:1; padding:1.3rem; background:linear-gradient(135deg, rgba(0,166,81,.92), rgba(16,185,129,.92)); color:#fff; }
+.stack-card.sec3 { width:190px; height:140px; bottom:8%; right:0; transform:rotate(3deg); z-index:2; padding:1.1rem; background:rgba(255,255,255,.92); }
+.sec-card-label { font-size:.62rem; font-weight:800; opacity:.85; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.5rem; font-family:'JetBrains Mono', monospace; }
+.sec-card-big { font-size:1.6rem; font-weight:900; letter-spacing:-.04em; line-height:1; }
+.sec-card-sub { font-size:.74rem; opacity:.85; margin-top:.3rem; }
+.sec3 .sc3-ico { font-size:1.5rem; margin-bottom:.4rem; }
+.sec3 .sc3-t { font-size:.8rem; font-weight:800; color:var(--ink); }
+.sec3 .sc3-v { font-size:.72rem; color:var(--green); font-weight:700; margin-top:.2rem; }
+
+/* Floating badges */
+.float-badge { position:absolute; z-index:10; backdrop-filter:blur(12px); background:rgba(255,255,255,.92); border:1px solid var(--glass-border); border-radius:30px; padding:.45rem 1.1rem; font-size:.72rem; font-weight:800; box-shadow:0 4px 16px rgba(0,0,0,.1); white-space:nowrap; display:inline-flex; align-items:center; gap:6px; }
+.fb1 { top:5%; left:-10%; color:var(--blue); }
+.fb2 { bottom:14%; right:-12%; color:var(--green); }
+.fb3 { top:48%; left:-18%; color:var(--gold); }
+
+/* ── COUNTER ROW ── */
+.counter-row { background:var(--navy); padding:3rem 0; position:relative; z-index:1; overflow:hidden; }
+.counter-row::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 20% 50%, rgba(0,91,170,.4), transparent 50%), radial-gradient(circle at 80% 50%, rgba(0,166,81,.25), transparent 50%); }
+.counter-grid { position:relative; max-width:1300px; margin:0 auto; padding:0 2rem; display:grid; grid-template-columns:repeat(6,1fr); gap:0; }
+.counter-cell { text-align:center; padding:1rem; position:relative; }
+.counter-cell::after { content:''; position:absolute; top:20%; right:0; width:1px; height:60%; background:rgba(255,255,255,.1); }
+.counter-cell:last-child::after { display:none; }
+.counter-tag { font-size:.66rem; font-weight:800; color:var(--gold); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.5rem; font-family:'JetBrains Mono', monospace; }
+.counter-n { font-size:2.1rem; font-weight:900; color:#7EC8FF; letter-spacing:-.05em; line-height:1; font-family:'Inter', sans-serif; }
+.counter-n span { font-size:1rem; color:rgba(255,255,255,.5); }
+.counter-l { font-size:.78rem; color:rgba(255,255,255,.65); margin-top:.5rem; }
+.counter-sub { font-size:.66rem; color:rgba(255,255,255,.4); font-weight:600; margin-top:.2rem; font-family:'JetBrains Mono', monospace; }
+
+/* ── SECTION SHARED ── */
+.container-wide { max-width:1300px; margin:0 auto; padding:0 2rem; }
+.section { padding:6rem 0; position:relative; }
+.s-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:.74rem; font-weight:800; color:var(--blue); letter-spacing:.12em; text-transform:uppercase; margin-bottom:.6rem; font-family:'JetBrains Mono', monospace; }
+.s-eyebrow::before { content:''; width:24px; height:2px; background:var(--blue); }
+.s-title { font-size:clamp(2rem, 3vw, 2.5rem); font-weight:900; letter-spacing:-.04em; line-height:1.15; margin-bottom:.5rem; }
+.s-title .acc { background:linear-gradient(135deg, var(--blue), var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.s-sub { font-size:1rem; color:var(--mid); max-width:620px; line-height:1.75; }
+.s-more { display:inline-flex; align-items:center; gap:.4rem; font-size:.85rem; font-weight:700; color:var(--blue); margin-top:1rem; transition:gap .2s; }
+.s-more:hover { gap:.6rem; }
+
+/* ── HUB ECOSYSTEM ── */
+.hub-section { padding:6rem 0; background:linear-gradient(160deg, var(--blue-pale), var(--lite) 60%, #F0FFF8); position:relative; }
+.hub-inner { display:grid; grid-template-columns:1fr 1.2fr; gap:4rem; align-items:center; }
+.hub-text { padding-right:1rem; }
+.hub-cards { display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; }
+.hub-g-card { background:var(--white); border:1px solid var(--border); border-radius:18px; padding:1.6rem; box-shadow:var(--shadow); transition:all .25s; position:relative; overflow:hidden; cursor:pointer; }
+.hub-g-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--blue); transition:height .25s; }
+.hub-g-card.green::before { background:var(--green); }
+.hub-g-card.purple::before { background:#7C3AED; }
+.hub-g-card.amber::before { background:var(--gold); }
+.hub-g-card.span2 { grid-column:1/3; background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; }
+.hub-g-card.span2::before { background:var(--gold); height:4px; }
+.hub-g-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:transparent; }
+.hub-g-card:hover::before { height:5px; }
+
+.hgc-icon { width:46px; height:46px; border-radius:12px; background:var(--blue-pale); color:var(--blue); display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:14px; }
+.hub-g-card.green .hgc-icon { background:var(--green-pale); color:var(--green); }
+.hub-g-card.purple .hgc-icon { background:#F5F3FF; color:#7C3AED; }
+.hub-g-card.amber .hgc-icon { background:#FFFBEB; color:var(--gold); }
+.hub-g-card.span2 .hgc-icon { background:rgba(255,255,255,.18); color:#fff; }
+.hgc-name { font-size:1.05rem; font-weight:800; color:var(--ink); line-height:1.3; margin-bottom:.4rem; }
+.hub-g-card.span2 .hgc-name { color:#fff; font-size:1.3rem; }
+.hgc-desc { font-size:.85rem; color:var(--mid); line-height:1.7; }
+.hub-g-card.span2 .hgc-desc { color:rgba(255,255,255,.78); }
+.hgc-stat { margin-top:14px; display:flex; gap:14px; padding-top:14px; border-top:1px solid var(--border); }
+.hub-g-card.span2 .hgc-stat { border-color:rgba(255,255,255,.18); }
+.hgc-stat-num { font-size:1.3rem; font-weight:900; color:var(--blue); letter-spacing:-.03em; line-height:1; font-family:'Inter', sans-serif; }
+.hub-g-card.green .hgc-stat-num { color:var(--green); }
+.hub-g-card.purple .hgc-stat-num { color:#7C3AED; }
+.hub-g-card.amber .hgc-stat-num { color:var(--gold); }
+.hub-g-card.span2 .hgc-stat-num { color:var(--gold); }
+.hgc-stat-lbl { font-size:.66rem; color:var(--mid); margin-top:.15rem; font-family:'JetBrains Mono', monospace; }
+.hub-g-card.span2 .hgc-stat-lbl { color:rgba(255,255,255,.6); }
+
+/* ── SANDGINI AI SECTION ── */
+.sandgini-section { padding:6rem 0; position:relative; background:linear-gradient(165deg, var(--navy) 0%, #143F90 60%, var(--blue) 100%); color:#fff; overflow:hidden; }
+.sandgini-section::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 70% 30%, rgba(195,155,58,.25), transparent 50%), radial-gradient(circle at 30% 70%, rgba(0,166,81,.15), transparent 50%); }
+.sg-inner { position:relative; display:grid; grid-template-columns:1.2fr 1fr; gap:4rem; align-items:center; }
+.sg-text .s-eyebrow { color:var(--gold); }
+.sg-text .s-eyebrow::before { background:var(--gold); }
+.sg-text .s-title { color:#fff; font-size:2.8rem; }
+.sg-text .s-title .acc { background:linear-gradient(135deg, var(--gold), var(--gold-bright)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.sg-text .s-sub { color:rgba(255,255,255,.7); }
+.sg-meta-row { margin-top:2rem; padding-top:2rem; border-top:1px solid rgba(255,255,255,.12); display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.4rem; }
+.sg-meta { }
+.sg-meta-n { font-size:1.7rem; font-weight:900; color:var(--gold); letter-spacing:-.03em; line-height:1; font-family:'Inter', sans-serif; }
+.sg-meta-l { font-size:.82rem; color:rgba(255,255,255,.65); margin-top:.4rem; }
+
+.sg-visual { position:relative; }
+.sg-card-main { background:linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.06)); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.2); border-radius:28px; padding:2.4rem; position:relative; overflow:hidden; }
+.sg-card-main::before { content:''; position:absolute; top:-80px; right:-80px; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle, rgba(195,155,58,.5), transparent 60%); }
+.sg-avatar { width:90px; height:90px; border-radius:24px; background:linear-gradient(135deg, var(--gold), var(--gold-bright)); display:flex; align-items:center; justify-content:center; font-size:42px; margin-bottom:1.4rem; box-shadow:0 12px 32px rgba(195,155,58,.4); position:relative; }
+.sg-card-name { font-size:1.8rem; font-weight:900; color:#fff; letter-spacing:-.03em; margin-bottom:.4rem; position:relative; }
+.sg-card-name em { font-style:italic; color:var(--gold); }
+.sg-card-desc { font-size:.92rem; color:rgba(255,255,255,.75); line-height:1.7; margin-bottom:1.8rem; position:relative; }
+.sg-features { display:flex; flex-direction:column; gap:.7rem; position:relative; }
+.sg-feat { display:flex; gap:.8rem; align-items:center; padding:.7rem .9rem; background:rgba(255,255,255,.08); border-radius:12px; transition:background .2s; }
+.sg-feat:hover { background:rgba(255,255,255,.14); }
+.sg-feat-icon { width:32px; height:32px; border-radius:8px; background:rgba(195,155,58,.25); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.sg-feat-text { display:flex; flex-direction:column; }
+.sg-feat-name { font-size:.82rem; font-weight:700; color:#fff; }
+.sg-feat-detail { font-size:.7rem; color:rgba(255,255,255,.55); margin-top:1px; }
+.sg-feat-tag { margin-left:auto; padding:2px 8px; border-radius:100px; background:rgba(0,166,81,.25); color:#34D399; font-size:.62rem; font-weight:800; letter-spacing:.06em; font-family:'JetBrains Mono', monospace; text-transform:uppercase; }
+
+/* ── DEPARTMENTS GRID ── */
+.dept-mp-section { padding:6rem 0; }
+.dept-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:3rem; gap:1.5rem; flex-wrap:wrap; }
+.dept-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+.dept-block { background:#fff; border:1px solid var(--border); border-radius:20px; padding:2rem 1.6rem; transition:all .25s; cursor:pointer; position:relative; overflow:hidden; }
+.dept-block:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); border-color:transparent; }
+.dept-block::after { content:''; position:absolute; bottom:-30px; right:-30px; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(0,91,170,.08), transparent 60%); transition:transform .35s; }
+.dept-block:hover::after { transform:scale(1.4); }
+.db-letter { font-family:'Outfit', sans-serif; font-size:3.5rem; font-weight:900; color:var(--blue-pale); line-height:1; position:absolute; top:14px; right:18px; letter-spacing:-.05em; }
+.dept-block.g .db-letter { color:var(--green-pale); }
+.dept-block.p .db-letter { color:#F5F3FF; }
+.dept-block.a .db-letter { color:#FFFBEB; }
+.db-icon { width:54px; height:54px; border-radius:14px; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:1.2rem; box-shadow:0 6px 18px rgba(0,91,170,.32); position:relative; z-index:1; }
+.dept-block.g .db-icon { background:var(--green); box-shadow:0 6px 18px rgba(0,166,81,.32); }
+.dept-block.p .db-icon { background:#7C3AED; box-shadow:0 6px 18px rgba(124,58,237,.32); }
+.dept-block.a .db-icon { background:var(--gold); box-shadow:0 6px 18px rgba(195,155,58,.32); }
+.db-name { font-size:1.1rem; font-weight:800; color:var(--ink); line-height:1.3; margin-bottom:.3rem; position:relative; z-index:1; }
+.db-en { font-size:.72rem; color:var(--mid); font-family:'JetBrains Mono', monospace; margin-bottom:1rem; position:relative; z-index:1; }
+.db-meta { display:flex; align-items:center; gap:8px; padding:.45rem .8rem; background:var(--lite); border-radius:100px; font-size:.7rem; font-weight:700; color:var(--ink); margin-bottom:1rem; position:relative; z-index:1; }
+.db-meta i { color:var(--blue); font-size:9px; }
+.dept-block.g .db-meta i { color:var(--green); }
+.dept-block.p .db-meta i { color:#7C3AED; }
+.dept-block.a .db-meta i { color:var(--gold); }
+.db-desc { font-size:.82rem; color:var(--mid); line-height:1.65; position:relative; z-index:1; }
+.db-link { margin-top:1.2rem; display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:700; color:var(--blue); position:relative; z-index:1; }
+.dept-block.g .db-link { color:var(--green); }
+.dept-block.p .db-link { color:#7C3AED; }
+.dept-block.a .db-link { color:var(--gold); }
+
+/* ── LG SPOTLIGHT ── */
+.lg-section { padding:6rem 0; background:linear-gradient(135deg, #B83A4B 0%, #E11D48 100%); color:#fff; position:relative; overflow:hidden; }
+.lg-section::before { content:''; position:absolute; top:-180px; right:-180px; width:540px; height:540px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 60%); }
+.lg-section::after { content:''; position:absolute; bottom:-150px; left:-150px; width:440px; height:440px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,0,.18), transparent 60%); }
+.lg-inner { position:relative; display:grid; grid-template-columns:1fr 1.1fr; gap:4rem; align-items:center; }
+.lg-text .s-eyebrow { color:rgba(255,255,255,.7); }
+.lg-text .s-eyebrow::before { background:rgba(255,255,255,.7); }
+.lg-text .s-title { color:#fff; font-size:3rem; line-height:1.1; }
+.lg-text .s-sub { color:rgba(255,255,255,.78); font-size:1.05rem; }
+.lg-text .s-sub strong { color:#fff; }
+.lg-badges { display:flex; gap:8px; margin-top:1.8rem; flex-wrap:wrap; }
+.lg-badge { padding:6px 16px; background:rgba(255,255,255,.18); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.25); border-radius:100px; font-size:.78rem; font-weight:700; color:#fff; }
+
+.lg-visual { background:rgba(255,255,255,.12); backdrop-filter:blur(24px); border:1px solid rgba(255,255,255,.2); border-radius:28px; padding:2.6rem; }
+.lg-v-tag { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; background:rgba(0,0,0,.25); border-radius:100px; font-size:11px; font-weight:800; color:#fff; letter-spacing:.08em; text-transform:uppercase; margin-bottom:1.4rem; font-family:'JetBrains Mono', monospace; }
+.lg-v-title { font-size:1.8rem; font-weight:900; color:#fff; line-height:1.2; letter-spacing:-.025em; margin-bottom:1rem; }
+.lg-v-desc { font-size:.95rem; color:rgba(255,255,255,.82); line-height:1.7; margin-bottom:1.8rem; }
+.lg-v-list { display:flex; flex-direction:column; gap:.8rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.18); }
+.lg-v-li { display:flex; gap:.7rem; align-items:flex-start; font-size:.88rem; color:#fff; }
+.lg-v-li i { color:var(--gold); font-size:14px; margin-top:3px; flex-shrink:0; }
+.lg-v-li b { font-weight:800; }
+
+/* ── PROGRAMS BENTO ── */
+.prog-section { padding:6rem 0; background:var(--lite); }
+.prog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+.pg-card { background:#fff; border:1px solid var(--border); border-radius:20px; padding:1.8rem; transition:all .25s; cursor:pointer; }
+.pg-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:transparent; }
+.pg-card.feature { grid-column:span 2; grid-row:span 2; background:linear-gradient(165deg, var(--blue), var(--blue-light)); color:#fff; padding:2.4rem; }
+.pg-icon-wrap { width:54px; height:54px; border-radius:14px; background:var(--blue-pale); color:var(--blue); display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:1.2rem; }
+.pg-card.feature .pg-icon-wrap { background:rgba(255,255,255,.18); color:#fff; }
+.pg-card.green .pg-icon-wrap { background:var(--green-pale); color:var(--green); }
+.pg-card.violet .pg-icon-wrap { background:#F5F3FF; color:#7C3AED; }
+.pg-card.amber .pg-icon-wrap { background:#FFFBEB; color:var(--gold); }
+.pg-card.rose .pg-icon-wrap { background:#FFE4E6; color:#E11D48; }
+.pg-tag { display:inline-block; padding:3px 10px; background:var(--blue-pale); color:var(--blue); border-radius:100px; font-size:.66rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; font-family:'JetBrains Mono', monospace; margin-bottom:.6rem; }
+.pg-card.feature .pg-tag { background:rgba(195,155,58,.3); color:var(--gold); }
+.pg-name { font-size:1.05rem; font-weight:800; color:var(--ink); line-height:1.35; margin-bottom:.5rem; }
+.pg-card.feature .pg-name { color:#fff; font-size:1.8rem; line-height:1.15; }
+.pg-desc { font-size:.84rem; color:var(--mid); line-height:1.65; margin-bottom:1rem; }
+.pg-card.feature .pg-desc { color:rgba(255,255,255,.85); font-size:1rem; line-height:1.75; }
+.pg-bottom { padding-top:1rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:.78rem; }
+.pg-card.feature .pg-bottom { border-color:rgba(255,255,255,.2); }
+.pg-num { font-weight:800; color:var(--blue); font-family:'Inter', sans-serif; }
+.pg-card.feature .pg-num { color:var(--gold); font-size:1.5rem; }
+.pg-card.feature .pg-link { color:#fff; }
+.pg-link { color:var(--blue); font-weight:700; display:inline-flex; align-items:center; gap:4px; }
+
+/* ── NEWS ── */
+.news-section { padding:6rem 0; }
+.news-row { display:grid; grid-template-columns:2fr 1fr; gap:2rem; }
+.news-feat { border-radius:20px; overflow:hidden; background:linear-gradient(165deg, var(--navy) 0%, var(--blue) 60%, var(--blue-light) 100%); position:relative; min-height:280px; cursor:pointer; transition:all .25s; }
+.news-feat:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+.nf-inner { position:absolute; inset:0; padding:2.4rem; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(to top, rgba(0,0,0,.5), transparent 55%); }
+.nf-cat { display:inline-flex; align-self:flex-start; align-items:center; gap:6px; padding:5px 14px; background:rgba(255,255,255,.18); backdrop-filter:blur(8px); border-radius:100px; font-size:11px; font-weight:800; color:#fff; letter-spacing:.08em; text-transform:uppercase; margin-bottom:14px; }
+.nf-title { font-size:1.6rem; font-weight:900; color:#fff; line-height:1.25; letter-spacing:-.025em; margin-bottom:8px; }
+.nf-meta { display:flex; gap:14px; font-size:12px; color:rgba(255,255,255,.7); font-family:'JetBrains Mono', monospace; }
+.news-side { display:flex; flex-direction:column; gap:1rem; }
+.ns-card { background:#fff; border:1px solid var(--border); border-radius:16px; padding:1.4rem 1.6rem; transition:all .22s; cursor:pointer; }
+.ns-card:hover { border-color:var(--blue); box-shadow:var(--shadow); }
+.ns-cat { display:inline-block; padding:2px 9px; border-radius:100px; font-size:10px; font-weight:800; margin-bottom:8px; letter-spacing:.05em; text-transform:uppercase; font-family:'JetBrains Mono', monospace; }
+.ns-cat.notice { background:var(--lite); color:var(--ink); }
+.ns-cat.research { background:#F5F3FF; color:#7C3AED; }
+.ns-cat.award { background:var(--green-pale); color:var(--green); }
+.ns-cat.event { background:#FFFBEB; color:var(--gold); }
+.ns-title { font-size:.92rem; font-weight:700; color:var(--ink); line-height:1.4; margin-bottom:6px; }
+.ns-meta { font-size:.72rem; color:var(--mid); font-family:'JetBrains Mono', monospace; }
+
+/* ── CTA ── */
+.cta-section { padding:5rem 0; background:linear-gradient(165deg, var(--navy), var(--blue)); color:#fff; text-align:center; position:relative; overflow:hidden; }
+.cta-section::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(195,155,58,.18), transparent 60%); }
+.cta-inner { position:relative; max-width:760px; margin:0 auto; }
+.cta-tag { display:inline-flex; align-items:center; gap:8px; padding:7px 18px; background:rgba(195,155,58,.2); border:1px solid rgba(195,155,58,.4); border-radius:100px; font-size:.78rem; font-weight:800; color:var(--gold); letter-spacing:.08em; text-transform:uppercase; margin-bottom:1.5rem; font-family:'JetBrains Mono', monospace; }
+.cta-headline { font-size:clamp(2rem, 4vw, 2.8rem); font-weight:900; color:#fff; line-height:1.2; letter-spacing:-.04em; margin-bottom:1.2rem; }
+.cta-desc { font-size:1rem; color:rgba(255,255,255,.72); line-height:1.75; margin-bottom:2.4rem; }
+.cta-buttons { display:flex; justify-content:center; gap:.9rem; flex-wrap:wrap; }
+.cta-gold { display:inline-flex; align-items:center; gap:10px; padding:.95rem 2rem; background:var(--gold); color:var(--ink); border-radius:12px; font-size:.95rem; font-weight:800; transition:all .25s; }
+.cta-gold:hover { background:var(--gold-bright); transform:translateY(-2px); box-shadow:0 8px 22px rgba(195,155,58,.4); }
+.cta-out { display:inline-flex; align-items:center; gap:8px; padding:.95rem 1.6rem; color:#fff; border-radius:12px; font-size:.9rem; font-weight:600; border:1.5px solid rgba(255,255,255,.25); transition:all .2s; }
+.cta-out:hover { background:rgba(255,255,255,.08); }
+
+/* ── FOOTER ── */
+.footer-section { background:var(--navy); padding:4rem 0 1.8rem; color:rgba(255,255,255,.6); position:relative; z-index:1; }
+.foot-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; padding-bottom:2.4rem; border-bottom:1px solid rgba(255,255,255,.08); }
+.foot-brand { font-size:.95rem; font-weight:800; color:#fff; margin-bottom:.5rem; }
+.foot-brand small { display:block; font-size:.72rem; color:rgba(255,255,255,.45); font-family:'JetBrains Mono', monospace; margin-top:.2rem; }
+.foot-desc { font-size:.82rem; color:rgba(255,255,255,.55); line-height:1.75; max-width:380px; margin-bottom:1.1rem; }
+.foot-addr { font-size:.76rem; color:rgba(255,255,255,.42); line-height:1.75; }
+.foot-col h4 { font-size:.7rem; font-weight:800; color:rgba(255,255,255,.55); letter-spacing:.12em; text-transform:uppercase; margin-bottom:1rem; font-family:'JetBrains Mono', monospace; }
+.foot-col a { display:block; font-size:.82rem; color:rgba(255,255,255,.65); margin-bottom:.6rem; transition:color .15s; }
+.foot-col a:hover { color:#fff; }
+.foot-bottom { padding-top:1.6rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+.foot-copy { font-size:.72rem; color:rgba(255,255,255,.32); font-family:'JetBrains Mono', monospace; }
+.foot-policy { display:flex; gap:1.2rem; }
+.foot-policy a { font-size:.72rem; color:rgba(255,255,255,.4); transition:color .15s; }
+.foot-policy a:hover { color:rgba(255,255,255,.85); }
+
+@media (max-width:1024px){
+  .hero-content, .hub-inner, .sg-inner, .lg-inner, .news-row { grid-template-columns:1fr; gap:3rem; }
+  .dept-row, .prog-grid { grid-template-columns:repeat(2,1fr); }
+  .pg-card.feature { grid-column:span 2; }
+  .counter-grid { grid-template-columns:repeat(3,1fr); }
+  .sg-meta-row { grid-template-columns:repeat(3,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- BLOBS -->
+<div class="blob-container">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <a href="#" class="logo-wrap">
+      <div class="logo-pill">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span>AI 대학</span>
+      </div>
+      <div class="logo-sub">
+        <div class="logo-name">College of AI</div>
+        <div class="logo-en">ai.pusan.ac.kr · 2027 신설</div>
+      </div>
+    </a>
+    <nav>
+      <a href="#" class="nav-a">대학 소개 <i class="fas fa-chevron-down"></i></a>
+      <a href="#" class="nav-a">학과·전공 <i class="fas fa-chevron-down"></i></a>
+      <a href="#" class="nav-a">교육·연구 <i class="fas fa-chevron-down"></i></a>
+      <a href="#" class="nav-a">입학 안내 <i class="fas fa-chevron-down"></i></a>
+      <a href="#" class="nav-a">알림마당</a>
+      <div class="hdr-btns">
+        <button class="btn-ghost">EN</button>
+        <button class="btn-solid">2027 입학 <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-pattern"></div>
+
+  <div class="hero-content">
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="hl-badge">PNU College of AI · 2027 Launch</div>
+      <h1 class="hl-headline">
+        AI로 만드는<br>
+        <span class="grad">미래의 표준</span><br>
+        <span class="accent">ADP + X</span>
+      </h1>
+      <p class="hl-deck">부산대학교 AI 대학은 <strong>AI · Data · Process</strong>의 삼각 축 위에 <strong>X(확산)</strong>를 더한 ADP+X 비전으로, 산지니 AI 시대의 새로운 인재상을 정의합니다.</p>
+      <div class="cta-row">
+        <a href="#" class="cta-primary">학과 탐색 <i class="fas fa-compass"></i></a>
+        <a href="#" class="cta-secondary"><i class="fas fa-graduation-cap"></i> 2027 입학</a>
+      </div>
+
+      <div class="hl-meta">
+        <div class="hl-meta-item">
+          <div class="hlm-icon"><i class="fas fa-university"></i></div>
+          <div class="hlm-text">
+            <div class="hlm-num">4 학부</div>
+            <div class="hlm-lbl">신설 학과</div>
+          </div>
+        </div>
+        <div class="hl-meta-item">
+          <div class="hlm-icon"><i class="fas fa-users"></i></div>
+          <div class="hlm-text">
+            <div class="hlm-num">58 명</div>
+            <div class="hlm-lbl">AI 교수진</div>
+          </div>
+        </div>
+        <div class="hl-meta-item">
+          <div class="hlm-icon"><i class="fas fa-trophy"></i></div>
+          <div class="hlm-text">
+            <div class="hlm-num">RoboCup 1위</div>
+            <div class="hlm-lbl">2025 세계대회</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Sandgini AI card stack -->
+    <div class="hero-right">
+      <div class="float-badge fb1"><i class="fas fa-comment-dots"></i> 산지니 AI · 국립대 최초</div>
+      <div class="float-badge fb2"><i class="fab fa-google"></i> Google AI · 2026.06</div>
+      <div class="float-badge fb3"><i class="fas fa-glasses"></i> 통번역 안경 20개 언어</div>
+
+      <div class="card-stack">
+        <!-- Main card -->
+        <div class="stack-card main">
+          <div class="main-card-icon">🦅</div>
+          <div class="main-card-tag"><i class="fas fa-star"></i> Sandgini AI · ADP+X</div>
+          <div class="main-card-title">AI를 만들고 키우고<br>확산시키는 대학</div>
+          <div class="main-card-desc">산지니(매)는 부산대의 상징. AI 시대의 부산대 학생은 AI를 단순히 사용하는 것이 아니라 만들고, 키우고, 확산시킵니다.</div>
+          <div class="main-card-stat">
+            <div class="mcs-cell">
+              <div class="mcs-n">347<span style="font-size:14px">명</span></div>
+              <div class="mcs-l">2027 첫 신입생</div>
+            </div>
+            <div class="mcs-cell">
+              <div class="mcs-n">14<span style="font-size:14px">+</span></div>
+              <div class="mcs-l">AI 연구실</div>
+            </div>
+            <div class="mcs-cell">
+              <div class="mcs-n">94<span style="font-size:14px">%</span></div>
+              <div class="mcs-l">취업률</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sec1: blue -->
+        <div class="stack-card sec1">
+          <div class="sec-card-label">School of AI</div>
+          <div class="sec-card-big">A I</div>
+          <div class="sec-card-sub">AI 컴퓨터공학부<br>24명 교수 · 14+ Lab</div>
+        </div>
+
+        <!-- Sec2: green -->
+        <div class="stack-card sec2">
+          <div class="sec-card-label">Data · Statistics</div>
+          <div class="sec-card-big">D</div>
+          <div class="sec-card-sub">데이터사이언스 학부<br>12명 교수 · BigData</div>
+        </div>
+
+        <!-- Sec3: white -->
+        <div class="stack-card sec3">
+          <div class="sc3-ico">💡</div>
+          <div class="sc3-t">LG 스마트가전</div>
+          <div class="sc3-v">취업 100% 확정</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTER ROW -->
+<section class="counter-row">
+  <div class="counter-grid">
+    <div class="counter-cell">
+      <div class="counter-tag">2027 신설</div>
+      <div class="counter-n">4<span>학부</span></div>
+      <div class="counter-l">소속 학과·부</div>
+      <div class="counter-sub">AI · DS · 산공 · AX</div>
+    </div>
+    <div class="counter-cell">
+      <div class="counter-tag">정원</div>
+      <div class="counter-n">347<span>명</span></div>
+      <div class="counter-l">2027 첫 신입생</div>
+      <div class="counter-sub">+ LG 30명 계약</div>
+    </div>
+    <div class="counter-cell">
+      <div class="counter-tag">Faculty</div>
+      <div class="counter-n">58<span>명</span></div>
+      <div class="counter-l">AI 전임교원</div>
+      <div class="counter-sub">국내 최대 규모</div>
+    </div>
+    <div class="counter-cell">
+      <div class="counter-tag">Research</div>
+      <div class="counter-n">480<span>+편</span></div>
+      <div class="counter-l">연간 SCI 논문</div>
+      <div class="counter-sub">14+ AI Lab</div>
+    </div>
+    <div class="counter-cell">
+      <div class="counter-tag">Awards</div>
+      <div class="counter-n">28<span>+</span></div>
+      <div class="counter-l">국제 수상</div>
+      <div class="counter-sub">RoboCup · Quantum</div>
+    </div>
+    <div class="counter-cell">
+      <div class="counter-tag">Global</div>
+      <div class="counter-n">QS 76</div>
+      <div class="counter-l">QS Asia 순위</div>
+      <div class="counter-sub">국립 1위 3년 연속</div>
+    </div>
+  </div>
+</section>
+
+<!-- HUB ECOSYSTEM -->
+<section class="hub-section">
+  <div class="container-wide">
+    <div class="hub-inner">
+      <!-- Left text -->
+      <div class="hub-text">
+        <div class="s-eyebrow">Hub Ecosystem</div>
+        <h2 class="s-title">살아있는 <span class="acc">AI 생태계</span><br>의 일원이 됩니다</h2>
+        <p class="s-sub">AI 대학은 단독으로 존재하지 않습니다. 거점사업단 · 융합교육원 · 장영실연구원 · AX정보화혁신본부와 유기적으로 연결되어 학생에게 풍부한 기회를 제공합니다.</p>
+        <a href="#" class="s-more">생태계 전체 보기 <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Right: hub cards grid -->
+      <div class="hub-cards">
+        <div class="hub-g-card span2">
+          <div class="hgc-icon"><i class="fas fa-university"></i></div>
+          <div class="hgc-name">AI 대학 (中) · ai.pusan.ac.kr</div>
+          <div class="hgc-desc">ADP+X 비전 기반 4개 학부 + LG 계약학과. 2027년 첫 신입생 입학.</div>
+          <div class="hgc-stat">
+            <div><div class="hgc-stat-num">4<span style="font-size:11px">학부</span></div><div class="hgc-stat-lbl">소속 학과</div></div>
+            <div><div class="hgc-stat-num">347<span style="font-size:11px">명</span></div><div class="hgc-stat-lbl">정원</div></div>
+            <div><div class="hgc-stat-num">58<span style="font-size:11px">명</span></div><div class="hgc-stat-lbl">교수진</div></div>
+          </div>
+        </div>
+
+        <a href="https://arise-ai.pusan.ac.kr" class="hub-g-card amber">
+          <div class="hgc-icon"><i class="fas fa-flag"></i></div>
+          <div class="hgc-name">ARISE 사업단</div>
+          <div class="hgc-desc">A.U.R.A 2.0 · 3,111억 국책 사업</div>
+          <div class="hgc-stat">
+            <div><div class="hgc-stat-num">3,111<span style="font-size:11px">억</span></div><div class="hgc-stat-lbl">국책 사업</div></div>
+          </div>
+        </a>
+
+        <a href="https://airc.pusan.ac.kr" class="hub-g-card purple">
+          <div class="hgc-icon"><i class="fas fa-flask"></i></div>
+          <div class="hgc-name">장영실연구원</div>
+          <div class="hgc-desc">양자·해양·의료·소재 AI 연구</div>
+          <div class="hgc-stat">
+            <div><div class="hgc-stat-num">47<span style="font-size:11px">억</span></div><div class="hgc-stat-lbl">양자AI 사업</div></div>
+          </div>
+        </a>
+
+        <a href="https://aiedu.pusan.ac.kr" class="hub-g-card green">
+          <div class="hgc-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="hgc-name">AI 융합교육원</div>
+          <div class="hgc-desc">SW 중심대학 2단계 · 부트캠프</div>
+          <div class="hgc-stat">
+            <div><div class="hgc-stat-num">142<span style="font-size:11px">억</span></div><div class="hgc-stat-lbl">SW 사업</div></div>
+          </div>
+        </a>
+
+        <a href="https://uitc.pusan.ac.kr" class="hub-g-card">
+          <div class="hgc-icon"><i class="fas fa-cogs"></i></div>
+          <div class="hgc-name">AX 정보화혁신본부</div>
+          <div class="hgc-desc">산지니 AI · AI 행정 인프라</div>
+          <div class="hgc-stat">
+            <div><div class="hgc-stat-num">20<span style="font-size:11px">언어</span></div><div class="hgc-stat-lbl">통번역</div></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SANDGINI AI SECTION -->
+<section class="sandgini-section">
+  <div class="container-wide">
+    <div class="sg-inner">
+      <!-- TEXT -->
+      <div class="sg-text">
+        <div class="s-eyebrow">Sandgini AI · 산지니 AI</div>
+        <h2 class="s-title">산지니가 <span class="acc">학생을 만난다</span></h2>
+        <p class="s-sub">부산대 학생이 만나는 첫 AI는 멀티 LLM이 통합된 산지니 AI입니다. ChatGPT · Gemini · Claude를 한 곳에서. 지도교수상담 AI · LMS AI 조교 · 다국어 통번역까지.</p>
+        <div class="sg-meta-row">
+          <div class="sg-meta">
+            <div class="sg-meta-n">3+</div>
+            <div class="sg-meta-l">통합 LLM<br>GPT · Gemini · Claude</div>
+          </div>
+          <div class="sg-meta">
+            <div class="sg-meta-n">20+</div>
+            <div class="sg-meta-l">서비스 모듈<br>학사·상담·검색·번역</div>
+          </div>
+          <div class="sg-meta">
+            <div class="sg-meta-n">최초</div>
+            <div class="sg-meta-l">국립대 운영<br>2025.12 · 부산대</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISUAL: Sandgini card -->
+      <div class="sg-visual">
+        <div class="sg-card-main">
+          <div class="sg-avatar">🦅</div>
+          <h3 class="sg-card-name"><em>Sandgini</em> AI</h3>
+          <p class="sg-card-desc">"산지니"는 산속 오래 묵은 매(hawk)를 가리키는 우리말. 부산대의 상징인 독수리(eagle)를 현대적 캐릭터로 재해석한 AI 에이전트.</p>
+
+          <div class="sg-features">
+            <div class="sg-feat">
+              <div class="sg-feat-icon"><i class="fas fa-search"></i></div>
+              <div class="sg-feat-text">
+                <div class="sg-feat-name">통합 정보 검색</div>
+                <div class="sg-feat-detail">학사·생활·시설·일정</div>
+              </div>
+              <div class="sg-feat-tag">LIVE</div>
+            </div>
+            <div class="sg-feat">
+              <div class="sg-feat-icon"><i class="fas fa-user-graduate"></i></div>
+              <div class="sg-feat-text">
+                <div class="sg-feat-name">지도교수상담 AI 도우미</div>
+                <div class="sg-feat-detail">국립대 최초 · 2025.12 출시</div>
+              </div>
+              <div class="sg-feat-tag">LIVE</div>
+            </div>
+            <div class="sg-feat">
+              <div class="sg-feat-icon"><i class="fas fa-language"></i></div>
+              <div class="sg-feat-text">
+                <div class="sg-feat-name">다국어 통번역 서비스</div>
+                <div class="sg-feat-detail">20개 언어 · 98% 정확도</div>
+              </div>
+              <div class="sg-feat-tag">LIVE</div>
+            </div>
+            <div class="sg-feat">
+              <div class="sg-feat-icon"><i class="fas fa-robot"></i></div>
+              <div class="sg-feat-text">
+                <div class="sg-feat-name">LMS AI 조교</div>
+                <div class="sg-feat-detail">강의 보조 · 학습 추천</div>
+              </div>
+              <div class="sg-feat-tag" style="background:rgba(245,158,11,.25);color:#FBBF24">2026</div>
+            </div>
+            <div class="sg-feat">
+              <div class="sg-feat-icon"><i class="fas fa-brain"></i></div>
+              <div class="sg-feat-text">
+                <div class="sg-feat-name">연구 AI Boost-up</div>
+                <div class="sg-feat-detail">전 주기 연구 지원</div>
+              </div>
+              <div class="sg-feat-tag" style="background:rgba(245,158,11,.25);color:#FBBF24">2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS GRID -->
+<section class="dept-mp-section">
+  <div class="container-wide">
+    <div class="dept-header">
+      <div>
+        <div class="s-eyebrow">Departments · 4 Schools</div>
+        <h2 class="s-title">AI 대학을 구성하는 <span class="acc">4 학부</span></h2>
+        <p class="s-sub" style="margin-top:.6rem">A(I) + D(ata) + P(rocess) + X(확산) = ADP+X 비전을 실현하는 4 학부</p>
+      </div>
+      <a href="#" class="s-more">학과별 상세 <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="dept-row">
+      <a href="#" class="dept-block">
+        <div class="db-letter">A</div>
+        <div class="db-icon"><i class="fas fa-brain"></i></div>
+        <div class="db-name">AI 컴퓨터공학부</div>
+        <div class="db-en">School of AI Computing</div>
+        <div class="db-meta"><i class="fas fa-circle"></i> 정원 120명 · 24명 교수</div>
+        <div class="db-desc">머신러닝 · 컴퓨터비전 · NLP · 컴퓨팅 시스템. 24명 전임교원과 14+ 연구실에서 AI 핵심 기술을 연구합니다.</div>
+        <div class="db-link">학부 자세히 보기 <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="#" class="dept-block g">
+        <div class="db-letter">D</div>
+        <div class="db-icon"><i class="fas fa-database"></i></div>
+        <div class="db-name">데이터사이언스·통계학부</div>
+        <div class="db-en">School of Data Science & Statistics</div>
+        <div class="db-meta"><i class="fas fa-circle"></i> 정원 110명 · 12명 교수</div>
+        <div class="db-desc">빅데이터 분석 · 통계적 기계학습 · 베이지안 · AI in Quantitative Finance. AI의 '연료'를 다루는 학과.</div>
+        <div class="db-link">학부 자세히 보기 <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="#" class="dept-block a">
+        <div class="db-letter">P</div>
+        <div class="db-icon"><i class="fas fa-cogs"></i></div>
+        <div class="db-name">산업·소재공학부</div>
+        <div class="db-en">School of Materials & Industrial Eng.</div>
+        <div class="db-meta"><i class="fas fa-circle"></i> 정원 60명 · 10명 교수</div>
+        <div class="db-desc">스마트 제조 · AI 공정 최적화 · 프로세스 마이닝. 데이터가 만들어지는 'Process'를 모델링합니다.</div>
+        <div class="db-link">학부 자세히 보기 <i class="fas fa-arrow-right"></i></div>
+      </a>
+
+      <a href="#" class="dept-block p">
+        <div class="db-letter">X</div>
+        <div class="db-icon"><i class="fas fa-atom"></i></div>
+        <div class="db-name">AX 융합학부</div>
+        <div class="db-en">School of AX Convergence</div>
+        <div class="db-meta"><i class="fas fa-circle"></i> 정원 57명 · 10+ 트랙</div>
+        <div class="db-desc">전 학문 분야에 AI를 접목하는 AX 인재 양성. 인문·사회·예술·자연·공학 모든 전공생에 개방.</div>
+        <div class="db-link">학부 자세히 보기 <i class="fas fa-arrow-right"></i></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LG SPOTLIGHT -->
+<section class="lg-section">
+  <div class="container-wide">
+    <div class="lg-inner">
+      <div class="lg-text">
+        <div class="s-eyebrow">PNU × LG Electronics · 2027 신설</div>
+        <h2 class="s-title">취업이 <strong>입학으로</strong><br>완성됩니다</h2>
+        <p class="s-sub">부산대 최초의 <strong>대기업 채용연계형 학부 계약학과</strong>. 졸업과 동시에 <strong>LG전자 취업이 확정</strong>됩니다.</p>
+        <div class="lg-badges">
+          <span class="lg-badge">📚 등록금 전액</span>
+          <span class="lg-badge">💼 인턴십 확정</span>
+          <span class="lg-badge">🎯 LG 취업 확정</span>
+          <span class="lg-badge">💰 장학금</span>
+        </div>
+      </div>
+
+      <div class="lg-visual">
+        <span class="lg-v-tag">Smart Home Appliance Engineering</span>
+        <h3 class="lg-v-title">스마트가전공학과<br>2027 첫 신입생 30명</h3>
+        <p class="lg-v-desc">기계공학 기반 + 재료·전기전자·컴퓨터공학 융합. AI + 데이터 기반 Physical AI 선도 인재 양성. 스마트 가전 및 공조(HVAC) 분야 핵심 역량.</p>
+        <div class="lg-v-list">
+          <div class="lg-v-li"><i class="fas fa-check-circle"></i><span><b>등록금 전액 지원</b> · 졸업 시까지</span></div>
+          <div class="lg-v-li"><i class="fas fa-check-circle"></i><span><b>장학금 별도 지급</b> · 학기당</span></div>
+          <div class="lg-v-li"><i class="fas fa-check-circle"></i><span><b>인턴십 프로그램</b> · LG 사업장</span></div>
+          <div class="lg-v-li"><i class="fas fa-check-circle"></i><span><b>LG전자 취업 확정</b> · 졸업과 동시에</span></div>
+          <div class="lg-v-li"><i class="fas fa-check-circle"></i><span><b>프로젝트 기반 교육</b> · 실전 문제 해결</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS BENTO -->
+<section class="prog-section">
+  <div class="container-wide">
+    <div class="dept-header">
+      <div>
+        <div class="s-eyebrow">Programs & Curriculum</div>
+        <h2 class="s-title">AI 인재를 만드는 <span class="acc">교육 체계</span></h2>
+        <p class="s-sub" style="margin-top:.6rem">학부 정규 + 마이크로디그리 + 부트캠프 + 국제 교류 + 창업 지원의 5중 트랙</p>
+      </div>
+    </div>
+
+    <div class="prog-grid">
+      <div class="pg-card feature">
+        <span class="pg-tag"><i class="fas fa-star"></i> Featured</span>
+        <div class="pg-icon-wrap"><i class="fas fa-rocket"></i></div>
+        <h3 class="pg-name">AI 첨단산업 부트캠프<br>5년 75억 신규 선정</h3>
+        <p class="pg-desc">7개 특화 트랙 (클라우드 · 생성형 · Physical · XR · AX 보안 · 제조 · 물류). AWS · NVIDIA · 업스테이지 · LG · 한화 · BNK 등 35개사 협력. 월 100만원 장학 + 팀 활동비 1,200만 원 + 기기 300만 원.</p>
+        <div class="pg-bottom">
+          <span class="pg-num">75억 <span style="font-size:13px;color:rgba(255,255,255,.7);font-weight:600">/5년</span></span>
+          <a href="#" class="pg-link">자세히 <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="pg-card green">
+        <div class="pg-icon-wrap"><i class="fas fa-graduation-cap"></i></div>
+        <span class="pg-tag" style="background:var(--green-pale);color:var(--green)">정규</span>
+        <h3 class="pg-name">Pentomino 학사구조</h3>
+        <p class="pg-desc">5개 학문 영역 자유 조합. 마이크로디그리 13개 트랙.</p>
+        <div class="pg-bottom"><span class="pg-num">13<span style="font-size:13px">트랙</span></span><a href="#" class="pg-link">상세 <i class="fas fa-arrow-right"></i></a></div>
+      </div>
+
+      <div class="pg-card amber">
+        <div class="pg-icon-wrap"><i class="fas fa-medal"></i></div>
+        <span class="pg-tag" style="background:#FFFBEB;color:var(--gold)">자격</span>
+        <h3 class="pg-name">University AI MASTER</h3>
+        <p class="pg-desc">국내 최초 대학 AI 인증. 한국인공지능산업협회 주관.</p>
+        <div class="pg-bottom"><span class="pg-num">2026<span style="font-size:13px">~</span></span><a href="#" class="pg-link">상세 <i class="fas fa-arrow-right"></i></a></div>
+      </div>
+
+      <div class="pg-card violet">
+        <div class="pg-icon-wrap"><i class="fas fa-globe"></i></div>
+        <span class="pg-tag" style="background:#F5F3FF;color:#7C3AED">국제</span>
+        <h3 class="pg-name">해외 교환·파견</h3>
+        <p class="pg-desc">Stanford · MIT · CMU · 도쿄대 등 AI 선도 대학.</p>
+        <div class="pg-bottom"><span class="pg-num">5<span style="font-size:13px">+ 협약</span></span><a href="#" class="pg-link">상세 <i class="fas fa-arrow-right"></i></a></div>
+      </div>
+
+      <div class="pg-card rose">
+        <div class="pg-icon-wrap"><i class="fas fa-rocket"></i></div>
+        <span class="pg-tag" style="background:#FFE4E6;color:#E11D48">창업</span>
+        <h3 class="pg-name">AI 창업 인큐베이팅</h3>
+        <p class="pg-desc">AI 기반 창업 아이디어 사업화. 시드 펀딩 + 멘토링.</p>
+        <div class="pg-bottom"><span class="pg-num">12<span style="font-size:13px">억 유치</span></span><a href="#" class="pg-link">상세 <i class="fas fa-arrow-right"></i></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news-section">
+  <div class="container-wide">
+    <div class="dept-header">
+      <div>
+        <div class="s-eyebrow">News & Notice</div>
+        <h2 class="s-title">최신 <span class="acc">소식</span></h2>
+      </div>
+      <a href="#" class="s-more">뉴스 전체보기 <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="news-row">
+      <article class="news-feat">
+        <div class="nf-inner">
+          <div class="nf-cat"><i class="fas fa-handshake"></i> 글로벌</div>
+          <div class="nf-title">Google for Education 국내 대학 최초 전면 도입<br>— 80주년 협약 · 2026.06 시행</div>
+          <div class="nf-meta">
+            <span><i class="fas fa-calendar"></i> 2026.05.13</span>
+            <span><i class="fas fa-eye"></i> 18,420</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="news-side">
+        <a href="#" class="ns-card">
+          <span class="ns-cat award">수상</span>
+          <div class="ns-title">RoboCup 2025 세계 챔피언십 우승 — 부산대 'TidyBoy'</div>
+          <div class="ns-meta">2025.08.21 · 이승준 교수팀</div>
+        </a>
+        <a href="#" class="ns-card">
+          <span class="ns-cat notice">학사</span>
+          <div class="ns-title">2027학년도 AI 대학 모집 요강 공개</div>
+          <div class="ns-meta">2026.04.10 · 첫 신입생 347명</div>
+        </a>
+        <a href="#" class="ns-card">
+          <span class="ns-cat research">연구</span>
+          <div class="ns-title">국내 최초 양자AI 47억원 사업 선정</div>
+          <div class="ns-meta">2025.06.15 · 위상초전도체</div>
+        </a>
+        <a href="#" class="ns-card">
+          <span class="ns-cat event">행사</span>
+          <div class="ns-title">2026 부산 AI 서밋 · Fei-Fei Li 기조강연 (6.15)</div>
+          <div class="ns-meta">2026.06.15 · BEXCO</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-tag"><i class="fas fa-star"></i> 2027 신입생 모집 시작</div>
+    <h2 class="cta-headline">2027년 3월,<br>당신을 기다립니다</h2>
+    <p class="cta-desc">부산대학교 AI 대학의 첫 신입생이 될 기회. 4학부 + LG 계약학과로 총 377명을 모집합니다.</p>
+    <div class="cta-buttons">
+      <a href="#" class="cta-gold">2027 입학 안내 <i class="fas fa-arrow-right"></i></a>
+      <a href="#" class="cta-out"><i class="fas fa-comments"></i> AI 입학 상담 챗봇</a>
+      <a href="#" class="cta-out"><i class="fas fa-calendar"></i> 설명회 일정</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-section">
+  <div class="container-wide">
+    <div class="foot-top">
+      <div>
+        <div class="logo-pill" style="margin-bottom:1rem"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>AI 대학</span></div>
+        <div class="foot-brand">부산대학교 AI 대학<small>ai.pusan.ac.kr · College of AI · 2027 Launch</small></div>
+        <div class="foot-desc">ADP+X 비전 기반 4학부 + LG 계약학과. 산지니 AI 시대의 차세대 AI 인재 양성 허브.</div>
+        <div class="foot-addr">📍 부산광역시 금정구 부산대학로 63번길 2<br>📞 051-510-1234 · ✉ ai@pusan.ac.kr</div>
+      </div>
+      <div class="foot-col">
+        <h4>학과·전공</h4>
+        <a href="#">AI 컴퓨터공학부</a>
+        <a href="#">데이터사이언스</a>
+        <a href="#">산업공학부</a>
+        <a href="#">AX 융합학부</a>
+        <a href="#">LG 스마트가전</a>
+      </div>
+      <div class="foot-col">
+        <h4>입학·교육</h4>
+        <a href="#">2027 입학 안내</a>
+        <a href="#">Pentomino 교육</a>
+        <a href="#">AI MASTER 인증</a>
+        <a href="#">AI 부트캠프</a>
+        <a href="#">해외 교환</a>
+      </div>
+      <div class="foot-col">
+        <h4>생태계</h4>
+        <a href="https://arise-ai.pusan.ac.kr">ARISE 사업 ↗</a>
+        <a href="https://airc.pusan.ac.kr">장영실연구원 ↗</a>
+        <a href="https://aiedu.pusan.ac.kr">AI 융합교육원 ↗</a>
+        <a href="https://aigs.pusan.ac.kr">AI 대학원 ↗</a>
+        <a href="https://ds.pusan.ac.kr">DS 대학원 ↗</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-copy">© 2026 College of AI, Pusan National University. All rights reserved.</div>
+      <div class="foot-policy">
+        <a href="#">개인정보</a>
+        <a href="#">사이트맵</a>
+        <a href="#">English</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

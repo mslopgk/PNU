@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부산대학교 AI 거점대학 — 시안 03: Hub Navigator</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pnu-blue:#005BAA;--pnu-blue-dark:#143F90;--pnu-blue-tint:#EFF6FF;--pnu-blue-border:#BFDBFE;
+  --pnu-green:#00A651;
+  --text-h:#0F172A;--text-body:#475569;--text-muted:#94A3B8;
+  --bg:#FFFFFF;--bg-alt:#F8FAFC;--border:#E2E8F0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Pretendard Variable','Noto Sans KR',system-ui,sans-serif;color:var(--text-body);background:var(--bg)}
+a{text-decoration:none;color:inherit}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border);height:64px}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:100%}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-circle{width:34px;height:34px;background:var(--pnu-blue);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.logo-circle svg{color:#fff;width:17px;height:17px}
+.logo-text{font-size:.9375rem;font-weight:700;color:var(--text-h)}
+.logo-text small{font-size:.6875rem;font-weight:500;color:var(--text-muted);display:block}
+nav{display:flex;align-items:center;gap:2px}
+.nav-item{position:relative}
+.nav-link{display:flex;align-items:center;gap:4px;padding:8px 14px;font-size:.875rem;font-weight:600;color:var(--text-body);border-radius:6px;transition:all .2s;cursor:pointer}
+.nav-link:hover,.nav-link.active{color:var(--pnu-blue);background:var(--pnu-blue-tint)}
+.nav-link svg{width:13px;height:13px;opacity:.5}
+.dropdown{position:absolute;top:calc(100% + 6px);left:0;min-width:210px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.1);padding:6px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .2s}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown a{display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:.875rem;color:var(--text-body);border-radius:6px;transition:all .15s}
+.dropdown a:hover{background:var(--pnu-blue-tint);color:var(--pnu-blue)}
+.dropdown a .dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0}
+.dropdown a:hover .dot{background:var(--pnu-blue)}
+.lang-btn{padding:5px 12px;font-size:.8125rem;font-weight:700;border:1.5px solid var(--border);border-radius:100px;color:var(--text-body);cursor:pointer;background:none;transition:all .2s}
+.lang-btn:hover{border-color:var(--pnu-blue);color:var(--pnu-blue)}
+
+/* GATEWAY HERO */
+.gateway{background:#fff;padding:64px 0 0}
+.gateway-text{text-align:center;margin-bottom:48px}
+.gateway-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pnu-blue);margin-bottom:16px}
+.gateway-title{font-size:clamp(1.875rem,4vw,2.75rem);font-weight:800;color:var(--text-h);letter-spacing:-.04em;line-height:1.2;margin-bottom:12px}
+.gateway-title em{font-style:normal;color:var(--pnu-blue)}
+.gateway-sub{font-size:.9375rem;color:var(--text-body);line-height:1.7;max-width:540px;margin:0 auto}
+/* Hub SVG Container */
+.hub-container{background:var(--bg-alt);border:1px solid var(--border);border-radius:20px;padding:48px 32px;max-width:920px;margin:0 auto 0}
+.hub-container svg{display:block;margin:0 auto;overflow:visible}
+/* Clickable nodes */
+.hub-node-link{cursor:pointer}
+.hub-node-link:hover rect{filter:drop-shadow(0 4px 12px rgba(0,91,170,.18))}
+.hub-child-node:hover rect{fill:var(--pnu-blue-tint)!important}
+
+/* STATS BLUE BANNER */
+.stats-blue{background:var(--pnu-blue);padding:48px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:860px;margin:0 auto}
+.stats-item{text-align:center;border-right:1px solid rgba(255,255,255,.15);padding:0 24px}
+.stats-item:last-child{border-right:none}
+.stats-value{font-size:2.5rem;font-weight:800;color:#fff;letter-spacing:-.04em;display:block}
+.stats-label{font-size:.875rem;color:rgba(255,255,255,.7);margin-top:6px}
+.stats-badge{font-size:.6875rem;color:rgba(255,255,255,.5);margin-top:4px;display:block}
+
+/* AI COLLEGE SECTION */
+.college-section{background:var(--bg-alt);padding:80px 0}
+.section-label{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pnu-blue);margin-bottom:10px}
+.section-title{font-size:1.75rem;font-weight:800;color:var(--text-h);letter-spacing:-.03em;margin-bottom:6px}
+.section-sub{font-size:.9375rem;color:var(--text-body)}
+.section-header{margin-bottom:44px}
+.section-header.row{display:flex;align-items:flex-end;justify-content:space-between}
+.more-link{font-size:.875rem;font-weight:700;color:var(--pnu-blue);display:inline-flex;align-items:center;gap:4px}
+.college-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.school-card{display:flex;align-items:flex-start;gap:14px;padding:18px;border-radius:10px;border:1px solid var(--border);background:#fff;margin-bottom:10px;transition:all .2s;cursor:pointer}
+.school-card:hover{border-color:var(--pnu-blue);background:var(--pnu-blue-tint)}
+.school-icon{flex-shrink:0;width:44px;height:44px;background:var(--pnu-blue-tint);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;border:1px solid var(--pnu-blue-border)}
+.school-title{font-size:.9375rem;font-weight:700;color:var(--text-h);margin-bottom:4px}
+.school-desc{font-size:.8125rem;color:var(--text-body);line-height:1.5}
+.college-info{background:#fff;border:1px solid var(--border);border-radius:14px;padding:32px}
+.college-info h3{font-size:1.25rem;font-weight:800;color:var(--text-h);margin-bottom:6px}
+.college-info p{font-size:.875rem;color:var(--text-body);line-height:1.7;margin-bottom:24px}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.info-item{background:var(--bg-alt);border-radius:8px;padding:14px;text-align:center}
+.info-value{font-size:1.5rem;font-weight:800;color:var(--pnu-blue);display:block;letter-spacing:-.03em}
+.info-label{font-size:.75rem;color:var(--text-muted);margin-top:2px}
+.btn-primary{background:var(--pnu-blue);color:#fff;padding:12px 22px;border-radius:8px;font-weight:700;font-size:.875rem;display:inline-flex;align-items:center;gap:6px;transition:background .2s}
+.btn-primary:hover{background:var(--pnu-blue-dark)}
+.btn-secondary{border:1.5px solid var(--pnu-blue);color:var(--pnu-blue);padding:11px 22px;border-radius:8px;font-weight:700;font-size:.875rem;display:inline-flex;align-items:center;gap:6px;margin-left:8px;transition:background .2s;background:transparent}
+.btn-secondary:hover{background:var(--pnu-blue-tint)}
+
+/* JANGYEONGSIL SECTION */
+.jys-section{background:#fff;padding:80px 0}
+.jys-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.jys-icon-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.jys-card{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center;transition:all .2s}
+.jys-card:hover{border-color:var(--pnu-blue);background:var(--pnu-blue-tint)}
+.jys-icon{width:48px;height:48px;background:var(--pnu-blue-tint);border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;border:1px solid var(--pnu-blue-border)}
+.jys-icon svg{color:var(--pnu-blue);width:22px;height:22px}
+.jys-card h4{font-size:.875rem;font-weight:700;color:var(--text-h);margin-bottom:4px}
+.jys-card p{font-size:.75rem;color:var(--text-body)}
+
+/* RESEARCH SECTION */
+.research-section{background:var(--bg-alt);padding:80px 0}
+.research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.research-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px;transition:all .2s;cursor:pointer}
+.research-card:hover{border-color:var(--pnu-blue);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,91,170,.09)}
+.r-icon{width:48px;height:48px;background:var(--pnu-blue-tint);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;border:1px solid var(--pnu-blue-border)}
+.r-icon svg{color:var(--pnu-blue);width:22px;height:22px}
+.research-card h3{font-size:.9375rem;font-weight:700;color:var(--text-h);margin-bottom:6px}
+.research-card p{font-size:.8125rem;color:var(--text-body);line-height:1.6}
+
+/* FACULTY */
+.faculty-section{background:#fff;padding:80px 0}
+.faculty-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.faculty-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .2s}
+.faculty-card:hover{border-color:var(--pnu-blue);box-shadow:0 6px 20px rgba(0,91,170,.08)}
+.fac-photo{height:120px;background:linear-gradient(135deg,var(--pnu-blue-tint),#dbeafe);display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.fac-info{padding:14px}
+.fac-name{font-size:.875rem;font-weight:700;color:var(--text-h);margin-bottom:3px}
+.fac-dept{font-size:.6875rem;font-weight:700;color:var(--pnu-blue);margin-bottom:6px}
+.fac-tags{display:flex;flex-wrap:wrap;gap:3px}
+.fac-tags span{font-size:.625rem;background:var(--bg-alt);border-radius:4px;padding:2px 5px;color:var(--text-body);border:1px solid var(--border)}
+
+/* NEWS */
+.news-section{background:var(--bg-alt);padding:80px 0}
+.news-layout{display:grid;grid-template-columns:2fr 1fr;gap:28px}
+.news-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:14px;transition:all .2s;position:relative;padding-left:26px}
+.news-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:var(--pnu-blue)}
+.news-card:hover{box-shadow:0 4px 16px rgba(0,91,170,.08)}
+.news-meta{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.news-date{font-size:.75rem;color:var(--text-muted)}
+.news-cat{font-size:.625rem;font-weight:700;background:var(--pnu-blue-tint);color:var(--pnu-blue);border-radius:4px;padding:2px 6px}
+.news-title{font-size:.9375rem;font-weight:700;color:var(--text-h);line-height:1.4;margin-bottom:5px}
+.news-desc{font-size:.8125rem;color:var(--text-body);line-height:1.6}
+.notice-box{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.notice-header{background:var(--pnu-blue);color:#fff;padding:14px 16px;font-size:.9375rem;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.notice-header a{font-size:.8125rem;color:rgba(255,255,255,.8);font-weight:500}
+.notice-item{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.notice-item:last-child{border-bottom:none}
+.n-new{font-size:.5625rem;font-weight:700;background:#143F90;color:#fff;border-radius:3px;padding:1px 5px;flex-shrink:0}
+.n-title{font-size:.8125rem;color:var(--text-h);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.n-date{font-size:.6875rem;color:var(--text-muted);flex-shrink:0}
+
+/* PARTNERS */
+.partners-section{background:#fff;padding:64px 0}
+.partners-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:36px}
+.partner-logo{background:var(--bg-alt);border:1px solid var(--border);border-radius:10px;height:64px;display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:600;color:var(--text-muted);transition:all .2s;cursor:pointer}
+.partner-logo:hover{border-color:var(--pnu-blue);color:var(--pnu-blue);background:var(--pnu-blue-tint)}
+
+/* FOOTER */
+footer{background:var(--pnu-blue-dark);color:rgba(255,255,255,.8);padding:56px 0 28px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.footer-brand-logo{width:38px;height:38px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.footer-brand-logo svg{color:#fff;width:20px;height:20px}
+.footer-brand h3{font-size:.9375rem;font-weight:700;color:#fff;margin-bottom:6px}
+.footer-brand p{font-size:.8125rem;color:rgba(255,255,255,.5);line-height:1.7}
+.footer-col h4{font-size:.8125rem;font-weight:700;color:#fff;margin-bottom:12px}
+.footer-col a{display:block;font-size:.8125rem;color:rgba(255,255,255,.55);margin-bottom:8px;transition:color .15s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;display:flex;justify-content:space-between}
+.footer-bottom p{font-size:.75rem;color:rgba(255,255,255,.4)}
+@media(max-width:1024px){.college-layout,.jys-layout,.news-layout{grid-template-columns:1fr}.research-grid{grid-template-columns:repeat(2,1fr)}.faculty-grid{grid-template-columns:repeat(2,1fr)}.partners-grid{grid-template-columns:repeat(3,1fr)}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}.research-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
+.watermark{position:fixed;bottom:16px;right:16px;background:var(--pnu-blue);color:#fff;font-size:.75rem;font-weight:700;padding:6px 12px;border-radius:6px;z-index:999}
+</style>
+</head>
+<body>
+
+<div class="watermark">시안 03 — Hub Navigator</div>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <img src="assets/pnu-symbol-color.jpg" alt="부산대학교" style="height:38px;width:auto;object-fit:contain;display:block;">
+        <div class="logo-text">부산대학교 AI 거점대학 <small>Pusan National University · AI Hub</small></div>
+      </a>
+      <nav>
+        <div class="nav-item">
+          <div class="nav-link active"><span>AI 거점대학</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="dropdown">
+            <a href="#"><span class="dot"></span>거점대학 소개</a>
+            <a href="#"><span class="dot"></span>비전 &amp; 미션</a>
+            <a href="#"><span class="dot"></span>AI 대학 (2027 신설)</a>
+            <a href="#"><span class="dot"></span>장영실 AI 융합연구원</a>
+            <a href="#"><span class="dot"></span>오시는 길</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="nav-link"><span>연구</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="dropdown">
+            <a href="#"><span class="dot"></span>연구 분야</a><a href="#"><span class="dot"></span>연구실 소개</a><a href="#"><span class="dot"></span>연구 성과</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="nav-link"><span>사람</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="dropdown">
+            <a href="#"><span class="dot"></span>교수진</a><a href="#"><span class="dot"></span>대학원생</a><a href="#"><span class="dot"></span>연구원</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="nav-link"><span>소식</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+          <div class="dropdown">
+            <a href="#"><span class="dot"></span>뉴스</a><a href="#"><span class="dot"></span>공지사항</a><a href="#"><span class="dot"></span>세미나</a>
+          </div>
+        </div>
+        <a href="#" class="nav-link">입학</a>
+        <button class="lang-btn">KO | EN</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- GATEWAY HERO -->
+<section class="gateway">
+  <div class="container">
+    <div class="gateway-text">
+      <div class="gateway-eyebrow">Pusan National University · AI Hub · RISE 956억</div>
+      <h1 class="gateway-title">부산대학교 <em>인공지능</em> 거점대학<br><span style="font-size:.6em;font-weight:600;color:var(--text-muted)">Pusan National University AI Hub</span></h1>
+      <p class="gateway-sub">AI로 지역을 혁신하고, 대한민국의 내일을 설계합니다.<br>아래 허브 구조를 클릭하면 각 조직으로 이동합니다.</p>
+    </div>
+
+    <!-- INTERACTIVE HUB DIAGRAM -->
+    <div class="hub-container">
+      <svg viewBox="0 0 880 380" width="100%" style="max-width:880px">
+        <!-- Connectors - dashed -->
+        <line x1="440" y1="82" x2="176" y2="175" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="6 4"/>
+        <line x1="440" y1="82" x2="440" y2="175" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="6 4"/>
+        <line x1="440" y1="82" x2="704" y2="175" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="6 4"/>
+        <!-- Sub connectors -->
+        <line x1="176" y1="258" x2="55" y2="312" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <line x1="176" y1="258" x2="176" y2="312" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <line x1="176" y1="258" x2="297" y2="312" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <!-- Optional AX line -->
+        <line x1="176" y1="258" x2="418" y2="312" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+        <!-- CENTER HUB -->
+        <a href="#">
+          <rect x="290" y="14" width="300" height="68" rx="14" fill="#005BAA"/>
+          <text x="440" y="44" text-anchor="middle" fill="white" font-size="16" font-weight="800" font-family="Pretendard Variable,system-ui">AI 거점대학 (Hub)</text>
+          <text x="440" y="64" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="11" font-family="Pretendard Variable,system-ui">부산대학교 · RISE 956억 · 2025~2029</text>
+        </a>
+
+        <!-- CHILD: AI 대학 -->
+        <a class="hub-node-link" href="#">
+          <rect class="hub-child-node" x="66" y="175" width="220" height="83" rx="12" fill="white" stroke="#005BAA" stroke-width="2"/>
+          <text x="176" y="202" text-anchor="middle" fill="#005BAA" font-size="15" font-weight="800" font-family="Pretendard Variable,system-ui">🏛 AI 대학</text>
+          <text x="176" y="221" text-anchor="middle" fill="#475569" font-size="11" font-family="Pretendard Variable,system-ui">학부 과정 · 347명 정원</text>
+          <text x="176" y="238" text-anchor="middle" fill="#94A3B8" font-size="10" font-family="Pretendard Variable,system-ui">2027년 신설 → 클릭</text>
+        </a>
+
+        <!-- CHILD: 장영실 -->
+        <a class="hub-node-link" href="#">
+          <rect class="hub-child-node" x="330" y="175" width="220" height="83" rx="12" fill="white" stroke="#005BAA" stroke-width="2"/>
+          <text x="440" y="202" text-anchor="middle" fill="#005BAA" font-size="14" font-weight="800" font-family="Pretendard Variable,system-ui">🔬 장영실 융합연구원</text>
+          <text x="440" y="221" text-anchor="middle" fill="#475569" font-size="11" font-family="Pretendard Variable,system-ui">핵심 연구 · 산학협력</text>
+          <text x="440" y="238" text-anchor="middle" fill="#94A3B8" font-size="10" font-family="Pretendard Variable,system-ui">신설 연구 조직 → 클릭</text>
+        </a>
+
+        <!-- CHILD: AI 대학원 -->
+        <a class="hub-node-link" href="#">
+          <rect class="hub-child-node" x="594" y="175" width="220" height="83" rx="12" fill="white" stroke="#005BAA" stroke-width="2"/>
+          <text x="704" y="202" text-anchor="middle" fill="#005BAA" font-size="15" font-weight="800" font-family="Pretendard Variable,system-ui">🎓 AI 대학원</text>
+          <text x="704" y="221" text-anchor="middle" fill="#475569" font-size="11" font-family="Pretendard Variable,system-ui">석·박사 과정 · 50명</text>
+          <text x="704" y="238" text-anchor="middle" fill="#94A3B8" font-size="10" font-family="Pretendard Variable,system-ui">기존 AI 대학원 → 클릭</text>
+        </a>
+
+        <!-- SUB NODES (AI 대학 아래 4개 학부) -->
+        <rect x="4" y="312" width="102" height="50" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+        <text x="55" y="333" text-anchor="middle" fill="#005BAA" font-size="10" font-weight="700" font-family="Pretendard Variable,system-ui">AI 컴퓨팅</text>
+        <text x="55" y="349" text-anchor="middle" fill="#64748B" font-size="9" font-family="Pretendard Variable,system-ui">컴퓨터공학·AI·IC</text>
+
+        <rect x="115" y="312" width="122" height="50" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+        <text x="176" y="333" text-anchor="middle" fill="#005BAA" font-size="10" font-weight="700" font-family="Pretendard Variable,system-ui">데이터사이언스</text>
+        <text x="176" y="349" text-anchor="middle" fill="#64748B" font-size="9" font-family="Pretendard Variable,system-ui">통계학·데이터사이언스</text>
+
+        <rect x="246" y="312" width="102" height="50" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+        <text x="297" y="333" text-anchor="middle" fill="#005BAA" font-size="10" font-weight="700" font-family="Pretendard Variable,system-ui">소재·산업공학</text>
+        <text x="297" y="349" text-anchor="middle" fill="#64748B" font-size="9" font-family="Pretendard Variable,system-ui">산업공학·산업AI</text>
+
+        <rect x="367" y="312" width="102" height="50" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+        <text x="418" y="333" text-anchor="middle" fill="#005BAA" font-size="10" font-weight="700" font-family="Pretendard Variable,system-ui">AX 융합 학부</text>
+        <text x="418" y="349" text-anchor="middle" fill="#64748B" font-size="9" font-family="Pretendard Variable,system-ui">전교생 자율 선택</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BLUE BANNER -->
+<section class="stats-blue">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stats-item">
+        <span class="stats-value">50+</span>
+        <div class="stats-label">교수진</div>
+        <span class="stats-badge">AI 관련 4개 학부</span>
+      </div>
+      <div class="stats-item">
+        <span class="stats-value">956억</span>
+        <div class="stats-label">RISE 지원</div>
+        <span class="stats-badge">5년 (2025~2029)</span>
+      </div>
+      <div class="stats-item">
+        <span class="stats-value">473위</span>
+        <div class="stats-label">QS 세계 대학</div>
+        <span class="stats-badge">51계단 상승</span>
+      </div>
+      <div class="stats-item">
+        <span class="stats-value">#13</span>
+        <div class="stats-label">THE 세계 영향력</div>
+        <span class="stats-badge">역대 최고 성적</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI COLLEGE SECTION -->
+<section class="college-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">College of AI</div>
+      <h2 class="section-title">AI 대학 — 4개 학부</h2>
+      <p class="section-sub">2027년 신설 예정. 347명 정원, 4개 학부로 구성된 국내 최초 AI 특화 단과대학</p>
+    </div>
+    <div class="college-layout">
+      <div>
+        <div class="school-card">
+          <div class="school-icon">🖥</div>
+          <div><div class="school-title">AI 컴퓨팅 학부</div><div class="school-desc">컴퓨터공학 · 인공지능 · 인터랙티브 컴퓨팅 전공 — 기존 정보컴퓨터공학부 개편</div></div>
+        </div>
+        <div class="school-card">
+          <div class="school-icon">📊</div>
+          <div><div class="school-title">데이터사이언스·통계 학부</div><div class="school-desc">통계 · 데이터사이언스 전공 — 데이터사이언스학부 + 통계학과 통합</div></div>
+        </div>
+        <div class="school-card">
+          <div class="school-icon">⚙️</div>
+          <div><div class="school-title">소재공학·산업공학 학부</div><div class="school-desc">산업공학 · 산업 AI 전공 — 제조·조선·해양 특화 AI 인재 양성</div></div>
+        </div>
+        <div class="school-card">
+          <div class="school-icon">🔗</div>
+          <div><div class="school-title">AX 융합 학부</div><div class="school-desc">별도 입시 없음, 전교생 자율 선택. 최대 10개 AX 융합 전공 운영</div></div>
+        </div>
+      </div>
+      <div class="college-info">
+        <h3>AI 대학이란?</h3>
+        <p>2027년 3월 출범 예정인 부산대학교 AI 대학은 국내 최초의 AI 특화 단과대학입니다. 기존 정보컴퓨터공학부를 중심으로 데이터사이언스, 산업공학, AX 융합 학부를 통합하여 미래 AI 인재를 체계적으로 양성합니다.</p>
+        <div class="info-grid">
+          <div class="info-item"><span class="info-value">347명</span><div class="info-label">총 모집 정원</div></div>
+          <div class="info-item"><span class="info-value">4개</span><div class="info-label">구성 학부 수</div></div>
+          <div class="info-item"><span class="info-value">2027</span><div class="info-label">첫 신입생 입학</div></div>
+          <div class="info-item"><span class="info-value">10+</span><div class="info-label">AX 융합 전공</div></div>
+        </div>
+        <a href="#" class="btn-primary">AI 대학 자세히 보기</a>
+        <a href="#" class="btn-secondary">입학 안내</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JANGYEONGSIL -->
+<section class="jys-section">
+  <div class="container">
+    <div class="section-header row">
+      <div>
+        <div class="section-label">Jangyeongsil Institute</div>
+        <h2 class="section-title">장영실 AI 융합연구원</h2>
+        <p class="section-sub">혁신적 AI 기술을 산업에 연결하는 교두보 연구원</p>
+      </div>
+      <a href="#" class="more-link">연구원 자세히 →</a>
+    </div>
+    <div class="jys-layout">
+      <div>
+        <p style="font-size:.9375rem;line-height:1.8;color:var(--text-body);margin-bottom:24px">장영실 AI 융합연구원은 부산대학교 AI 거점대학의 핵심 연구 조직으로, 기초 AI 연구부터 산업 기술이전까지 전 주기를 아우르는 혁신적 연구 생태계를 구축합니다.</p>
+        <div style="background:var(--bg-alt);border-radius:10px;padding:20px;border:1px solid var(--border)">
+          <div style="font-size:.875rem;font-weight:700;color:var(--text-h);margin-bottom:12px">연계 협력 기관</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span style="font-size:.8125rem;background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 10px;color:var(--text-body)">Google</span>
+            <span style="font-size:.8125rem;background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 10px;color:var(--text-body)">LG U+</span>
+            <span style="font-size:.8125rem;background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 10px;color:var(--text-body)">삼성중공업</span>
+            <span style="font-size:.8125rem;background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 10px;color:var(--text-body)">LG전자</span>
+            <span style="font-size:.8125rem;background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 10px;color:var(--text-body)">NRF</span>
+          </div>
+        </div>
+      </div>
+      <div class="jys-icon-grid">
+        <div class="jys-card">
+          <div class="jys-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <h4>핵심 AI 연구</h4><p>LLM, 컴퓨터비전, 로보틱스</p>
+        </div>
+        <div class="jys-card">
+          <div class="jys-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <h4>산학 협력</h4><p>기업 R&amp;D 공동 연구</p>
+        </div>
+        <div class="jys-card">
+          <div class="jys-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <h4>기술 이전</h4><p>AI 특허·라이센싱</p>
+        </div>
+        <div class="jys-card">
+          <div class="jys-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <h4>글로벌 네트워크</h4><p>국제 공동 연구</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="research-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Research Areas</div>
+      <h2 class="section-title">연구 분야</h2>
+    </div>
+    <div class="research-grid">
+      <div class="research-card"><div class="r-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/></svg></div><h3>딥러닝 &amp; 머신러닝</h3><p>LLM, Transformer, 강화학습</p></div>
+      <div class="research-card"><div class="r-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>컴퓨터 비전</h3><p>의료 영상, 자율주행, 객체 인식</p></div>
+      <div class="research-card"><div class="r-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>자연어 처리</h3><p>AI 통번역, 대화 AI, NLP</p></div>
+      <div class="research-card"><div class="r-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="9" height="9"/><rect x="13" y="2" width="9" height="9"/><rect x="13" y="13" width="9" height="9"/><rect x="2" y="13" width="9" height="9"/></svg></div><h3>로봇 &amp; 자율 시스템</h3><p>RoboCup 2025 세계 1위</p></div>
+      <div class="research-card"><div class="r-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>데이터 사이언스</h3><p>산업 빅데이터, 통계 ML</p></div>
+      <div class="research-card"><div class="r-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>양자 AI &amp; 반도체</h3><p>하이브리드 양자-AI, 전력반도체</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section class="faculty-section">
+  <div class="container">
+    <div class="section-header row">
+      <div><div class="section-label">Faculty</div><h2 class="section-title">교수진</h2></div>
+      <a href="#" class="more-link">전체 교수진 →</a>
+    </div>
+    <div class="faculty-grid">
+      <div class="faculty-card"><div class="fac-photo" style="padding:0;overflow:hidden"><img src="https://cdn.iusm.co.kr/news/photo/202405/1039474_589255_355.jpg" alt="황원주 교수" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"></div><div class="fac-info"><div class="fac-name">황원주</div><div class="fac-dept">AI 컴퓨팅 학부</div><div class="fac-tags"><span>양자AI</span><span>양자컴퓨팅</span></div></div></div>
+      <div class="faculty-card"><div class="fac-photo">👨‍🏫</div><div class="fac-info"><div class="fac-name">송길태</div><div class="fac-dept">AI 컴퓨팅 학부</div><div class="fac-tags"><span>AX</span><span>DX</span><span>XR</span></div></div></div>
+      <div class="faculty-card"><div class="fac-photo" style="padding:0;overflow:hidden"><img src="https://ece.pusan.ac.kr/sites/ece/atchmnfl/pnuProfl/1305/temp_1534841245917100.jpg" alt="이승준 교수" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"></div><div class="fac-info"><div class="fac-name">이승준</div><div class="fac-dept">AI 컴퓨팅 학부</div><div class="fac-tags"><span>로보틱스</span><span>자율시스템</span></div></div></div>
+      <div class="faculty-card"><div class="fac-photo">👩‍🏫</div><div class="fac-info"><div class="fac-name">데이터사이언스 교수</div><div class="fac-dept">데이터사이언스·통계</div><div class="fac-tags"><span>빅데이터</span><span>통계ML</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news-section">
+  <div class="container">
+    <div class="section-header row">
+      <div><div class="section-label">News &amp; Announcements</div><h2 class="section-title">최신 소식</h2></div>
+      <a href="#" class="more-link">전체 소식 →</a>
+    </div>
+    <div class="news-layout">
+      <div>
+        <div class="news-card"><div class="news-meta"><span class="news-date">2026.05.13</span><span class="news-cat">파트너십</span></div><div class="news-title">부산대학교-Google, AI 교육 생태계 전면 도입 협약</div><div class="news-desc">국내 대학 최초 전교원·학생 대상 Google AI Ecosystem 전면 도입.</div></div>
+        <div class="news-card"><div class="news-meta"><span class="news-date">2025.07.21</span><span class="news-cat">수상</span></div><div class="news-title">로보컵 2025 세계 1위 — 아누비스, 역대 최고점</div><div class="news-desc">37개국 경쟁에서 종합 세계 1위. 칭화대·도쿄대 압도.</div></div>
+        <div class="news-card"><div class="news-meta"><span class="news-date">2026.03.01</span><span class="news-cat">조직</span></div><div class="news-title">AI 대학 신설 확정 — 2027년 347명 첫 신입생</div><div class="news-desc">4개 학부(AI 컴퓨팅·데이터사이언스·소재산업·AX융합) 체계.</div></div>
+      </div>
+      <div class="notice-box">
+        <div class="notice-header">공지사항 <a href="#">더 보기 →</a></div>
+        <div class="notice-item"><span class="n-new">NEW</span><span class="n-title">2027 AI 대학 입학 전형</span><span class="n-date">05.16</span></div>
+        <div class="notice-item"><span class="n-new">NEW</span><span class="n-title">RISE 사업 하반기 일정</span><span class="n-date">05.12</span></div>
+        <div class="notice-item"><span class="n-title">장영실 연구원 모집 공고</span><span class="n-date">05.08</span></div>
+        <div class="notice-item"><span class="n-title">AI 콜로퀴엄 2026 시리즈</span><span class="n-date">05.03</span></div>
+        <div class="notice-item"><span class="n-title">부산대-부산교대 통합 안내</span><span class="n-date">04.29</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners-section">
+  <div class="container">
+    <div class="section-label" style="text-align:center">Partners</div>
+    <h2 class="section-title" style="text-align:center;margin-bottom:4px">협력 기관</h2>
+    <p style="text-align:center;font-size:.875rem;color:var(--text-muted)">정부·기업·지자체와 AI 혁신 생태계를 구축합니다</p>
+    <div class="partners-grid">
+      <div class="partner-logo">과기부</div>
+      <div class="partner-logo">NRF</div>
+      <div class="partner-logo">IITP</div>
+      <div class="partner-logo">부산광역시</div>
+      <div class="partner-logo">Google</div>
+      <div class="partner-logo">LG U+</div>
+      <div class="partner-logo">삼성중공업</div>
+      <div class="partner-logo">LG전자</div>
+      <div class="partner-logo">부산교육청</div>
+      <div class="partner-logo">교육부</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h3>부산대학교 AI 거점대학</h3>
+        <p>Pusan National University · AI Hub<br>부산광역시 금정구 부산대학로63번길 2<br>Tel. 051-510-1000</p>
+      </div>
+      <div class="footer-col"><h4>소개</h4><a href="#">거점대학 소개</a><a href="#">비전 &amp; 미션</a><a href="#">AI 대학</a><a href="#">장영실 연구원</a></div>
+      <div class="footer-col"><h4>연구</h4><a href="#">연구 분야</a><a href="#">연구실</a><a href="#">논문 성과</a></div>
+      <div class="footer-col"><h4>링크</h4><a href="#">교수진</a><a href="#">입학 안내</a><a href="#">부산대 포털 ↗</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2027 Pusan National University AI Hub. All rights reserved.</p>
+      <p>개인정보처리방침 · 이용약관</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 대학 — ai.pusan.ac.kr (시안 개선)</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#005BAA;--blue-dark:#143F90;--blue-pale:#EEF5FF;--blue-light:#DBEAFE;
+  --green:#00A651;--green-pale:#ECFAF3;
+  --ink:#0F172A;--body:#374151;--muted:#64748B;
+  --white:#FFFFFF;--bg:#F8FAFC;--bg-alt:#F1F5F9;
+  --border:#E2E8F0;
+  --ff:"Pretendard Variable",Pretendard,"Noto Sans KR",sans-serif;
+  --shadow:0 4px 20px rgba(0,91,170,.1);
+  --shadow-lg:0 12px 40px rgba(0,91,170,.16);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff);color:var(--body);background:var(--white);overflow-x:hidden;line-height:1.7;word-break:keep-all}
+a{text-decoration:none;color:inherit}
+.container{max-width:1220px;margin:0 auto;padding:0 28px}
+
+/* ── BLOB BACKGROUND ── */
+.blob-wrap{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.13;animation:drift 14s ease-in-out infinite}
+.blob1{width:550px;height:550px;background:radial-gradient(circle,#005BAA,#3B82F6);top:-120px;left:-80px;animation-delay:0s}
+.blob2{width:450px;height:450px;background:radial-gradient(circle,#00A651,#10B981);bottom:-80px;right:-60px;animation-delay:-5s}
+.blob3{width:380px;height:380px;background:radial-gradient(circle,#143F90,#6366F1);top:40%;right:15%;animation-delay:-9s}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(24px,-18px) scale(1.04)}66%{transform:translate(-18px,28px) scale(.97)}}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  background:rgba(255,255,255,.88);
+  border-bottom:1px solid rgba(0,91,170,.1);
+  height:64px;
+}
+.hdr-inner{display:flex;align-items:center;justify-content:space-between;height:100%}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-badge{
+  background:linear-gradient(135deg,var(--blue-dark),var(--blue));
+  padding:7px 14px;border-radius:8px;
+  font-size:13px;font-weight:800;color:#fff;letter-spacing:-.01em;
+}
+.logo-sub{font-size:13px;font-weight:700;color:var(--blue)}
+
+nav{display:flex;align-items:center;gap:2px}
+.nav-item{position:relative}
+.nav-link{
+  display:flex;align-items:center;gap:5px;
+  padding:8px 13px;font-size:14px;font-weight:600;
+  color:var(--body);border-radius:6px;cursor:pointer;
+  transition:all .2s;
+}
+.nav-link:hover,.nav-link.active{color:var(--blue);background:var(--blue-pale)}
+.nav-link i{font-size:10px;opacity:.5;transition:transform .2s}
+.nav-item:hover .nav-link i{transform:rotate(180deg)}
+.dropdown{
+  position:absolute;top:calc(100% + 8px);left:0;
+  min-width:210px;background:var(--white);
+  border:1px solid var(--border);border-radius:12px;
+  box-shadow:0 8px 32px rgba(0,0,0,.1);
+  padding:6px;opacity:0;visibility:hidden;
+  transform:translateY(-8px);transition:all .22s;
+}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.dropdown a{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 13px;font-size:13.5px;color:var(--body);
+  border-radius:7px;transition:all .15s;
+}
+.dropdown a:hover{background:var(--blue-pale);color:var(--blue)}
+.dropdown a .d-icon{width:28px;height:28px;border-radius:7px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--blue);flex-shrink:0}
+.dropdown a:hover .d-icon{background:var(--blue);color:#fff}
+
+.hdr-btn{
+  padding:8px 18px;border-radius:8px;font-size:13.5px;font-weight:700;
+  background:linear-gradient(135deg,var(--blue),#0071CC);color:#fff;
+  box-shadow:0 2px 12px rgba(0,91,170,.3);transition:all .2s;cursor:pointer;
+  font-family:var(--ff);border:none;
+}
+.hdr-btn:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(0,91,170,.38)}
+
+/* ── HERO (no image, blob + gradient) ── */
+.hero{
+  position:relative;min-height:88vh;
+  display:flex;align-items:center;
+  background:linear-gradient(160deg,#EEF5FF 0%,#F8FAFC 55%,#ECFAF3 100%);
+  overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,91,170,.04) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(0,91,170,.04) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.hero-content{
+  position:relative;z-index:1;text-align:center;
+  max-width:760px;margin:0 auto;
+  padding:80px 24px;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,rgba(0,91,170,.09),rgba(0,166,81,.07));
+  border:1px solid rgba(0,91,170,.18);
+  padding:7px 20px;border-radius:999px;
+  font-size:12px;font-weight:700;color:var(--blue);
+  letter-spacing:.06em;margin-bottom:28px;
+}
+.hb-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+
+.hero-content h1{
+  font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;
+  color:var(--ink);letter-spacing:-.05em;line-height:1.15;
+  margin-bottom:20px;
+}
+.hero-content h1 .grad{
+  background:linear-gradient(135deg,var(--blue),#0075C9,var(--blue-dark));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-content p{
+  font-size:1.05rem;color:var(--muted);
+  line-height:1.8;max-width:560px;margin:0 auto 36px;
+}
+.hero-ctas{display:flex;justify-content:center;gap:12px}
+.cta-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--blue),#0071CC);color:#fff;
+  padding:13px 28px;border-radius:10px;
+  font-size:15px;font-weight:700;
+  box-shadow:0 4px 18px rgba(0,91,170,.35);transition:all .25s;
+}
+.cta-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,91,170,.42)}
+.cta-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--blue);padding:13px 24px;border-radius:10px;
+  font-size:14.5px;font-weight:600;
+  border:1.5px solid rgba(0,91,170,.22);transition:all .2s;
+}
+.cta-outline:hover{background:var(--blue-pale)}
+
+/* Hero stats floating cards */
+.hero-floats{
+  display:flex;justify-content:center;gap:16px;
+  margin-top:48px;flex-wrap:wrap;
+}
+.hf-card{
+  background:rgba(255,255,255,.85);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:16px;padding:16px 22px;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  text-align:center;min-width:120px;
+}
+.hf-num{
+  font-size:1.8rem;font-weight:900;
+  color:var(--blue);letter-spacing:-.04em;line-height:1;
+}
+.hf-lbl{font-size:11.5px;color:var(--muted);margin-top:4px}
+
+/* ── HUB DIAGRAM (animated) ── */
+.hub-section{
+  padding:80px 0;
+  background:linear-gradient(160deg,#EEF5FF 0%,#F8FAFC 100%);
+}
+.hub-heading{text-align:center;margin-bottom:48px}
+.s-eyebrow{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.s-title{font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);letter-spacing:-.04em;margin-bottom:8px;line-height:1.2}
+.s-sub{font-size:15px;color:var(--muted);line-height:1.75;max-width:520px}
+
+.hub-box{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:24px;padding:52px 40px;
+  max-width:960px;margin:0 auto;
+  box-shadow:var(--shadow);
+}
+
+/* SVG hub container */
+.hub-svg{display:block;margin:0 auto;overflow:visible}
+
+/* Animated connector lines */
+.hub-line{
+  stroke:var(--border);stroke-width:1.5;fill:none;
+  stroke-dasharray:6 4;
+  animation:dashMove 3s linear infinite;
+}
+.hub-line.active{stroke:rgba(0,91,170,.3)}
+@keyframes dashMove{to{stroke-dashoffset:-20}}
+
+/* Center node */
+.hub-center-g{cursor:pointer}
+.hub-center-g circle{transition:all .3s}
+.hub-center-g:hover circle{filter:drop-shadow(0 0 18px rgba(0,91,170,.5))}
+.hub-center-pulse{animation:cPulse 2.5s ease-in-out infinite}
+@keyframes cPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+
+/* Child nodes */
+.hub-node{cursor:pointer;transition:all .3s}
+.hub-node rect{rx:14;ry:14;transition:all .25s}
+.hub-node:hover rect{filter:drop-shadow(0 4px 14px rgba(0,91,170,.25))}
+.hub-node:hover .hub-node-bg{fill:var(--blue-pale)!important}
+.hub-node-label{font-family:var(--ff);font-weight:700;fill:var(--ink);font-size:14px;pointer-events:none}
+.hub-node-sub{font-family:var(--ff);font-weight:500;fill:var(--muted);font-size:11px;pointer-events:none}
+.hub-node-icon{font-size:20px}
+
+/* Node entrance animation */
+.hub-node:nth-child(1){animation:fadeUp .6s ease both .1s}
+.hub-node:nth-child(2){animation:fadeUp .6s ease both .2s}
+.hub-node:nth-child(3){animation:fadeUp .6s ease both .3s}
+.hub-node:nth-child(4){animation:fadeUp .6s ease both .4s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Hub nav bar below diagram */
+.hub-nav{
+  display:flex;gap:12px;margin-top:32px;justify-content:center;
+  flex-wrap:wrap;
+}
+.hub-nav-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:999px;
+  border:1.5px solid var(--border);background:var(--white);
+  font-size:13.5px;font-weight:700;color:var(--body);
+  transition:all .22s;cursor:pointer;
+}
+.hub-nav-btn:hover,.hub-nav-btn.active{
+  border-color:var(--blue);background:var(--blue);color:#fff;
+}
+.hub-nav-btn i{font-size:14px}
+
+/* ── DEPARTMENTS GRID (dynamic hover) ── */
+.dept-section{padding:80px 0}
+.dept-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.dept-card{
+  border-radius:18px;overflow:hidden;
+  border:1px solid var(--border);background:var(--white);
+  transition:all .25s;cursor:pointer;
+  position:relative;
+}
+.dept-card:hover{
+  border-color:var(--blue);
+  box-shadow:var(--shadow-lg);
+  transform:translateY(-4px);
+}
+.dept-card-top{
+  height:120px;display:flex;align-items:center;justify-content:center;
+  font-size:40px;background:var(--blue-pale);
+  position:relative;overflow:hidden;
+}
+.dept-card-top::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 60%,rgba(0,91,170,.1));
+}
+.dept-card-top.g1{background:linear-gradient(135deg,#EEF5FF,#DBEAFE)}
+.dept-card-top.g2{background:linear-gradient(135deg,#ECFAF3,#D1FAE5)}
+.dept-card-top.g3{background:linear-gradient(135deg,#FEF3C7,#FDE68A)}
+.dept-card-top.g4{background:linear-gradient(135deg,#EDE9FE,#DDD6FE)}
+.dept-card-top.g5{background:linear-gradient(135deg,#FEE2E2,#FECACA)}
+.dept-card-top.g6{background:linear-gradient(135deg,#F0FFF4,#DCFCE7)}
+.dept-card-body{padding:20px}
+.dept-badge{
+  display:inline-block;padding:3px 10px;border-radius:999px;
+  font-size:10.5px;font-weight:700;
+  background:var(--blue-pale);color:var(--blue);
+  margin-bottom:10px;
+}
+.dept-name{font-size:15.5px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.dept-desc{font-size:12.5px;color:var(--muted);line-height:1.55;margin-bottom:14px}
+.dept-link{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:13px;font-weight:700;color:var(--blue);
+  transition:gap .2s;
+}
+.dept-card:hover .dept-link{gap:8px}
+
+/* Animated arrow on hover */
+.dept-card .arrow-circle{
+  position:absolute;top:16px;right:16px;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(0,91,170,.08);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--blue);
+  transform:scale(0);opacity:0;
+  transition:all .25s;
+}
+.dept-card:hover .arrow-circle{transform:scale(1);opacity:1}
+
+/* ── PROGRAMS MIX ── */
+.prog-section{padding:80px 0;background:var(--bg-alt)}
+.prog-bento{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:18px;
+}
+.pb-tile{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:16px;padding:26px;
+  transition:all .22s;
+}
+.pb-tile:hover{border-color:var(--blue);box-shadow:var(--shadow);transform:translateY(-2px)}
+.pb-icon{font-size:28px;margin-bottom:14px}
+.pb-title{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.pb-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.pb-tag{
+  display:inline-block;padding:3px 10px;border-radius:999px;
+  font-size:11px;font-weight:700;
+  background:var(--blue-pale);color:var(--blue);
+}
+.pb-visual{
+  grid-column:span 2;grid-row:span 1;
+  border-radius:18px;overflow:hidden;position:relative;
+  background:linear-gradient(160deg,#1a1a2e,#143F90 50%,#005BAA);
+  min-height:200px;border:none;
+}
+.pb-visual-inner{
+  position:absolute;inset:0;padding:28px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background:linear-gradient(to top,rgba(0,0,0,.5),transparent 60%);
+}
+.pb-v-tag{
+  display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+  border-radius:999px;padding:5px 14px;
+  font-size:11px;font-weight:700;color:#fff;margin-bottom:12px;
+}
+.pb-v-title{font-size:20px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:6px}
+.pb-v-desc{font-size:13px;color:rgba(255,255,255,.82);line-height:1.55}
+.pb-v-stats{display:flex;gap:24px;margin-top:16px}
+.pb-v-stat .n{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.04em}
+.pb-v-stat .l{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+
+/* ── FACULTY ── */
+.faculty-section{padding:80px 0}
+.faculty-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+}
+.fac-card{
+  border-radius:16px;overflow:hidden;border:1px solid var(--border);
+  background:var(--white);transition:all .22s;
+}
+.fac-card:hover{border-color:var(--blue);box-shadow:var(--shadow);transform:translateY(-3px)}
+.fac-avatar{
+  height:120px;
+  background:linear-gradient(135deg,var(--blue-pale),#c7d7f4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:42px;
+}
+.fac-body{padding:16px}
+.fac-name{font-size:14.5px;font-weight:800;color:var(--ink);margin-bottom:3px}
+.fac-role{font-size:12px;color:var(--blue);font-weight:700;margin-bottom:6px}
+.fac-area{font-size:12px;color:var(--muted)}
+.fac-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.fac-tag{
+  padding:2px 8px;border-radius:999px;
+  font-size:10.5px;font-weight:600;
+  background:var(--blue-pale);color:var(--blue);
+}
+
+/* ── NEWS ── */
+.news-section{padding:80px 0;background:var(--bg-alt)}
+.news-layout{
+  display:grid;grid-template-columns:2fr 1fr;gap:28px;
+}
+.news-feature{
+  border-radius:18px;overflow:hidden;
+  background:linear-gradient(160deg,#0a2e1a,#00A651);
+  position:relative;min-height:220px;cursor:pointer;
+  transition:all .25s;
+}
+.news-feature:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.news-feature-inner{
+  position:absolute;inset:0;padding:28px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent 60%);
+}
+.nf-cat{
+  display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+  border-radius:999px;padding:4px 12px;
+  font-size:11px;font-weight:700;color:#fff;margin-bottom:10px;
+}
+.nf-title{font-size:18px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:8px}
+.nf-date{font-size:12px;color:rgba(255,255,255,.7)}
+
+.news-list{display:flex;flex-direction:column;gap:0}
+.news-item{
+  display:flex;gap:14px;padding:16px 0;
+  border-bottom:1px solid var(--border);align-items:flex-start;
+}
+.news-item:first-child{padding-top:0}
+.news-item:last-child{border-bottom:none}
+.news-dot{
+  width:34px;height:34px;border-radius:10px;flex-shrink:0;
+  background:var(--blue-pale);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:var(--blue);
+}
+.ni-title{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:4px}
+.ni-meta{font-size:11.5px;color:var(--muted)}
+
+.notice-panel{
+  background:var(--blue-pale);border:1px solid rgba(0,91,170,.1);
+  border-radius:18px;padding:24px;
+}
+.notice-header{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;
+}
+.notice-title{font-size:15px;font-weight:800;color:var(--ink)}
+.notice-more{font-size:12px;font-weight:700;color:var(--blue)}
+.notice-item{
+  padding:11px 0;border-bottom:1px solid rgba(0,91,170,.08);
+  font-size:13px;color:var(--body);
+}
+.notice-item:last-child{border-bottom:none}
+.ni-date{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ── FOOTER ── */
+footer{background:#0F172A;padding:52px 0 28px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.ft-brand-name{font-size:14px;font-weight:800;color:#fff;margin-bottom:14px}
+.ft-brand-desc{font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:18px}
+.ft-brand-addr{font-size:11.5px;color:rgba(255,255,255,.38);line-height:1.8}
+.ft-col h4{font-size:11px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.ft-col a{display:block;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:9px;transition:color .2s}
+.ft-col a:hover{color:#fff}
+.ft-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:24px;display:flex;justify-content:space-between;align-items:center;
+}
+.ft-copy{font-size:12px;color:rgba(255,255,255,.3)}
+.ft-links{display:flex;gap:18px}
+.ft-links a{font-size:12px;color:rgba(255,255,255,.4);transition:color .2s}
+.ft-links a:hover{color:rgba(255,255,255,.75)}
+</style>
+</head>
+<body>
+
+<!-- BLOB BG -->
+<div class="blob-wrap">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
+<!-- HEADER with dropdown nav -->
+<header>
+  <div class="container hdr-inner">
+    <div class="logo">
+      <div class="logo-badge">AI 대학</div>
+      <div class="logo-sub">부산대학교 인공지능대학</div>
+    </div>
+    <nav>
+      <div class="nav-item">
+        <div class="nav-link">대학 소개 <i class="fas fa-chevron-down"></i></div>
+        <div class="dropdown">
+          <a href="#"><div class="d-icon">🏛</div><span>학장 인사말</span></a>
+          <a href="#"><div class="d-icon">📋</div><span>연혁 및 현황</span></a>
+          <a href="#"><div class="d-icon">🗺</div><span>오시는 길</span></a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-link">학과·전공 <i class="fas fa-chevron-down"></i></div>
+        <div class="dropdown">
+          <a href="#"><div class="d-icon">💻</div><span>AI컴퓨터공학부</span></a>
+          <a href="#"><div class="d-icon">📊</div><span>데이터사이언스학과</span></a>
+          <a href="#"><div class="d-icon">⚙️</div><span>산업공학부</span></a>
+          <a href="#"><div class="d-icon">🧬</div><span>AX융합학부</span></a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-link">교육·연구 <i class="fas fa-chevron-down"></i></div>
+        <div class="dropdown">
+          <a href="#"><div class="d-icon">📚</div><span>교육과정</span></a>
+          <a href="#"><div class="d-icon">🔬</div><span>연구소·센터</span></a>
+          <a href="#"><div class="d-icon">🏆</div><span>연구 성과</span></a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-link">입학·취업 <i class="fas fa-chevron-down"></i></div>
+        <div class="dropdown">
+          <a href="#"><div class="d-icon">🎓</div><span>입학 안내</span></a>
+          <a href="#"><div class="d-icon">💼</div><span>취업·진로</span></a>
+          <a href="#"><div class="d-icon">🌐</div><span>장학제도</span></a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-link">알림마당 <i class="fas fa-chevron-down"></i></div>
+        <div class="dropdown">
+          <a href="#"><div class="d-icon">📢</div><span>공지사항</span></a>
+          <a href="#"><div class="d-icon">📰</div><span>뉴스·보도</span></a>
+          <a href="#"><div class="d-icon">📅</div><span>행사·일정</span></a>
+        </div>
+      </div>
+      <button class="hdr-btn">입학 안내 →</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO (blob bg, no hero image) -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="container" style="position:relative;z-index:1;width:100%">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hb-dot"></span>
+        부산대학교 인공지능대학 — ai.pusan.ac.kr
+      </div>
+      <h1>
+        AI와 함께 만드는<br>
+        <span class="grad">미래 산업의 중심</span>
+      </h1>
+      <p>
+        부산대학교 AI 대학은 AI컴퓨터공학부, 데이터사이언스학과, 산업공학부, AX융합학부가 모여 차세대 AI 인재를 양성하는 허브입니다.
+      </p>
+      <div class="hero-ctas">
+        <a href="#" class="cta-primary">학과 탐색하기 <i class="fas fa-arrow-right"></i></a>
+        <a href="#" class="cta-outline"><i class="fas fa-graduation-cap"></i> 입학 안내</a>
+      </div>
+      <!-- Floating stat cards -->
+      <div class="hero-floats">
+        <div class="hf-card">
+          <div class="hf-num">4<span style="font-size:1rem">개</span></div>
+          <div class="hf-lbl">소속 학과·부</div>
+        </div>
+        <div class="hf-card">
+          <div class="hf-num">1,200<span style="font-size:1rem">명</span></div>
+          <div class="hf-lbl">재학생</div>
+        </div>
+        <div class="hf-card">
+          <div class="hf-num">68<span style="font-size:1rem">명</span></div>
+          <div class="hf-lbl">전임교원</div>
+        </div>
+        <div class="hf-card">
+          <div class="hf-num">94<span style="font-size:1rem">%</span></div>
+          <div class="hf-lbl">취업률</div>
+        </div>
+        <div class="hf-card">
+          <div class="hf-num">Top<span style="font-size:1rem"> 5</span></div>
+          <div class="hf-lbl">국내 AI 대학</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HUB NAVIGATOR (interactive, animated) -->
+<section class="hub-section">
+  <div class="container">
+    <div class="hub-heading">
+      <div class="s-eyebrow">Hub Navigator</div>
+      <div class="s-title">AI 대학 허브 구조</div>
+      <p class="s-sub" style="margin:0 auto;text-align:center">AI 대학은 4개 학과·부를 연결하는 허브로서 연구, 교육, 산학협력을 통합합니다.</p>
+    </div>
+    <div class="hub-box">
+      <!-- Animated SVG Hub Diagram -->
+      <svg class="hub-svg" width="820" height="340" viewBox="0 0 820 340">
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="rgba(0,91,170,.3)"/>
+          </marker>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Animated connector lines -->
+        <line class="hub-line active" x1="290" y1="170" x2="175" y2="110"/>
+        <line class="hub-line active" x1="290" y1="170" x2="175" y2="230"/>
+        <line class="hub-line active" x1="530" y1="170" x2="645" y2="110"/>
+        <line class="hub-line active" x1="530" y1="170" x2="645" y2="230"/>
+        <line class="hub-line" x1="290" y1="170" x2="160" y2="170" stroke="var(--blue)" opacity="0.2"/>
+        <line class="hub-line" x1="530" y1="170" x2="660" y2="170" stroke="var(--blue)" opacity="0.2"/>
+
+        <!-- Center: AI 대학 -->
+        <g class="hub-center-g hub-center-pulse">
+          <circle cx="410" cy="170" r="68" fill="var(--blue)" filter="url(#glow)"/>
+          <circle cx="410" cy="170" r="58" fill="var(--blue-dark)"/>
+          <text x="410" y="162" text-anchor="middle" fill="white" font-size="15" font-weight="900" font-family="Pretendard Variable">AI 대학</text>
+          <text x="410" y="180" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-family="Pretendard Variable">ADP + X</text>
+          <text x="410" y="196" text-anchor="middle" fill="rgba(255,255,255,.55)" font-size="10" font-family="Pretendard Variable">ai.pusan.ac.kr</text>
+        </g>
+
+        <!-- Left Top: AI컴퓨터공학부 -->
+        <g class="hub-node" onclick="window.open('#')">
+          <rect class="hub-node-bg" x="30" y="60" width="155" height="90" rx="14" ry="14" fill="white" stroke="#E2E8F0" stroke-width="1.5"/>
+          <rect x="30" y="60" width="155" height="4" rx="2" fill="var(--blue)"/>
+          <text x="53" y="95" class="hub-node-label">💻 AI컴퓨터</text>
+          <text x="53" y="112" class="hub-node-label">공학부</text>
+          <text x="53" y="130" class="hub-node-sub">AI · 컴퓨터비전 · NLP</text>
+        </g>
+
+        <!-- Left Bottom: 데이터사이언스 -->
+        <g class="hub-node" onclick="window.open('#')">
+          <rect class="hub-node-bg" x="30" y="185" width="155" height="90" rx="14" ry="14" fill="white" stroke="#E2E8F0" stroke-width="1.5"/>
+          <rect x="30" y="185" width="155" height="4" rx="2" fill="var(--green)"/>
+          <text x="53" y="220" class="hub-node-label">📊 데이터사이언스</text>
+          <text x="53" y="237" class="hub-node-label">학과 · 통계학과</text>
+          <text x="53" y="255" class="hub-node-sub">빅데이터 · 통계 · ML</text>
+        </g>
+
+        <!-- Right Top: 산업공학부 -->
+        <g class="hub-node" onclick="window.open('#')">
+          <rect class="hub-node-bg" x="635" y="60" width="155" height="90" rx="14" ry="14" fill="white" stroke="#E2E8F0" stroke-width="1.5"/>
+          <rect x="635" y="60" width="155" height="4" rx="2" fill="#7C3AED"/>
+          <text x="658" y="95" class="hub-node-label">⚙️ 산업공학부</text>
+          <text x="658" y="112" class="hub-node-sub">스마트제조 · AI공정</text>
+          <text x="658" y="130" class="hub-node-sub">시스템최적화</text>
+        </g>
+
+        <!-- Right Bottom: AX융합학부 -->
+        <g class="hub-node" onclick="window.open('#')">
+          <rect class="hub-node-bg" x="635" y="185" width="155" height="90" rx="14" ry="14" fill="white" stroke="#E2E8F0" stroke-width="1.5"/>
+          <rect x="635" y="185" width="155" height="4" rx="2" fill="#D97706"/>
+          <text x="658" y="220" class="hub-node-label">🧬 AX융합학부</text>
+          <text x="658" y="237" class="hub-node-sub">전 학문 × AI 융합</text>
+          <text x="658" y="255" class="hub-node-sub">AX 확산·혁신</text>
+        </g>
+
+        <!-- Top connector: 장영실연구원 -->
+        <g>
+          <rect x="310" y="20" width="200" height="38" rx="19" fill="var(--blue-pale)" stroke="rgba(0,91,170,.2)" stroke-width="1.5"/>
+          <text x="410" y="43" text-anchor="middle" fill="var(--blue)" font-size="12.5" font-weight="700" font-family="Pretendard Variable">🔬 장영실AI융합연구원</text>
+          <line x1="410" y1="58" x2="410" y2="102" stroke="rgba(0,91,170,.25)" stroke-width="1.5" stroke-dasharray="5 3"/>
+        </g>
+
+        <!-- Bottom connector: AX정보화혁신본부 -->
+        <g>
+          <rect x="300" y="282" width="220" height="38" rx="19" fill="#ECFAF3" stroke="rgba(0,166,81,.2)" stroke-width="1.5"/>
+          <text x="410" y="305" text-anchor="middle" fill="var(--green)" font-size="12.5" font-weight="700" font-family="Pretendard Variable">💡 AX정보화혁신본부</text>
+          <line x1="410" y1="238" x2="410" y2="282" stroke="rgba(0,166,81,.25)" stroke-width="1.5" stroke-dasharray="5 3"/>
+        </g>
+      </svg>
+
+      <!-- Hub quick nav buttons -->
+      <div class="hub-nav">
+        <div class="hub-nav-btn active"><i class="fas fa-microchip"></i> AI컴퓨터공학부</div>
+        <div class="hub-nav-btn"><i class="fas fa-chart-bar"></i> 데이터사이언스학과</div>
+        <div class="hub-nav-btn"><i class="fas fa-cogs"></i> 산업공학부</div>
+        <div class="hub-nav-btn"><i class="fas fa-atom"></i> AX융합학부</div>
+        <div class="hub-nav-btn" style="border-color:var(--blue);color:var(--blue)"><i class="fas fa-flask"></i> 장영실연구원</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS (dynamic card grid) -->
+<section class="dept-section">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px">
+      <div>
+        <div class="s-eyebrow">Departments</div>
+        <div class="s-title">학과 · 전공 안내</div>
+        <p class="s-sub">각 학과를 클릭하여 상세 정보와 커리큘럼을 확인하세요.</p>
+      </div>
+      <a href="#" style="font-size:13.5px;font-weight:700;color:var(--blue);display:inline-flex;align-items:center;gap:5px">전체 보기 <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="dept-grid">
+      <div class="dept-card">
+        <div class="dept-card-top g1">💻</div>
+        <div class="arrow-circle"><i class="fas fa-arrow-right"></i></div>
+        <div class="dept-card-body">
+          <div class="dept-badge">학부</div>
+          <div class="dept-name">AI컴퓨터공학부</div>
+          <div class="dept-desc">머신러닝, 컴퓨터비전, 자연어처리 등 AI 핵심 기술을 연구·교육합니다.</div>
+          <a href="#" class="dept-link">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-card-top g2">📊</div>
+        <div class="arrow-circle"><i class="fas fa-arrow-right"></i></div>
+        <div class="dept-card-body">
+          <div class="dept-badge">학과</div>
+          <div class="dept-name">데이터사이언스학과</div>
+          <div class="dept-desc">빅데이터 분석, 통계적 기계학습, 데이터 시각화 분야의 전문가를 양성합니다.</div>
+          <a href="#" class="dept-link">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-card-top g4">⚙️</div>
+        <div class="arrow-circle"><i class="fas fa-arrow-right"></i></div>
+        <div class="dept-card-body">
+          <div class="dept-badge">학부</div>
+          <div class="dept-name">산업공학부</div>
+          <div class="dept-desc">AI 기반 스마트 제조, 생산 최적화, 인간-AI 협업 시스템을 연구합니다.</div>
+          <a href="#" class="dept-link">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-card-top g3">🧬</div>
+        <div class="arrow-circle"><i class="fas fa-arrow-right"></i></div>
+        <div class="dept-card-body">
+          <div class="dept-badge">학부</div>
+          <div class="dept-name">AX융합학부</div>
+          <div class="dept-desc">AI를 전 학문 분야에 접목하는 AX 혁신 인재를 양성하는 신설 학부입니다.</div>
+          <a href="#" class="dept-link">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-card-top g5">🔬</div>
+        <div class="arrow-circle"><i class="fas fa-arrow-right"></i></div>
+        <div class="dept-card-body">
+          <div class="dept-badge">대학원</div>
+          <div class="dept-name">AI 대학원</div>
+          <div class="dept-desc">석·박사 과정을 통해 AI 분야의 고급 연구 인재를 집중 양성합니다.</div>
+          <a href="#" class="dept-link">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-card-top g6">📐</div>
+        <div class="arrow-circle"><i class="fas fa-arrow-right"></i></div>
+        <div class="dept-card-body">
+          <div class="dept-badge">대학원</div>
+          <div class="dept-name">DS 대학원</div>
+          <div class="dept-desc">데이터사이언스 심화 연구 및 산업체 연계 협동 과정을 운영합니다.</div>
+          <a href="#" class="dept-link">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS mix -->
+<section class="prog-section">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px">
+      <div>
+        <div class="s-eyebrow">Academic Programs</div>
+        <div class="s-title">교육·연구 프로그램</div>
+        <p class="s-sub">이론과 실무를 겸비한 AI 전문 인재를 위한 특화 프로그램입니다.</p>
+      </div>
+    </div>
+    <div class="prog-bento">
+      <!-- Visual tile: spans 2 cols -->
+      <div class="pb-visual">
+        <div class="pb-visual-inner">
+          <div class="pb-v-tag"><i class="fas fa-star"></i> 대표 프로그램</div>
+          <div class="pb-v-title">AI 집중 양성 트랙 &<br>AX 부트캠프</div>
+          <div class="pb-v-desc">산업 현장 문제를 AI로 해결하는 6개월 집중 실무 과정</div>
+          <div class="pb-v-stats">
+            <div class="pb-v-stat"><div class="n">3기</div><div class="l">운영 중</div></div>
+            <div class="pb-v-stat"><div class="n">94%</div><div class="l">취업·창업률</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pb-tile">
+        <div class="pb-icon">🎓</div>
+        <div class="pb-title">AI 마이크로 전공</div>
+        <div class="pb-desc">타 대학 학생도 이수 가능한 AI 마이크로디그리 교육과정</div>
+        <div class="pb-tag">교육</div>
+      </div>
+      <div class="pb-tile">
+        <div class="pb-icon">🤝</div>
+        <div class="pb-title">산학 캡스톤 프로젝트</div>
+        <div class="pb-desc">기업 파트너와 공동으로 수행하는 실전형 팀 프로젝트</div>
+        <div class="pb-tag">산학</div>
+      </div>
+      <div class="pb-tile">
+        <div class="pb-icon">🌐</div>
+        <div class="pb-title">해외 교환·파견</div>
+        <div class="pb-desc">MIT, CMU, 도쿄대 등 AI 선도 대학 교환학생·공동연구 프로그램</div>
+        <div class="pb-tag" style="background:#EDE9FE;color:#7C3AED">국제</div>
+      </div>
+      <div class="pb-tile">
+        <div class="pb-icon">🏆</div>
+        <div class="pb-title">AI 경진대회 참가 지원</div>
+        <div class="pb-desc">Kaggle, NeurIPS, 국내 AI 챌린지 참가팀 전폭 지원</div>
+        <div class="pb-tag" style="background:#FEF3C7;color:#D97706">경쟁</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section class="faculty-section">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px">
+      <div>
+        <div class="s-eyebrow">Faculty</div>
+        <div class="s-title">교수진 소개</div>
+      </div>
+      <a href="#" style="font-size:13.5px;font-weight:700;color:var(--blue);display:inline-flex;align-items:center;gap:5px">전체 교수진 <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="faculty-grid">
+      <div class="fac-card">
+        <div class="fac-avatar">👨‍🏫</div>
+        <div class="fac-body">
+          <div class="fac-name">김영식 교수</div>
+          <div class="fac-role">AI컴퓨터공학부</div>
+          <div class="fac-area">컴퓨터 비전, 딥러닝</div>
+          <div class="fac-tags">
+            <span class="fac-tag">Vision</span>
+            <span class="fac-tag">CNN</span>
+          </div>
+        </div>
+      </div>
+      <div class="fac-card">
+        <div class="fac-avatar">👩‍🔬</div>
+        <div class="fac-body">
+          <div class="fac-name">이수진 교수</div>
+          <div class="fac-role">데이터사이언스학과</div>
+          <div class="fac-area">통계적 기계학습, 베이지안</div>
+          <div class="fac-tags">
+            <span class="fac-tag">Bayes</span>
+            <span class="fac-tag">ML</span>
+          </div>
+        </div>
+      </div>
+      <div class="fac-card">
+        <div class="fac-avatar">👨‍💻</div>
+        <div class="fac-body">
+          <div class="fac-name">박준혁 교수</div>
+          <div class="fac-role">AI컴퓨터공학부</div>
+          <div class="fac-area">자연어처리, LLM</div>
+          <div class="fac-tags">
+            <span class="fac-tag">NLP</span>
+            <span class="fac-tag">LLM</span>
+          </div>
+        </div>
+      </div>
+      <div class="fac-card">
+        <div class="fac-avatar">👩‍🏫</div>
+        <div class="fac-body">
+          <div class="fac-name">최민정 교수</div>
+          <div class="fac-role">산업공학부</div>
+          <div class="fac-area">스마트 제조, AI 최적화</div>
+          <div class="fac-tags">
+            <span class="fac-tag">제조AI</span>
+            <span class="fac-tag">OR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS & NOTICE -->
+<section class="news-section">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px">
+      <div>
+        <div class="s-eyebrow">News & Notice</div>
+        <div class="s-title">새 소식</div>
+      </div>
+      <a href="#" style="font-size:13.5px;font-weight:700;color:var(--blue);display:inline-flex;align-items:center;gap:5px">전체 보기 <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="news-layout">
+      <div>
+        <!-- Feature news -->
+        <div class="news-feature" style="margin-bottom:16px">
+          <div class="news-feature-inner">
+            <div class="nf-cat"><i class="fas fa-trophy"></i> 수상</div>
+            <div class="nf-title">AI컴퓨터공학부 연구팀, CVPR 2025 최우수 논문상 수상</div>
+            <div class="nf-date">2025.05.18</div>
+          </div>
+        </div>
+        <!-- News list -->
+        <div class="news-list">
+          <div class="news-item">
+            <div class="news-dot"><i class="fas fa-handshake"></i></div>
+            <div>
+              <div class="ni-title">삼성전자·현대차와 AI 산학협력 협약 체결 — 연구비 30억 지원</div>
+              <div class="ni-meta">산학협력 · 2025.05.10</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <div class="news-dot"><i class="fas fa-graduation-cap"></i></div>
+            <div>
+              <div class="ni-title">2026학년도 AI 대학 학부 신입생 모집 요강 공개</div>
+              <div class="ni-meta">입학 · 2025.04.28</div>
+            </div>
+          </div>
+          <div class="news-item">
+            <div class="news-dot"><i class="fas fa-flask"></i></div>
+            <div>
+              <div class="ni-title">데이터사이언스학과, 과기부 AI 혁신허브 기관 선정</div>
+              <div class="ni-meta">연구 · 2025.04.15</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Notice + side info -->
+      <div>
+        <div class="notice-panel">
+          <div class="notice-header">
+            <div class="notice-title">📢 공지사항</div>
+            <a href="#" class="notice-more">더보기 →</a>
+          </div>
+          <div class="notice-item">
+            2025-2학기 수강신청 일정 안내
+            <div class="ni-date">2025.05.20</div>
+          </div>
+          <div class="notice-item">
+            AI 대학 학생 장학금 신청 안내
+            <div class="ni-date">2025.05.14</div>
+          </div>
+          <div class="notice-item">
+            AI 집중 양성 트랙 3기 모집 (5월 말 마감)
+            <div class="ni-date">2025.05.07</div>
+          </div>
+          <div class="notice-item">
+            교수 채용 공고 (AI컴퓨터공학부 1명)
+            <div class="ni-date">2025.04.25</div>
+          </div>
+          <div class="notice-item">
+            대학원 입학 설명회 개최 안내 (6월 5일)
+            <div class="ni-date">2025.04.18</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-brand-name">부산대학교 인공지능대학</div>
+        <div class="ft-brand-desc">부산대학교 AI 대학은 AI·데이터·산업 융합 교육을 통해 미래 AI 혁신 인재를 양성합니다.</div>
+        <div class="ft-brand-addr">부산광역시 금정구 부산대학로 63번길 2<br>AI 대학관 · Tel. 051-510-1234</div>
+      </div>
+      <div class="ft-col">
+        <h4>대학 소개</h4>
+        <a href="#">학장 인사말</a>
+        <a href="#">연혁</a>
+        <a href="#">오시는 길</a>
+      </div>
+      <div class="ft-col">
+        <h4>학과·전공</h4>
+        <a href="#">AI컴퓨터공학부</a>
+        <a href="#">데이터사이언스</a>
+        <a href="#">산업공학부</a>
+        <a href="#">AX융합학부</a>
+      </div>
+      <div class="ft-col">
+        <h4>알림마당</h4>
+        <a href="#">공지사항</a>
+        <a href="#">뉴스·보도</a>
+        <a href="#">행사·일정</a>
+        <a href="#">자료실</a>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <div class="ft-copy">© 2025 College of AI, Pusan National University. All rights reserved.</div>
+      <div class="ft-links">
+        <a href="#">개인정보처리방침</a>
+        <a href="#">사이트맵</a>
+        <a href="#">English</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Hub nav button interaction
+document.querySelectorAll('.hub-nav-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.hub-nav-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

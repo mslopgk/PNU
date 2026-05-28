@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>장영실 AI 융합연구원 — Immersive Showcase | airc.pusan.ac.kr</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Serif+KR:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --blue: #005BAA;
+  --blue-l: #3B82F6;
+  --blue-d: #1E3A5F;
+  --navy: #0B1A3E;
+  --ink: #0F172A;
+  --gold: #C39B3A;
+  --green: #00A651;
+  --teal: #0EA5E9;
+  --violet: #7C3AED;
+  --amber: #D97706;
+  --rose: #E11D48;
+  --paper: #F8FAFC;
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.12);
+  --topbar-h: 56px;
+  --sidebar-w: 256px;
+}
+html { scroll-behavior:smooth; }
+body { font-family:'Pretendard Variable','Inter',sans-serif; background:var(--navy); color:rgba(255,255,255,.85); font-size:14px; line-height:1.65; word-break:keep-all; -webkit-font-smoothing:antialiased; }
+a { text-decoration:none; color:inherit; }
+.serif { font-family:'Noto Serif KR', serif; }
+.mono { font-family:'JetBrains Mono', monospace; }
+
+/* ── TOP BAR ── */
+.topbar { height:var(--topbar-h); background:linear-gradient(90deg, var(--navy) 0%, var(--blue-d) 100%); display:flex; align-items:center; justify-content:space-between; padding:0 24px; position:sticky; top:0; z-index:200; border-bottom:1px solid rgba(195,155,58,.2); box-shadow:0 4px 20px rgba(0,0,0,.3); }
+.tb-left { display:flex; align-items:center; gap:18px; }
+.tb-logo { display:flex; align-items:center; gap:12px; }
+.tb-mark { width:38px; height:38px; background:linear-gradient(135deg, var(--gold), #B45309); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; box-shadow:0 4px 14px rgba(195,155,58,.4); }
+.tb-name { font-size:15px; font-weight:800; color:#fff; letter-spacing:-.015em; }
+.tb-sub { font-size:10px; color:rgba(255,255,255,.55); font-family:'JetBrains Mono', monospace; letter-spacing:.06em; }
+
+.tb-bread { font-size:12px; color:rgba(255,255,255,.55); display:flex; align-items:center; gap:8px; padding-left:18px; border-left:1px solid rgba(255,255,255,.12); }
+.tb-bread strong { color:#fff; }
+.tb-right { display:flex; align-items:center; gap:12px; }
+.tb-link { font-size:12px; color:rgba(255,255,255,.6); padding:6px 12px; border-radius:7px; transition:all .2s; }
+.tb-link:hover { background:rgba(255,255,255,.08); color:#fff; }
+.tb-cta { padding:7px 16px !important; background:linear-gradient(135deg, var(--blue), var(--blue-l)) !important; color:#fff !important; font-weight:700 !important; box-shadow:0 4px 12px rgba(0,91,170,.4); border-radius:8px; }
+
+/* ── LAYOUT ── */
+.layout { display:flex; min-height:calc(100vh - var(--topbar-h)); }
+
+/* ── SIDEBAR (dark glass) ── */
+.sidebar { width:var(--sidebar-w); flex-shrink:0; background:rgba(11,26,62,.96); border-right:1px solid rgba(255,255,255,.06); position:sticky; top:var(--topbar-h); height:calc(100vh - var(--topbar-h)); overflow-y:auto; backdrop-filter:blur(20px); }
+.sidebar::-webkit-scrollbar { width:4px; }
+.sidebar::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:2px; }
+
+.sb-hero { padding:24px 18px; background:linear-gradient(165deg, rgba(195,155,58,.15), rgba(0,91,170,.18)); border-bottom:1px solid rgba(255,255,255,.08); position:relative; overflow:hidden; }
+.sb-hero::before { content:''; position:absolute; top:-40px; right:-40px; width:130px; height:130px; border-radius:50%; background:radial-gradient(circle, rgba(195,155,58,.4), transparent 60%); }
+.sb-hero-tag { font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; font-family:'JetBrains Mono', monospace; position:relative; }
+.sb-hero-name { font-family:'Noto Serif KR', serif; font-size:22px; font-weight:800; color:#fff; line-height:1.15; letter-spacing:-.02em; margin-bottom:6px; position:relative; }
+.sb-hero-en { font-size:10.5px; color:rgba(255,255,255,.5); font-family:'JetBrains Mono', monospace; letter-spacing:.04em; margin-bottom:16px; position:relative; }
+.sb-stat-mini { display:flex; gap:10px; position:relative; }
+.sb-sm-cell { flex:1; padding:8px 10px; background:rgba(255,255,255,.06); border-radius:8px; border:1px solid rgba(255,255,255,.08); }
+.sb-sm-n { font-family:'Inter', sans-serif; font-size:15px; font-weight:900; color:var(--gold); letter-spacing:-.025em; line-height:1; }
+.sb-sm-l { font-size:9.5px; color:rgba(255,255,255,.55); margin-top:3px; font-family:'JetBrains Mono', monospace; letter-spacing:.04em; }
+
+.sb-section { padding:16px 14px 6px; }
+.sb-section-title { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.4); padding:0 8px; margin-bottom:8px; font-family:'JetBrains Mono', monospace; }
+.sb-item { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px; color:rgba(255,255,255,.7); font-size:13px; font-weight:500; transition:all .2s; cursor:pointer; }
+.sb-item:hover { background:rgba(255,255,255,.06); color:#fff; }
+.sb-item.active { background:linear-gradient(135deg, rgba(0,91,170,.35), rgba(0,91,170,.18)); color:#fff; font-weight:700; border-left:3px solid var(--gold); padding-left:9px; }
+.sb-item i { font-size:13px; width:16px; text-align:center; color:rgba(255,255,255,.5); transition:color .2s; }
+.sb-item:hover i, .sb-item.active i { color:var(--gold); }
+.sb-badge { margin-left:auto; padding:1px 8px; border-radius:999px; font-size:10px; font-weight:800; background:var(--blue); color:#fff; font-family:'JetBrains Mono', monospace; }
+.sb-badge.green { background:var(--green); }
+.sb-badge.gold { background:var(--gold); color:var(--ink); }
+.sb-divider { height:1px; background:rgba(255,255,255,.06); margin:8px 14px; }
+
+/* ── MAIN ── */
+.main { flex:1; overflow-x:hidden; padding:0; background:var(--navy); min-width:0; position:relative; }
+
+/* ── HERO IMMERSIVE PANEL ── */
+.hero-panel { position:relative; min-height:580px; padding:0; overflow:hidden; background:linear-gradient(165deg, var(--ink) 0%, var(--navy) 40%, var(--blue-d) 100%); }
+.hero-bg-pattern { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px); background-size:48px 48px; }
+.hero-glow-1 { position:absolute; top:-200px; right:-100px; width:560px; height:560px; border-radius:50%; background:radial-gradient(circle, rgba(195,155,58,.18), transparent 60%); }
+.hero-glow-2 { position:absolute; bottom:-200px; left:-100px; width:540px; height:540px; border-radius:50%; background:radial-gradient(circle, rgba(0,91,170,.32), transparent 60%); }
+
+.hero-content { position:relative; padding:60px 48px 48px; display:grid; grid-template-columns:1.4fr 1fr; gap:48px; align-items:center; min-height:580px; }
+
+.hero-left { color:#fff; }
+.hero-chip { display:inline-flex; align-items:center; gap:10px; padding:7px 18px; background:rgba(195,155,58,.18); border:1px solid rgba(195,155,58,.4); backdrop-filter:blur(8px); border-radius:100px; font-size:11.5px; font-weight:800; color:var(--gold); margin-bottom:22px; letter-spacing:.06em; font-family:'JetBrains Mono', monospace; }
+.hero-chip-dot { width:7px; height:7px; border-radius:50%; background:var(--gold); animation:pulse 2s ease infinite; box-shadow:0 0 12px var(--gold); }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:.5} }
+
+.hero-title { font-family:'Noto Serif KR', serif; font-size:clamp(2.4rem, 4.2vw, 4rem); font-weight:900; color:#fff; line-height:1.05; letter-spacing:-.045em; margin-bottom:24px; }
+.hero-title em { font-style:italic; background:linear-gradient(135deg, var(--gold), #F59E0B); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-deck { font-family:'Noto Serif KR', serif; font-size:17px; color:rgba(255,255,255,.78); line-height:1.7; max-width:620px; margin-bottom:32px; font-style:italic; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:36px; }
+.h-btn-gold { display:inline-flex; align-items:center; gap:10px; padding:14px 28px; background:linear-gradient(135deg, var(--gold), #D4AB48); color:var(--ink); border-radius:11px; font-size:14.5px; font-weight:800; box-shadow:0 8px 24px rgba(195,155,58,.35); transition:all .25s; }
+.h-btn-gold:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(195,155,58,.45); }
+.h-btn-glass { display:inline-flex; align-items:center; gap:9px; padding:14px 22px; background:rgba(255,255,255,.08); backdrop-filter:blur(12px); color:#fff; border-radius:11px; font-size:14px; font-weight:600; border:1.5px solid rgba(255,255,255,.18); transition:all .2s; }
+.h-btn-glass:hover { background:rgba(255,255,255,.14); }
+
+.hero-stats-glass { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.hsg-cell { background:rgba(255,255,255,.06); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:16px 18px; transition:all .25s; cursor:pointer; }
+.hsg-cell:hover { background:rgba(255,255,255,.1); transform:translateY(-2px); }
+.hsg-tag { font-size:10px; color:rgba(255,255,255,.55); font-weight:800; letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px; font-family:'JetBrains Mono', monospace; }
+.hsg-num { font-family:'Inter', sans-serif; font-size:24px; font-weight:900; color:var(--gold); letter-spacing:-.035em; line-height:1; }
+.hsg-num span { font-size:13px; color:rgba(255,255,255,.6); }
+.hsg-l { font-size:11px; color:rgba(255,255,255,.65); margin-top:5px; }
+
+/* Hero right — IT building visual */
+.hero-right { position:relative; }
+.it-card { background:rgba(255,255,255,.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:24px; padding:32px; box-shadow:0 16px 48px rgba(0,0,0,.3); }
+.it-img { height:200px; border-radius:16px; background:linear-gradient(165deg, var(--blue-d), var(--blue) 60%, var(--blue-l)); display:flex; align-items:center; justify-content:center; font-size:90px; margin-bottom:22px; position:relative; overflow:hidden; }
+.it-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.25), transparent 60%); }
+.it-tag { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; background:rgba(195,155,58,.2); border-radius:100px; font-size:10.5px; font-weight:800; color:var(--gold); letter-spacing:.06em; text-transform:uppercase; margin-bottom:12px; font-family:'JetBrains Mono', monospace; }
+.it-name { font-family:'Noto Serif KR', serif; font-size:22px; font-weight:800; color:#fff; line-height:1.2; margin-bottom:6px; }
+.it-desc { font-size:13px; color:rgba(255,255,255,.7); line-height:1.65; margin-bottom:20px; }
+.it-specs { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding-top:18px; border-top:1px solid rgba(255,255,255,.1); }
+.it-spec { }
+.it-spec-n { font-family:'Inter', sans-serif; font-size:18px; font-weight:900; color:#fff; letter-spacing:-.025em; line-height:1; }
+.it-spec-n span { font-size:12px; color:var(--gold); }
+.it-spec-l { font-size:11px; color:rgba(255,255,255,.55); margin-top:3px; font-family:'JetBrains Mono', monospace; letter-spacing:.04em; }
+
+/* ── SECTION BASE ── */
+.section { padding:80px 48px; position:relative; }
+.section-alt { background:rgba(0,0,0,.2); }
+.s-eyebrow { display:inline-flex; align-items:center; gap:10px; font-size:11.5px; font-weight:800; color:var(--gold); letter-spacing:.14em; text-transform:uppercase; margin-bottom:14px; font-family:'JetBrains Mono', monospace; }
+.s-eyebrow::before { content:''; width:30px; height:2px; background:var(--gold); }
+.s-title { font-family:'Noto Serif KR', serif; font-size:clamp(1.9rem, 2.8vw, 2.4rem); font-weight:900; color:#fff; letter-spacing:-.035em; line-height:1.2; margin-bottom:14px; }
+.s-title em { font-style:italic; color:var(--gold); }
+.s-sub { font-size:15px; color:rgba(255,255,255,.7); line-height:1.75; max-width:620px; }
+.section-header { margin-bottom:48px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.more-link { font-size:13px; font-weight:700; color:var(--gold); display:inline-flex; align-items:center; gap:6px; transition:gap .2s; font-family:'JetBrains Mono', monospace; letter-spacing:.04em; }
+.more-link:hover { gap:10px; }
+
+/* ── RESEARCH FULL-BLEED VISUALS ── */
+.research-bento { display:grid; grid-template-columns:1.4fr 1fr 1fr; grid-template-rows:auto auto; gap:18px; }
+.rb-card { border-radius:20px; overflow:hidden; position:relative; min-height:240px; cursor:pointer; transition:all .25s; }
+.rb-card:hover { transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,.4); }
+.rb-feature { grid-row:span 2; min-height:500px; background:linear-gradient(165deg, #1a0a3e 0%, #4338CA 40%, #7C3AED 100%); }
+.rb-card.v2 { background:linear-gradient(165deg, var(--navy), var(--blue) 80%); }
+.rb-card.v3 { background:linear-gradient(165deg, #003c2c, var(--green)); }
+.rb-card.v4 { background:linear-gradient(165deg, #4a2400, var(--amber)); }
+.rb-card.v5 { background:linear-gradient(165deg, #4a0014, var(--rose)); }
+.rb-inner { position:absolute; inset:0; padding:32px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%); }
+.rb-feature .rb-inner { padding:42px; }
+.rb-tag { display:inline-flex; align-self:flex-start; align-items:center; gap:6px; padding:5px 14px; background:rgba(255,255,255,.18); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.22); border-radius:100px; font-size:11px; font-weight:800; color:#fff; letter-spacing:.06em; text-transform:uppercase; margin-bottom:12px; font-family:'JetBrains Mono', monospace; }
+.rb-feature .rb-tag { background:rgba(195,155,58,.25); border-color:rgba(195,155,58,.4); color:var(--gold); }
+.rb-title { font-family:'Noto Serif KR', serif; font-size:20px; font-weight:800; color:#fff; line-height:1.25; letter-spacing:-.02em; margin-bottom:8px; }
+.rb-feature .rb-title { font-size:32px; line-height:1.15; margin-bottom:14px; }
+.rb-desc { font-size:13px; color:rgba(255,255,255,.78); line-height:1.65; }
+.rb-feature .rb-desc { font-size:15px; line-height:1.7; }
+.rb-stats { display:flex; gap:20px; margin-top:20px; padding-top:18px; border-top:1px solid rgba(255,255,255,.15); }
+.rb-stat-cell .rsc-n { font-family:'Inter', sans-serif; font-size:24px; font-weight:900; color:#fff; letter-spacing:-.03em; line-height:1; }
+.rb-feature .rb-stat-cell .rsc-n { color:var(--gold); font-size:32px; }
+.rb-stat-cell .rsc-n span { font-size:12px; color:rgba(255,255,255,.6); }
+.rb-stat-cell .rsc-l { font-size:10.5px; color:rgba(255,255,255,.55); margin-top:4px; font-family:'JetBrains Mono', monospace; letter-spacing:.04em; text-transform:uppercase; }
+
+/* ── DIRECTOR + ACTS ── */
+.dir-section { display:grid; grid-template-columns:1.2fr 1fr; gap:36px; align-items:center; }
+.dir-card { background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.12); border-radius:24px; padding:42px; }
+.dir-quote { font-family:'Noto Serif KR', serif; font-size:22px; font-weight:500; color:#fff; line-height:1.55; font-style:italic; margin-bottom:24px; position:relative; padding-left:24px; border-left:3px solid var(--gold); }
+.dir-meta-row { display:flex; align-items:center; gap:18px; padding-top:24px; border-top:1px solid rgba(255,255,255,.1); }
+.dir-avatar { width:64px; height:64px; border-radius:16px; background:linear-gradient(135deg, var(--gold), #B45309); display:flex; align-items:center; justify-content:center; font-size:30px; flex-shrink:0; box-shadow:0 6px 20px rgba(195,155,58,.32); }
+.dir-info { flex:1; }
+.dir-name { font-size:16px; font-weight:800; color:#fff; }
+.dir-name small { font-weight:500; color:rgba(255,255,255,.6); margin-left:4px; }
+.dir-position { font-size:11.5px; color:var(--gold); font-weight:700; font-family:'JetBrains Mono', monospace; letter-spacing:.04em; margin-top:3px; }
+.dir-org { font-size:11px; color:rgba(255,255,255,.5); margin-top:2px; }
+
+.acts-vert { display:flex; flex-direction:column; gap:14px; }
+.acts-row { display:flex; align-items:center; gap:18px; padding:18px 20px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:14px; transition:all .25s; cursor:pointer; }
+.acts-row:hover { background:rgba(255,255,255,.1); transform:translateX(4px); }
+.acts-letter-circle { width:50px; height:50px; border-radius:50%; background:linear-gradient(135deg, var(--gold), #B45309); color:var(--ink); display:flex; align-items:center; justify-content:center; font-family:'Noto Serif KR', serif; font-size:24px; font-weight:900; flex-shrink:0; }
+.acts-row.green .acts-letter-circle { background:linear-gradient(135deg, var(--green), #047857); color:#fff; }
+.acts-row.amber .acts-letter-circle { background:linear-gradient(135deg, var(--amber), #B45309); color:#fff; }
+.acts-row.violet .acts-letter-circle { background:linear-gradient(135deg, var(--violet), #5B21B6); color:#fff; }
+.acts-content { flex:1; }
+.acts-content-name { font-size:14.5px; font-weight:800; color:#fff; margin-bottom:2px; }
+.acts-content-en { font-size:10.5px; color:rgba(255,255,255,.55); font-family:'JetBrains Mono', monospace; letter-spacing:.05em; margin-bottom:6px; text-transform:uppercase; }
+.acts-content-desc { font-size:12.5px; color:rgba(255,255,255,.7); line-height:1.55; }
+
+/* ── PARTNERSHIP IMMERSIVE ── */
+.partner-immersive { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.pi-card { border-radius:20px; overflow:hidden; position:relative; min-height:340px; cursor:pointer; transition:all .25s; }
+.pi-card:hover { transform:translateY(-4px); box-shadow:0 18px 48px rgba(0,0,0,.4); }
+.pi-card.samsung { background:linear-gradient(165deg, #0a1463, #1428A0); }
+.pi-card.eunsung { background:linear-gradient(165deg, #013220, var(--green)); }
+.pi-card.kims { background:linear-gradient(165deg, #2E1065, #6366F1); }
+.pi-card.stanford { background:linear-gradient(165deg, #4A0E18, #8C1515); }
+.pi-card.etri { background:linear-gradient(165deg, #1E3A5F, #0075C9); }
+.pi-card.google { background:linear-gradient(135deg, #4285F4 25%, #34A853 50%, #FBBC04 75%, #EA4335); }
+
+.pi-top { padding:32px 28px 20px; }
+.pi-mou { display:inline-flex; align-items:center; gap:6px; padding:5px 13px; background:rgba(0,0,0,.25); backdrop-filter:blur(8px); border-radius:100px; font-size:10.5px; font-weight:800; color:rgba(255,255,255,.92); letter-spacing:.06em; text-transform:uppercase; margin-bottom:14px; font-family:'JetBrains Mono', monospace; }
+.pi-logo { font-family:'Inter', sans-serif; font-size:32px; font-weight:900; color:#fff; letter-spacing:-.04em; line-height:1; }
+.pi-en { font-size:11.5px; color:rgba(255,255,255,.7); font-family:'JetBrains Mono', monospace; letter-spacing:.06em; margin-top:6px; }
+
+.pi-bottom { position:absolute; left:0; right:0; bottom:0; padding:28px; background:linear-gradient(to top, rgba(0,0,0,.7), transparent); }
+.pi-title { font-family:'Noto Serif KR', serif; font-size:18px; font-weight:800; color:#fff; line-height:1.3; letter-spacing:-.02em; margin-bottom:8px; }
+.pi-desc { font-size:13px; color:rgba(255,255,255,.85); line-height:1.6; margin-bottom:14px; }
+.pi-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.pi-tag-chip { padding:3px 10px; background:rgba(255,255,255,.16); backdrop-filter:blur(8px); border-radius:100px; font-size:10.5px; font-weight:700; color:#fff; }
+
+/* ── IT 관 SHOWCASE ── */
+.it-showcase { background:linear-gradient(165deg, var(--ink), var(--navy)); border-radius:28px; padding:48px; position:relative; overflow:hidden; }
+.it-showcase::before { content:''; position:absolute; top:-100px; right:-100px; width:380px; height:380px; border-radius:50%; background:radial-gradient(circle, rgba(195,155,58,.2), transparent 60%); }
+.it-grid { position:relative; display:grid; grid-template-columns:1.2fr 1fr; gap:48px; align-items:center; }
+.it-stats-row { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:32px; }
+.it-stat-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:18px 20px; }
+.it-stat-tag { font-size:10.5px; font-weight:800; color:var(--gold); letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:'JetBrains Mono', monospace; }
+.it-stat-n { font-family:'Inter', sans-serif; font-size:30px; font-weight:900; color:#fff; letter-spacing:-.04em; line-height:1; }
+.it-stat-n span { font-size:15px; color:rgba(255,255,255,.55); }
+.it-stat-d { font-size:11.5px; color:rgba(255,255,255,.6); margin-top:6px; }
+
+.it-vis { background:linear-gradient(165deg, var(--blue-d), var(--blue) 70%, var(--blue-l)); border-radius:24px; min-height:380px; padding:32px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
+.it-vis::before { content:'🏢'; position:absolute; bottom:-40px; right:-30px; font-size:300px; opacity:0.15; }
+.it-vis-tag { display:inline-flex; align-self:flex-start; align-items:center; gap:6px; padding:5px 14px; background:rgba(0,0,0,.3); backdrop-filter:blur(8px); border-radius:100px; font-size:10.5px; font-weight:800; color:#fff; letter-spacing:.06em; text-transform:uppercase; font-family:'JetBrains Mono', monospace; }
+.it-vis-content { position:relative; }
+.it-vis-name { font-family:'Noto Serif KR', serif; font-size:36px; font-weight:900; color:#fff; line-height:1.1; letter-spacing:-.03em; margin-bottom:8px; }
+.it-vis-en { font-family:'JetBrains Mono', monospace; font-size:11px; color:rgba(255,255,255,.6); letter-spacing:.06em; margin-bottom:18px; }
+.it-vis-li { font-size:13px; color:rgba(255,255,255,.78); line-height:1.7; padding:6px 0; }
+.it-vis-li i { color:var(--gold); font-size:11px; margin-right:8px; }
+
+/* ── ACHIEVEMENTS / NEWS ── */
+.ach-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.ach-tile { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:24px; transition:all .25s; cursor:pointer; }
+.ach-tile:hover { background:rgba(255,255,255,.08); border-color:rgba(195,155,58,.3); transform:translateY(-3px); }
+.ach-icon { width:46px; height:46px; border-radius:12px; background:rgba(195,155,58,.15); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:14px; }
+.ach-icon.blue { background:rgba(0,91,170,.18); color:var(--blue-l); }
+.ach-icon.green { background:rgba(0,166,81,.15); color:#34D399; }
+.ach-icon.violet { background:rgba(124,58,237,.15); color:#A78BFA; }
+.ach-tile-tag { font-size:10.5px; font-weight:800; color:var(--gold); letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:'JetBrains Mono', monospace; }
+.ach-tile-title { font-size:15px; font-weight:800; color:#fff; line-height:1.35; margin-bottom:6px; }
+.ach-tile-desc { font-size:12.5px; color:rgba(255,255,255,.65); line-height:1.6; }
+
+/* ── NEWS LIST ── */
+.news-feed { display:grid; grid-template-columns:2fr 1fr; gap:24px; }
+.news-feature { border-radius:20px; overflow:hidden; min-height:340px; position:relative; cursor:pointer; transition:all .25s; background:linear-gradient(165deg, #003c2c, #00A651 60%, #10B981); }
+.news-feature:hover { transform:translateY(-3px); box-shadow:0 18px 48px rgba(0,166,81,.25); }
+.nf-inner { position:absolute; inset:0; padding:36px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(to top, rgba(0,0,0,.6), transparent 55%); }
+.nf-cat { display:inline-flex; align-self:flex-start; align-items:center; gap:6px; padding:5px 14px; background:rgba(255,255,255,.18); backdrop-filter:blur(8px); border-radius:100px; font-size:11px; font-weight:800; color:#fff; letter-spacing:.06em; text-transform:uppercase; margin-bottom:14px; }
+.nf-title { font-family:'Noto Serif KR', serif; font-size:26px; font-weight:900; color:#fff; line-height:1.2; letter-spacing:-.025em; margin-bottom:10px; }
+.nf-meta { display:flex; gap:14px; font-size:11.5px; color:rgba(255,255,255,.78); font-family:'JetBrains Mono', monospace; letter-spacing:.04em; }
+
+.news-list-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:24px; }
+.nlc-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; padding-bottom:12px; border-bottom:2px solid rgba(195,155,58,.4); }
+.nlc-title { font-size:13.5px; font-weight:800; color:#fff; }
+.nlc-more { font-size:11px; color:var(--gold); font-weight:700; font-family:'JetBrains Mono', monospace; }
+.nlc-item { padding:11px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+.nlc-item:last-child { border-bottom:none; }
+.nlci-cat { display:inline-block; padding:1px 8px; border-radius:100px; font-size:9.5px; font-weight:800; margin-bottom:5px; letter-spacing:.05em; font-family:'JetBrains Mono', monospace; text-transform:uppercase; }
+.nlci-cat.notice { background:rgba(255,255,255,.1); color:rgba(255,255,255,.85); }
+.nlci-cat.event { background:rgba(195,155,58,.2); color:var(--gold); }
+.nlci-cat.award { background:rgba(0,166,81,.18); color:#34D399; }
+.nlci-cat.recruit { background:rgba(124,58,237,.2); color:#A78BFA; }
+.nlci-title { font-size:12.5px; font-weight:600; color:#fff; line-height:1.45; }
+.nlci-title:hover { color:var(--gold); }
+.nlci-date { font-size:10.5px; color:rgba(255,255,255,.5); margin-top:3px; font-family:'JetBrains Mono', monospace; }
+
+/* ── FOOTER ── */
+footer.imm-footer { background:var(--ink); padding:32px 48px; border-top:1px solid rgba(255,255,255,.06); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+.imm-copy { font-size:11.5px; color:rgba(255,255,255,.4); font-family:'JetBrains Mono', monospace; letter-spacing:.04em; }
+.imm-policy { display:flex; gap:18px; }
+.imm-policy a { font-size:11.5px; color:rgba(255,255,255,.5); transition:color .15s; }
+.imm-policy a:hover { color:#fff; }
+
+@media (max-width:1180px){
+  .hero-content { grid-template-columns:1fr; gap:32px; padding:48px 32px; }
+  .hero-stats-glass { grid-template-columns:repeat(2,1fr); }
+  .research-bento, .partner-immersive, .ach-grid, .it-grid, .dir-section, .news-feed { grid-template-columns:1fr; }
+  .rb-feature { grid-row:span 1; min-height:340px; }
+  .sidebar { width:240px; }
+  :root { --sidebar-w:240px; }
+  .section { padding:60px 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-left">
+    <div class="tb-logo">
+      <div class="tb-mark">🔬</div>
+      <div>
+        <div class="tb-name">장영실 AI 융합연구원</div>
+        <div class="tb-sub">JANG YEONG-SIL AI CONVERGENCE RESEARCH</div>
+      </div>
+    </div>
+    <div class="tb-bread">
+      <span><strong>airc.pusan.ac.kr</strong></span>
+      <i class="fas fa-chevron-right" style="font-size:9px;opacity:.4"></i>
+      <span>Home</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <a href="#" class="tb-link">부산대 ↗</a>
+    <a href="#" class="tb-link">AI 대학 ↗</a>
+    <a href="#" class="tb-link">ARISE ↗</a>
+    <a href="#" class="tb-link tb-cta"><i class="fas fa-handshake" style="margin-right:6px;font-size:11px"></i> 연구 협력</a>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-hero">
+      <div class="sb-hero-tag">VISION 2030 · ACTS</div>
+      <div class="sb-hero-name">AI 융합과학<br>주권 선도</div>
+      <div class="sb-hero-en">Open Research Platform · Est. 2025.12.30</div>
+      <div class="sb-stat-mini">
+        <div class="sb-sm-cell">
+          <div class="sb-sm-n">127</div>
+          <div class="sb-sm-l">진행 과제</div>
+        </div>
+        <div class="sb-sm-cell">
+          <div class="sb-sm-n">68<span style="font-size:10px">명</span></div>
+          <div class="sb-sm-l">연구 인력</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-section-title">DASHBOARD</div>
+      <div class="sb-item active"><i class="fas fa-grip"></i> 홈 · Showcase</div>
+      <div class="sb-item"><i class="fas fa-flag"></i> 비전 · ACTS</div>
+      <div class="sb-item"><i class="fas fa-comment"></i> 원장 인사말</div>
+      <div class="sb-item"><i class="fas fa-history"></i> 장영실 헤리티지</div>
+    </div>
+    <div class="sb-divider"></div>
+
+    <div class="sb-section">
+      <div class="sb-section-title">RESEARCH</div>
+      <div class="sb-item"><i class="fas fa-atom"></i> 양자 AI <div class="sb-badge gold">47억</div></div>
+      <div class="sb-item"><i class="fas fa-ship"></i> 해양 AI</div>
+      <div class="sb-item"><i class="fas fa-heart-pulse"></i> 의료 AI <div class="sb-badge green">신규</div></div>
+      <div class="sb-item"><i class="fas fa-cubes"></i> 소재·제조 AI</div>
+      <div class="sb-item"><i class="fas fa-car"></i> 모빌리티</div>
+      <div class="sb-item"><i class="fas fa-bolt"></i> 에너지</div>
+    </div>
+    <div class="sb-divider"></div>
+
+    <div class="sb-section">
+      <div class="sb-section-title">PARTNERS</div>
+      <div class="sb-item"><i class="fas fa-handshake"></i> 산학 협력</div>
+      <div class="sb-item"><i class="fas fa-globe"></i> 글로벌</div>
+      <div class="sb-item"><i class="fas fa-landmark"></i> 정부·공공</div>
+    </div>
+    <div class="sb-divider"></div>
+
+    <div class="sb-section">
+      <div class="sb-section-title">OUTPUT</div>
+      <div class="sb-item"><i class="fas fa-file-alt"></i> 논문 (284편)</div>
+      <div class="sb-item"><i class="fas fa-lightbulb"></i> 특허 (63건)</div>
+      <div class="sb-item"><i class="fas fa-exchange-alt"></i> 기술이전</div>
+    </div>
+    <div class="sb-divider"></div>
+
+    <div class="sb-section">
+      <div class="sb-section-title">NEWS</div>
+      <div class="sb-item"><i class="fas fa-bell"></i> 공지 <div class="sb-badge">3</div></div>
+      <div class="sb-item"><i class="fas fa-calendar"></i> 행사</div>
+      <div class="sb-item"><i class="fas fa-user-plus"></i> 채용 <div class="sb-badge green">2</div></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO IMMERSIVE -->
+    <section class="hero-panel">
+      <div class="hero-bg-pattern"></div>
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+      <div class="hero-content">
+        <div class="hero-left">
+          <div class="hero-chip"><span class="hero-chip-dot"></span> Live · 6개 연구 영역 운영 중</div>
+          <h1 class="hero-title">AI 융합과학의<br><em>주권을 선도</em>합니다</h1>
+          <p class="hero-deck">장영실 AI 융합연구원은 조선시대 최고의 과학자 장영실의 정신을 계승하여, 양자 AI · 해양 AI · 의료 AI · 소재 AI 등 국가 전략 분야의 융합 연구를 통해 대한민국 AI 과학 주권을 확보합니다.</p>
+          <div class="hero-actions">
+            <a href="#" class="h-btn-gold">연구 협력 시작 <i class="fas fa-arrow-right"></i></a>
+            <a href="#" class="h-btn-glass"><i class="fas fa-play-circle"></i> 연구원 소개 영상</a>
+            <a href="#" class="h-btn-glass"><i class="fas fa-file-pdf"></i> 백서</a>
+          </div>
+          <div class="hero-stats-glass">
+            <div class="hsg-cell">
+              <div class="hsg-tag">Research</div>
+              <div class="hsg-num">127<span>개</span></div>
+              <div class="hsg-l">진행 과제</div>
+            </div>
+            <div class="hsg-cell">
+              <div class="hsg-tag">Faculty</div>
+              <div class="hsg-num">68<span>명</span></div>
+              <div class="hsg-l">소속 연구원</div>
+            </div>
+            <div class="hsg-cell">
+              <div class="hsg-tag">Funding</div>
+              <div class="hsg-num">42<span>억</span></div>
+              <div class="hsg-l">2025 외부 수주</div>
+            </div>
+            <div class="hsg-cell">
+              <div class="hsg-tag">Global</div>
+              <div class="hsg-num">24<span>개국</span></div>
+              <div class="hsg-l">국제 협력</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HERO RIGHT: IT BUILDING CARD -->
+        <div class="hero-right">
+          <div class="it-card">
+            <div class="it-img">🏢</div>
+            <div class="it-tag"><i class="fas fa-star"></i> Headquarters</div>
+            <div class="it-name">부산대학교 IT관<br>장영실 연구원 본부</div>
+            <div class="it-desc">국립대학 시설개선 BTL 사업 중 최대 규모로 준공된 부산대 AI 거점 건물. 2025년 12월 30일 개원식 및 산학 협약 3건 동시 체결.</div>
+            <div class="it-specs">
+              <div class="it-spec">
+                <div class="it-spec-n">267<span>억</span></div>
+                <div class="it-spec-l">총 사업비</div>
+              </div>
+              <div class="it-spec">
+                <div class="it-spec-n">13,161<span>㎡</span></div>
+                <div class="it-spec-l">연면적</div>
+              </div>
+              <div class="it-spec">
+                <div class="it-spec-n">10<span>층</span></div>
+                <div class="it-spec-l">지하1·지상10</div>
+              </div>
+              <div class="it-spec">
+                <div class="it-spec-n">100<span>% LED</span></div>
+                <div class="it-spec-l">친환경 시설</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIRECTOR + ACTS -->
+    <section class="section section-alt">
+      <div class="dir-section">
+        <div class="dir-card">
+          <div class="s-eyebrow">From the Director</div>
+          <h2 class="s-title">"노비 출신에서<br><em>조선 최고 과학자</em>로,<br>오늘 우리도 그 길을 갑니다."</h2>
+          <div class="dir-quote">장영실 선생이 신분의 한계를 넘어 혼천의 · 자격루 · 측우기를 만들었듯, 우리 연구원도 출신과 무관하게 인재가 모이는 개방형 플랫폼이 되어 AI 융합과학의 주권을 선도하겠습니다.</div>
+          <div class="dir-meta-row">
+            <div class="dir-avatar">👨‍🏫</div>
+            <div class="dir-info">
+              <div class="dir-name">송길태 <small>초대 원장</small></div>
+              <div class="dir-position">PROFESSOR · DMB LAB · CSE</div>
+              <div class="dir-org">정보컴퓨터공학부 · AI 대학원 센터장</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acts-vert">
+          <div class="acts-row">
+            <div class="acts-letter-circle">A</div>
+            <div class="acts-content">
+              <div class="acts-content-name">Acceleration</div>
+              <div class="acts-content-en">산업화 가속</div>
+              <div class="acts-content-desc">AI 산업화 허브로서 연구 성과를 산업 현장으로 직접 이전합니다.</div>
+            </div>
+          </div>
+          <div class="acts-row green">
+            <div class="acts-letter-circle">C</div>
+            <div class="acts-content">
+              <div class="acts-content-name">Core</div>
+              <div class="acts-content-en">기초과학 강화</div>
+              <div class="acts-content-desc">AI 핵심기술 개발 및 양자·신경과학 등 기초 강화.</div>
+            </div>
+          </div>
+          <div class="acts-row amber">
+            <div class="acts-letter-circle">T</div>
+            <div class="acts-content">
+              <div class="acts-content-name">Transformation</div>
+              <div class="acts-content-en">산업 혁신</div>
+              <div class="acts-content-desc">해양·제조·의료·에너지 국가 전략산업의 AI 전환 추진.</div>
+            </div>
+          </div>
+          <div class="acts-row violet">
+            <div class="acts-letter-circle">S</div>
+            <div class="acts-content">
+              <div class="acts-content-name">Superiority</div>
+              <div class="acts-content-en">경쟁 우위</div>
+              <div class="acts-content-desc">차세대 주권기술 개발 · 국가 경쟁우위 확보.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH FULL-BLEED BENTO -->
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="s-eyebrow">Research Domains</div>
+          <h2 class="s-title">6대 <em>핵심 연구 분야</em></h2>
+          <p class="s-sub">국가 전략 분야에 집중하는 융합 연구. 양자·해양·의료·소재·모빌리티·에너지 분야의 세계 수준 연구를 가속화합니다.</p>
+        </div>
+        <a href="#" class="more-link">분야별 상세 →</a>
+      </div>
+
+      <div class="research-bento">
+        <!-- FEATURE: Quantum AI -->
+        <article class="rb-card rb-feature">
+          <div class="rb-inner">
+            <div class="rb-tag"><i class="fas fa-star"></i> 국내 최초 · 47억원 · 5년 사업</div>
+            <h3 class="rb-title">양자 AI<br>위상초전도체 개발</h3>
+            <p class="rb-desc">과기정통부 '차세대 양자과학기술 핵심 기초 원천 연구' 선정. 오류 내성 강한 차세대 양자컴퓨터 소재 개발. 옥종목 교수(물리학과) 과제책임자, 2025–2029 5년 사업.</p>
+            <div class="rb-stats">
+              <div class="rb-stat-cell"><div class="rsc-n">47<span>억</span></div><div class="rsc-l">총 예산</div></div>
+              <div class="rb-stat-cell"><div class="rsc-n">5<span>년</span></div><div class="rsc-l">2025–29</div></div>
+              <div class="rb-stat-cell"><div class="rsc-n">국내<br><span style="font-size:14px">최초</span></div><div class="rsc-l">양자AI 사업</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="rb-card v2">
+          <div class="rb-inner">
+            <div class="rb-tag">🚢 해양 AI</div>
+            <h3 class="rb-title">스마트 조선공학</h3>
+            <p class="rb-desc">삼성중공업 AI 연구협력센터 운영. 조선·해양 데이터 분석.</p>
+          </div>
+        </article>
+
+        <article class="rb-card v3">
+          <div class="rb-inner">
+            <div class="rb-tag">⚕️ 의료 AI</div>
+            <h3 class="rb-title">AX 헬스케어</h3>
+            <p class="rb-desc">은성의료재단 공동 설치. 의료 AI · 에이지테크.</p>
+          </div>
+        </article>
+
+        <article class="rb-card v4">
+          <div class="rb-inner">
+            <div class="rb-tag">🏭 소재 AI</div>
+            <h3 class="rb-title">초거대 제조 AI</h3>
+            <p class="rb-desc">한국재료연구원 PNU 협력센터.</p>
+          </div>
+        </article>
+
+        <article class="rb-card v5">
+          <div class="rb-inner">
+            <div class="rb-tag">🚗 모빌리티 · ⚡ 에너지</div>
+            <h3 class="rb-title">자율주행 · AI 그리드</h3>
+            <p class="rb-desc">동남권 자동차 산업 + 한국전기연구원.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PARTNERSHIP IMMERSIVE -->
+    <section class="section section-alt">
+      <div class="section-header">
+        <div>
+          <div class="s-eyebrow">Strategic Partners</div>
+          <h2 class="s-title">개원 동시 협약 +<br><em>글로벌 파트너십</em></h2>
+          <p class="s-sub">2025.12.30 개원과 함께 체결된 산학 협약 3건과 글로벌 협력 3건. 양 기관 공동 예산 투입 방식의 공동 연구.</p>
+        </div>
+        <a href="#" class="more-link">전체 85개 기관 →</a>
+      </div>
+
+      <div class="partner-immersive">
+        <article class="pi-card samsung">
+          <div class="pi-top">
+            <div class="pi-mou"><i class="fas fa-handshake"></i> 2025.12.30 · MOU</div>
+            <div class="pi-logo">SAMSUNG<br><span style="font-size:18px;font-weight:600">중공업</span></div>
+            <div class="pi-en">SAMSUNG HEAVY INDUSTRIES</div>
+          </div>
+          <div class="pi-bottom">
+            <h3 class="pi-title">AI 연구협력센터<br>교내 공동 설치</h3>
+            <p class="pi-desc">조선·해양 AI 공동연구 + 데이터 분석. 양 기관 공동 예산 투입.</p>
+            <div class="pi-tags">
+              <span class="pi-tag-chip">해양 AI</span>
+              <span class="pi-tag-chip">스마트 조선</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pi-card eunsung">
+          <div class="pi-top">
+            <div class="pi-mou"><i class="fas fa-handshake"></i> 2025.12.30 · MOU</div>
+            <div class="pi-logo">은성의료재단<br><span style="font-size:18px;font-weight:600">좋은병원들</span></div>
+            <div class="pi-en">EUNSUNG MEDICAL FOUNDATION</div>
+          </div>
+          <div class="pi-bottom">
+            <h3 class="pi-title">AX 헬스케어센터<br>공동 설치</h3>
+            <p class="pi-desc">의료 AI · 에이지테크 (고령화 사회 대응) 공동연구.</p>
+            <div class="pi-tags">
+              <span class="pi-tag-chip">의료 AI</span>
+              <span class="pi-tag-chip">에이지테크</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pi-card kims">
+          <div class="pi-top">
+            <div class="pi-mou"><i class="fas fa-handshake"></i> 2025.12.30 · MOU</div>
+            <div class="pi-logo">KIMS<br><span style="font-size:18px;font-weight:600">한국재료연구원</span></div>
+            <div class="pi-en">KOREA INSTITUTE OF MATERIALS SCIENCE</div>
+          </div>
+          <div class="pi-bottom">
+            <h3 class="pi-title">PNU 연구협력센터<br>공동 설치</h3>
+            <p class="pi-desc">초거대 첨단 제조 AI · 소재 AI 융합 연구.</p>
+            <div class="pi-tags">
+              <span class="pi-tag-chip">소재 AI</span>
+              <span class="pi-tag-chip">제조 AI</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pi-card stanford">
+          <div class="pi-top">
+            <div class="pi-mou"><i class="fas fa-globe"></i> Research · 진행중</div>
+            <div class="pi-logo">Stanford</div>
+            <div class="pi-en">STANFORD UNIVERSITY · AI LAB</div>
+          </div>
+          <div class="pi-bottom">
+            <h3 class="pi-title">AI 융합 연구<br>국제 협력</h3>
+            <p class="pi-desc">Fei-Fei Li 2026 부산 AI 서밋 기조강연 예정.</p>
+            <div class="pi-tags">
+              <span class="pi-tag-chip">학술 협력</span>
+              <span class="pi-tag-chip">HAI</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pi-card etri">
+          <div class="pi-top">
+            <div class="pi-mou"><i class="fas fa-flask"></i> Research · 협력</div>
+            <div class="pi-logo">ETRI</div>
+            <div class="pi-en">ELECTRONICS & TELECOM RESEARCH INSTITUTE</div>
+          </div>
+          <div class="pi-bottom">
+            <h3 class="pi-title">한국어 NLP<br>공동 연구</h3>
+            <p class="pi-desc">AI 응용 기술 · 양자 통신 기술 협력.</p>
+            <div class="pi-tags">
+              <span class="pi-tag-chip">NLP</span>
+              <span class="pi-tag-chip">양자 통신</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="pi-card google">
+          <div class="pi-top">
+            <div class="pi-mou"><i class="fas fa-star"></i> 2026.05.13 · MOU</div>
+            <div class="pi-logo">Google<br><span style="font-size:18px;font-weight:600">for Education</span></div>
+            <div class="pi-en">GOOGLE FOR EDUCATION</div>
+          </div>
+          <div class="pi-bottom">
+            <h3 class="pi-title">AI Ecosystem<br>전면 도입</h3>
+            <p class="pi-desc">국내 대학 최초 · 80주년 협약. Gemini 통합.</p>
+            <div class="pi-tags">
+              <span class="pi-tag-chip">Gemini</span>
+              <span class="pi-tag-chip">교육</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- IT 관 SHOWCASE -->
+    <section class="section">
+      <div class="it-showcase">
+        <div class="it-grid">
+          <div>
+            <div class="s-eyebrow">IT Building · Headquarters</div>
+            <h2 class="s-title">국립대학 BTL <em>최대 규모</em><br>IT관에서 시작됩니다</h2>
+            <p class="s-sub" style="margin-bottom:24px">2025년 12월 16일 준공된 부산대학교 IT관은 장영실 AI 융합연구원의 본부이자 부산대 AI 거점 사업의 물리적 거점입니다. 친환경 시설(100% LED · 태양광 · 지열 · BEMS)로 설계되었습니다.</p>
+
+            <div class="it-stats-row">
+              <div class="it-stat-card">
+                <div class="it-stat-tag">총 사업비</div>
+                <div class="it-stat-n">267<span>억원</span></div>
+                <div class="it-stat-d">국립대 BTL 최대 규모</div>
+              </div>
+              <div class="it-stat-card">
+                <div class="it-stat-tag">연면적</div>
+                <div class="it-stat-n">13,161<span>㎡</span></div>
+                <div class="it-stat-d">지하 1층 · 지상 10층</div>
+              </div>
+              <div class="it-stat-card">
+                <div class="it-stat-tag">준공</div>
+                <div class="it-stat-n">2025<span>.12.16</span></div>
+                <div class="it-stat-d">개원식 12.30 (송길태 원장)</div>
+              </div>
+              <div class="it-stat-card">
+                <div class="it-stat-tag">친환경</div>
+                <div class="it-stat-n">LED <span style="font-size:11px">+ 태양광</span></div>
+                <div class="it-stat-d">100% · BEMS 적용</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="it-vis">
+            <div class="it-vis-tag"><i class="fas fa-map-marker-alt"></i> Busan · Geumjeong</div>
+            <div class="it-vis-content">
+              <div class="it-vis-name">IT 관<br>(정보통신관)</div>
+              <div class="it-vis-en">INFORMATION TECHNOLOGY BUILDING</div>
+              <div>
+                <div class="it-vis-li"><i class="fas fa-check"></i> 정보컴퓨터공학부 강의실·연구실·실험실</div>
+                <div class="it-vis-li"><i class="fas fa-check"></i> 전기공학부 (공과대학) 연구실</div>
+                <div class="it-vis-li"><i class="fas fa-check"></i> 장영실 AI 융합연구원 본부</div>
+                <div class="it-vis-li"><i class="fas fa-check"></i> 2027 AI 대학 컴퓨팅 학부 거점</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="section section-alt">
+      <div class="section-header">
+        <div>
+          <div class="s-eyebrow">Recent Achievements</div>
+          <h2 class="s-title">최근 <em>성과 갤러리</em></h2>
+        </div>
+        <a href="#" class="more-link">전체 →</a>
+      </div>
+      <div class="ach-grid">
+        <article class="ach-tile">
+          <div class="ach-icon"><i class="fas fa-atom"></i></div>
+          <div class="ach-tile-tag">2025.06</div>
+          <div class="ach-tile-title">국내 최초 양자AI 47억원 사업 선정</div>
+          <div class="ach-tile-desc">옥종목 교수 · 위상초전도체 5년 과제</div>
+        </article>
+        <article class="ach-tile">
+          <div class="ach-icon blue"><i class="fas fa-handshake"></i></div>
+          <div class="ach-tile-tag">2025.12</div>
+          <div class="ach-tile-title">개원 동시 산학 협약 3건</div>
+          <div class="ach-tile-desc">삼성중공업 · 은성의료재단 · 한국재료연구원</div>
+        </article>
+        <article class="ach-tile">
+          <div class="ach-icon green"><i class="fas fa-file-alt"></i></div>
+          <div class="ach-tile-tag">2025.11</div>
+          <div class="ach-tile-title">Nature MI 게재 (송길태)</div>
+          <div class="ach-tile-desc">GNN 기반 신약 표적 상호작용 예측</div>
+        </article>
+        <article class="ach-tile">
+          <div class="ach-icon violet"><i class="fas fa-trophy"></i></div>
+          <div class="ach-tile-tag">2025.08</div>
+          <div class="ach-tile-title">RoboCup 2025 우승 (이승준)</div>
+          <div class="ach-tile-desc">8/8 미션 · 휴머노이드 Anubis</div>
+        </article>
+        <article class="ach-tile">
+          <div class="ach-icon"><i class="fas fa-building"></i></div>
+          <div class="ach-tile-tag">2025.12.16</div>
+          <div class="ach-tile-title">IT관 준공 (267억·13,161㎡)</div>
+          <div class="ach-tile-desc">국립대 BTL 최대 규모</div>
+        </article>
+        <article class="ach-tile">
+          <div class="ach-icon blue"><i class="fas fa-globe"></i></div>
+          <div class="ach-tile-tag">2026.05</div>
+          <div class="ach-tile-title">Google for Education 협약</div>
+          <div class="ach-tile-desc">국내 대학 최초 · Gemini 통합</div>
+        </article>
+        <article class="ach-tile">
+          <div class="ach-icon green"><i class="fas fa-glasses"></i></div>
+          <div class="ach-tile-tag">2025.10</div>
+          <div class="ach-tile-title">AI 통번역 안경 도입</div>
+          <div class="ach-tile-desc">20개 언어 · 98% 정확도 · CES 출품</div>
+        </article>
+        <article class="ach-tile">
+          <div class="ach-icon violet"><i class="fas fa-comment-dots"></i></div>
+          <div class="ach-tile-tag">2025.12</div>
+          <div class="ach-tile-title">산지니 AI 국립대 최초 운영</div>
+          <div class="ach-tile-desc">멀티 LLM 통합 · 지도교수상담 AI</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- NEWS FEED -->
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="s-eyebrow">News & Notice</div>
+          <h2 class="s-title">최신 <em>소식</em></h2>
+        </div>
+        <a href="#" class="more-link">전체 →</a>
+      </div>
+
+      <div class="news-feed">
+        <article class="news-feature">
+          <div class="nf-inner">
+            <div class="nf-cat"><i class="fas fa-flask"></i> 연구원 핵심</div>
+            <h3 class="nf-title">개원 1주년 성과 보고서<br>발표 — 127개 과제 · 284편 논문 · 18억 기술이전</h3>
+            <div class="nf-meta">
+              <span><i class="fas fa-calendar"></i> 2026.05.15</span>
+              <span><i class="fas fa-eye"></i> 8,420</span>
+              <span><i class="fas fa-tag"></i> Annual Report</span>
+            </div>
+          </div>
+        </article>
+
+        <div class="news-list-card">
+          <div class="nlc-header">
+            <div class="nlc-title">📢 알림</div>
+            <a href="#" class="nlc-more">더보기 →</a>
+          </div>
+          <div class="nlc-item">
+            <span class="nlci-cat recruit">채용</span>
+            <a href="#" class="nlci-title">박사후연구원 채용 (2명) · ~6.30</a>
+            <div class="nlci-date">2026.05.25</div>
+          </div>
+          <div class="nlci-item">
+            <span class="nlci-cat notice">공지</span>
+            <a href="#" class="nlci-title">2026 연구비 집행 지침 개정 안내</a>
+            <div class="nlci-date">2026.05.22</div>
+          </div>
+          <div class="nlc-item">
+            <span class="nlci-cat event">행사</span>
+            <a href="#" class="nlci-title">AI 비전 세미나 (Stanford AI Lab)</a>
+            <div class="nlci-date">2026.06.05 · IT관 101</div>
+          </div>
+          <div class="nlc-item">
+            <span class="nlci-cat event">행사</span>
+            <a href="#" class="nlci-title">산학협력 기술 발표회 (35개 기업)</a>
+            <div class="nlci-date">2026.06.12</div>
+          </div>
+          <div class="nlc-item">
+            <span class="nlci-cat award">수상</span>
+            <a href="#" class="nlci-title">CVPR 2026 박진선 교수팀 논문 채택</a>
+            <div class="nlci-date">2026.05.18</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="imm-footer">
+      <div class="imm-copy">© 2026 장영실 AI 융합연구원 · 부산대학교 | airc@pusan.ac.kr · 051-510-0000 | 부산광역시 금정구 부산대학로 63번길 2 · IT관</div>
+      <div class="imm-policy">
+        <a href="#">PRIVACY</a>
+        <a href="#">SITEMAP</a>
+        <a href="#">ENGLISH</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

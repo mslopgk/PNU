@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PNU AI 거점대학 — 디자인 시안 모음</title>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <style>
+    :root {
+      --blue: #005BAA;
+      --deep: #0B1A3E;
+      --green: #00A651;
+      --ink: #111;
+      --muted: #666;
+      --border: #E2E2E2;
+      --bg: #F7F8FA;
+      --white: #fff;
+      --sans: 'Pretendard Variable', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .top-bar {
+      background: var(--deep);
+      padding: 20px 40px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      border-bottom: 3px solid var(--blue);
+    }
+
+    .top-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .top-sub {
+      font-size: .8rem;
+      color: rgba(255, 255, 255, .45);
+    }
+
+    .top-badge {
+      margin-left: auto;
+      font-size: .7rem;
+      font-weight: 700;
+      background: var(--blue);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 2px;
+      letter-spacing: .04em;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 32px 80px;
+    }
+
+    .group {
+      margin-bottom: 56px;
+    }
+
+    .group-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .group-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .group-count {
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    .group-rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 0 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      transition: box-shadow .15s, border-color .15s, transform .1s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
+      border-color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .card.featured {
+      border-color: var(--blue);
+      border-width: 2px;
+    }
+
+    .card.featured .card-num {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .card-num {
+      font-size: .65rem;
+      font-weight: 700;
+      background: var(--bg);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 2px;
+      letter-spacing: .06em;
+      flex-shrink: 0;
+    }
+
+    .card-name {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .card-tag {
+      margin-left: auto;
+      font-size: .58rem;
+      font-weight: 700;
+      color: var(--blue);
+      background: #EBF3FF;
+      padding: 2px 7px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .card-tag.green {
+      color: var(--green);
+      background: #E8F7EF;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <span class="top-title">부산대학교 AI 거점대학</span>
+    <span class="top-sub">디자인 시안 모음 · Design Review</span>
+    <span class="top-badge">총 32개 시안 + 18개 서브페이지</span>
+  </div>
+
+  <main>
+
+    <!-- GROUP -1: 서브페이지 (만점 시안 확장) -->
+    <div class="group">
+      <div class="group-header">
+        <span class="group-title" style="color:#C39B3A;font-weight:900">🌟 만점 시안 + 서브페이지 (실제 사이트 구조)</span>
+        <span class="group-count">3 메인 + 18 서브 = 21개</span>
+      </div>
+      <hr class="group-rule">
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;line-height:1.7">
+        각 만점 시안의 nav에서 링크되는 서브페이지들. 모든 페이지는 디자인 시스템·PNU 로고·콘텐츠를 메인과 100% 일관성 있게 유지.
+      </p>
+
+      <!-- ARISE-AI -->
+      <div style="margin-bottom:18px">
+        <div style="font-size:.78rem;font-weight:800;color:#005BAA;margin-bottom:8px;letter-spacing:.04em">🎯 ARISE · arise-ai.pusan.ac.kr (메인 + 서브 6)</div>
+        <div class="grid">
+          <a class="card featured" href="site-30-arise/s30.html" target="_blank" style="border-color:#C39B3A"><span class="card-num" style="background:#C39B3A;color:#fff;border-color:#C39B3A">30</span><span class="card-name">메인 (Ultimate)</span><span class="card-tag" style="background:#FEF3C7;color:#92400E">★</span></a>
+          <a class="card" href="site-30-arise/arise_about.html" target="_blank"><span class="card-num">A1</span><span class="card-name">사업 소개<br><small style="font-weight:400;font-size:.65rem">A.U.R.A · 거버넌스</small></span></a>
+          <a class="card" href="site-30-arise/arise_programs.html" target="_blank"><span class="card-num">A2</span><span class="card-name">핵심 사업<br><small style="font-weight:400;font-size:.65rem">교육·연구·산학·인프라</small></span></a>
+          <a class="card" href="site-30-arise/arise_achievements.html" target="_blank"><span class="card-num">A3</span><span class="card-name">성과<br><small style="font-weight:400;font-size:.65rem">RoboCup·양자AI</small></span></a>
+          <a class="card" href="site-30-arise/arise_partners.html" target="_blank"><span class="card-num">A4</span><span class="card-name">파트너십<br><small style="font-weight:400;font-size:.65rem">35+ 협력 기관</small></span></a>
+          <a class="card" href="site-30-arise/arise_roadmap.html" target="_blank"><span class="card-num">A5</span><span class="card-name">로드맵<br><small style="font-weight:400;font-size:.65rem">3,111억 예산</small></span></a>
+          <a class="card" href="site-30-arise/arise_news.html" target="_blank"><span class="card-num">A6</span><span class="card-name">알림마당<br><small style="font-weight:400;font-size:.65rem">뉴스·공지·행사</small></span></a>
+        </div>
+      </div>
+
+      <!-- AI -->
+      <div style="margin-bottom:18px">
+        <div style="font-size:.78rem;font-weight:800;color:#005BAA;margin-bottom:8px;letter-spacing:.04em">🎓 AI 대학 · ai.pusan.ac.kr (메인 + 서브 6)</div>
+        <div class="grid">
+          <a class="card featured" href="site-31-ai/s31.html" target="_blank" style="border-color:#C39B3A"><span class="card-num" style="background:#C39B3A;color:#fff;border-color:#C39B3A">31</span><span class="card-name">메인 (Ultimate)</span><span class="card-tag" style="background:#FEF3C7;color:#92400E">★</span></a>
+          <a class="card" href="site-31-ai/ai_about.html" target="_blank"><span class="card-num">B1</span><span class="card-name">대학 소개<br><small style="font-weight:400;font-size:.65rem">ADP+X · 학장 인사말</small></span></a>
+          <a class="card" href="site-31-ai/ai_depts.html" target="_blank"><span class="card-num">B2</span><span class="card-name">학과·전공<br><small style="font-weight:400;font-size:.65rem">4학부 + LG 계약</small></span></a>
+          <a class="card" href="site-31-ai/ai_faculty.html" target="_blank"><span class="card-num">B3</span><span class="card-name">교수진·연구실<br><small style="font-weight:400;font-size:.65rem">8인 + 14 Lab</small></span></a>
+          <a class="card" href="site-31-ai/ai_programs.html" target="_blank"><span class="card-num">B4</span><span class="card-name">교육·연구<br><small style="font-weight:400;font-size:.65rem">Pentomino · 부트캠프</small></span></a>
+          <a class="card" href="site-31-ai/ai_admissions.html" target="_blank"><span class="card-num">B5</span><span class="card-name">입학 안내<br><small style="font-weight:400;font-size:.65rem">2027 · 377명</small></span></a>
+          <a class="card" href="site-31-ai/ai_news.html" target="_blank"><span class="card-num">B6</span><span class="card-name">알림마당<br><small style="font-weight:400;font-size:.65rem">뉴스·공지·채용</small></span></a>
+        </div>
+      </div>
+
+      <!-- AIRC -->
+      <div>
+        <div style="font-size:.78rem;font-weight:800;color:#005BAA;margin-bottom:8px;letter-spacing:.04em">🔬 장영실연구원 · airc.pusan.ac.kr (메인 + 서브 6)</div>
+        <div class="grid">
+          <a class="card featured" href="site-32-airc/s32.html" target="_blank" style="border-color:#C39B3A"><span class="card-num" style="background:#C39B3A;color:#fff;border-color:#C39B3A">32</span><span class="card-name">메인 (Ultimate)</span><span class="card-tag" style="background:#FEF3C7;color:#92400E">★</span></a>
+          <a class="card" href="site-32-airc/airc_about.html" target="_blank"><span class="card-num">C1</span><span class="card-name">연구원 소개<br><small style="font-weight:400;font-size:.65rem">ACTS · 송길태 원장</small></span></a>
+          <a class="card" href="site-32-airc/airc_heritage.html" target="_blank"><span class="card-num">C2</span><span class="card-name">장영실 헤리티지<br><small style="font-weight:400;font-size:.65rem">4발명품↔4AI</small></span></a>
+          <a class="card" href="site-32-airc/airc_research.html" target="_blank"><span class="card-num">C3</span><span class="card-name">6대 연구 분야<br><small style="font-weight:400;font-size:.65rem">양자·해양·의료·소재</small></span></a>
+          <a class="card" href="site-32-airc/airc_partners.html" target="_blank"><span class="card-num">C4</span><span class="card-name">파트너십<br><small style="font-weight:400;font-size:.65rem">개원 협약 3+글로벌</small></span></a>
+          <a class="card" href="site-32-airc/airc_facility.html" target="_blank"><span class="card-num">C5</span><span class="card-name">IT관 시설<br><small style="font-weight:400;font-size:.65rem">267억·13,161㎡</small></span></a>
+          <a class="card" href="site-32-airc/airc_news.html" target="_blank"><span class="card-num">C6</span><span class="card-name">알림<br><small style="font-weight:400;font-size:.65rem">세미나·채용</small></span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROUP 1 -->
+    <div class="group">
+      <div class="group-header">
+        <span class="group-title">차별화 시안 — 최신 3종</span>
+        <span class="group-count">3개</span>
+      </div>
+      <hr class="group-rule">
+      <div class="grid">
+        <a class="card" href="01_editorial_newspaper.html" target="_blank">
+          <span class="card-num">01</span>
+          <span class="card-name">Editorial Newspaper</span>
+        </a>
+        <a class="card" href="02_brutalist_data.html" target="_blank">
+          <span class="card-num">02</span>
+          <span class="card-name">Brutalist Data</span>
+        </a>
+        <a class="card" href="03_korean_identity.html" target="_blank">
+          <span class="card-num">03</span>
+          <span class="card-name">Korean Identity</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- GROUP 2 -->
+    <div class="group">
+      <div class="group-header">
+        <span class="group-title">밀도 시안 — 추천 3종</span>
+        <span class="group-count">3개</span>
+      </div>
+      <hr class="group-rule">
+      <div class="grid">
+        <a class="card" href="04_editorial_dense.html" target="_blank">
+          <span class="card-num">04</span>
+          <span class="card-name">Editorial Dense</span>
+        </a>
+        <a class="card" href="05_command_dense.html" target="_blank">
+          <span class="card-num">05</span>
+          <span class="card-name">Command Dense</span>
+        </a>
+        <a class="card" href="06_bento_mosaic.html" target="_blank">
+          <span class="card-num">06</span>
+          <span class="card-name">Bento Mosaic</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- GROUP 3 -->
+    <div class="group">
+      <div class="group-header">
+        <span class="group-title">참조 시안</span>
+        <span class="group-count">11개</span>
+      </div>
+      <hr class="group-rule">
+      <div class="grid">
+        <a class="card" href="07_portal_dashboard.html" target="_blank">
+          <span class="card-num">07</span>
+          <span class="card-name">Portal Dashboard</span>
+        </a>
+        <a class="card" href="08_immersive_portal.html" target="_blank">
+          <span class="card-num">08</span>
+          <span class="card-name">Immersive Portal</span>
+        </a>
+        <a class="card" href="09_split_modern.html" target="_blank">
+          <span class="card-num">09</span>
+          <span class="card-name">Split Modern</span>
+        </a>
+        <a class="card" href="10_academic_blue.html" target="_blank">
+          <span class="card-num">10</span>
+          <span class="card-name">Academic Blue</span>
+        </a>
+        <a class="card" href="11_hanji_scroll.html" target="_blank">
+          <span class="card-num">11</span>
+          <span class="card-name">Hanji Scroll</span>
+        </a>
+        <a class="card" href="12_modern_premium.html" target="_blank">
+          <span class="card-num">12</span>
+          <span class="card-name">Modern Premium</span>
+        </a>
+        <a class="card" href="13_gsap_3d.html" target="_blank">
+          <span class="card-num">13</span>
+          <span class="card-name">GSAP 3D</span>
+        </a>
+        <a class="card" href="14_magazine_grid.html" target="_blank">
+          <span class="card-num">14</span>
+          <span class="card-name">Magazine Grid</span>
+        </a>
+        <a class="card" href="15_government_modern.html" target="_blank">
+          <span class="card-num">15</span>
+          <span class="card-name">Government Modern</span>
+        </a>
+        <a class="card" href="16_deep_blue_tech.html" target="_blank">
+          <span class="card-num">16</span>
+          <span class="card-name">Deep Blue Tech</span>
+        </a>
+        <a class="card" href="17_hub_navigator.html" target="_blank">
+          <span class="card-num">17</span>
+          <span class="card-name">Hub Navigator</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- GROUP 0: 만점 시안 -->
+    <div class="group">
+      <div class="group-header">
+        <span class="group-title" style="color:#C39B3A;font-weight:900">⭐⭐⭐ 만점 시안 (Ultimate) — 평가 보고서 권장사항 100% 반영 + 실제 PNU 로고 + 이미지</span>
+        <span class="group-count">3개</span>
+      </div>
+      <hr class="group-rule">
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;line-height:1.7">
+        평가 보고서(EVALUATION_REPORT.md)의 권장 하이브리드 통합안 + 부산대 공식 시그니처/심볼 이미지 + Unsplash 실사 이미지 + 산지니 마스코트 + 슬로건 + 정원 377명 통일 + 모든 핵심 콘텐츠 반영.
+      </p>
+      <div class="grid">
+        <a class="card featured" href="site-30-arise/s30.html" target="_blank" style="border-width:3px;border-color:#C39B3A">
+          <span class="card-num" style="background:#C39B3A;color:#fff;border-color:#C39B3A">30</span>
+          <span class="card-name">AI 거점사업 · Ultimate<br><small style="font-weight:400;font-size:.7rem">arise-ai.pusan.ac.kr · 21+22+23 통합</small></span>
+          <span class="card-tag" style="background:#FEF3C7;color:#92400E">★</span>
+        </a>
+        <a class="card featured" href="site-31-ai/s31.html" target="_blank" style="border-width:3px;border-color:#C39B3A">
+          <span class="card-num" style="background:#C39B3A;color:#fff;border-color:#C39B3A">31</span>
+          <span class="card-name">AI 대학 · Ultimate<br><small style="font-weight:400;font-size:.7rem">ai.pusan.ac.kr · 24+25+26 통합</small></span>
+          <span class="card-tag" style="background:#FEF3C7;color:#92400E">★</span>
+        </a>
+        <a class="card featured" href="site-32-airc/s32.html" target="_blank" style="border-width:3px;border-color:#C39B3A">
+          <span class="card-num" style="background:#C39B3A;color:#fff;border-color:#C39B3A">32</span>
+          <span class="card-name">장영실연구원 · Ultimate<br><small style="font-weight:400;font-size:.7rem">airc.pusan.ac.kr · 27+28+29 통합</small></span>
+          <span class="card-tag" style="background:#FEF3C7;color:#92400E">★</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- GROUP 4: 피드백 반영 1차 개선 시안 -->
+    <div class="group">
+      <div class="group-header">
+        <span class="group-title" style="color:var(--blue)">⭐ 1차 개선 시안 (피드백 직접 반영)</span>
+        <span class="group-count">3개</span>
+      </div>
+      <hr class="group-rule">
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;line-height:1.7">
+        교수님 피드백을 단순 반영한 빠른 시안.
+        <strong>18</strong> arise-ai (밝은 색+Stanford bento+70/30) ·
+        <strong>19</strong> ai.pusan.ac.kr (blob 히어로+Hub+드롭다운 nav) ·
+        <strong>20</strong> airc.pusan.ac.kr (좌측 패널+시각 혼합)
+      </p>
+      <div class="grid">
+        <a class="card" href="18_arise_ai_refined.html" target="_blank">
+          <span class="card-num">18</span>
+          <span class="card-name">AI거점사업 개선<br><small style="font-weight:400;font-size:.7rem">arise-ai.pusan.ac.kr</small></span>
+        </a>
+        <a class="card" href="19_ai_college_hub.html" target="_blank">
+          <span class="card-num">19</span>
+          <span class="card-name">AI대학 Hub 개선<br><small style="font-weight:400;font-size:.7rem">ai.pusan.ac.kr</small></span>
+        </a>
+        <a class="card" href="20_airc_refined.html" target="_blank">
+          <span class="card-num">20</span>
+          <span class="card-name">장영실연구원 개선<br><small style="font-weight:400;font-size:.7rem">airc.pusan.ac.kr</small></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- GROUP 5: arise-ai.pusan.ac.kr 본격 시안 3종 -->
+    <div class="group">
+      <div class="group-header">
+        <span class="group-title" style="color:var(--blue)">🎯 [AI 거점대학사업] arise-ai.pusan.ac.kr — 본격 시안 3종</span>
+        <span class="group-count">3개</span>
+      </div>
+      <hr class="group-rule">
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;line-height:1.7">
+        GitHub 자료 + 부산대 콘텐츠(A.U.R.A 2.0·정부 사업 3,111억·RoboCup·Google 협약·산지니 AI 등) 모두 반영. 각 시안은 명확히 다른 디자인 방향.
+      </p>
+      <div class="grid">
+        <a class="card featured" href="21_arise_academic_authority.html" target="_blank">
+          <span class="card-num">21</span>
+          <span class="card-name">A · Academic Authority<br><small style="font-weight:400;font-size:.7rem">Stanford·MIT 권위 / 밝은 bento / 정부·산학협력 로고월</small></span>
+          <span class="card-tag">NEW</span>
+        </a>
+        <a class="card featured" href="22_arise_editorial_data.html" target="_blank">
+          <span class="card-num">22</span>
+          <span class="card-name">B · Editorial Data Story<br><small style="font-weight:400;font-size:.7rem">신문 사설 · 예산 인포그래픽 · 데이터 스토리텔링</small></span>
+          <span class="card-tag">NEW</span>
+        </a>
+        <a class="card featured" href="23_arise_living_hub.html" target="_blank">
+          <span class="card-num">23</span>
+          <span class="card-name">C · Living Hub<br><small style="font-weight:400;font-size:.7rem">인터랙티브 추진체계도 + Google·삼성·LG·NVIDIA 파트너십</small></span>
+          <span class="card-tag green">NEW</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- GROUP 6: ai.pusan.ac.kr 본격 시안 3종 -->
+    <div class="group">
+      <div class="group-header">
+        <span class="group-title" style="color:var(--blue)">🎓 [AI 대학] ai.pusan.ac.kr — 본격 시안 3종</span>
+        <span class="group-count">3개</span>
+      </div>
+      <hr class="group-rule">
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;line-height:1.7">
+        ADP+X 비전 · 4학부 신설(2027·347명) · 58명 교수진 · LG 채용연계 계약학과 · 산지니 AI · Pentomino 교육 모두 반영.
+      </p>
+      <div class="grid">
+        <a class="card featured" href="24_aicollege_hub_dynamic.html" target="_blank">
+          <span class="card-num">24</span>
+          <span class="card-name">A · Hub Navigator Dynamic<br><small style="font-weight:400;font-size:.7rem">4학부 허브 + 호버 mega-menu + 학과 마이크로사이트</small></span>
+          <span class="card-tag">NEW</span>
+        </a>
+        <a class="card featured" href="25_aicollege_modern_premium.html" target="_blank">
+          <span class="card-num">25</span>
+          <span class="card-name">B · Modern Premium · Sandgini<br><small style="font-weight:400;font-size:.7rem">blob 히어로 · 산지니 AI 캐릭터 · LG 스마트가전 스포트라이트</small></span>
+          <span class="card-tag">NEW</span>
+        </a>
+        <a class="card featured" href="26_aicollege_research_journal.html" target="_blank">
+          <span class="card-num">26</span>
+          <span class="card-name">C · Research Journal<br><small style="font-weight:400;font-size:.7rem">학술 저널 스타일 · 교수진 8인 · 14+ 연구실 카탈로그 · LabCumentary</small></span>
+          <span class="card-tag green">NEW</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- GROUP 7: airc.pusan.ac.kr 본격 시안 3종 -->
+    <div class="group">
+      <div class="group-header">
+        <span class="group-title" style="color:var(--blue)">🔬 [장영실 AI 융합연구원] airc.pusan.ac.kr — 본격 시안 3종</span>
+        <span class="group-count">3개</span>
+      </div>
+      <hr class="group-rule">
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;line-height:1.7">
+        ACTS 비전 · 양자AI 47억 · 송길태 원장 · 산학협약 3건(삼성중공업·은성·재료연) · IT관(267억) · 글로벌 협력(Stanford·ETRI) 모두 반영.
+      </p>
+      <div class="grid">
+        <a class="card featured" href="27_airc_acts_portal.html" target="_blank">
+          <span class="card-num">27</span>
+          <span class="card-name">A · ACTS Portal Dashboard<br><small style="font-weight:400;font-size:.7rem">밝은 사이드바 + ACTS 비전 + KPI 카드 + 원장 인사말</small></span>
+          <span class="card-tag">NEW</span>
+        </a>
+        <a class="card featured" href="28_airc_immersive_showcase.html" target="_blank">
+          <span class="card-num">28</span>
+          <span class="card-name">B · Immersive Showcase<br><small style="font-weight:400;font-size:.7rem">다크 글래스모피즘 · 풀블리드 비주얼 · IT관 카드 · 6대 협약</small></span>
+          <span class="card-tag">NEW</span>
+        </a>
+        <a class="card featured" href="29_airc_korean_heritage.html" target="_blank">
+          <span class="card-num">29</span>
+          <span class="card-name">C · Korean Heritage Modern<br><small style="font-weight:400;font-size:.7rem">한지 + 명조 · 장영실 4대 발명품 ↔ 4대 연구분야 매핑</small></span>
+          <span class="card-tag green">NEW</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+</body>
+
+</html>

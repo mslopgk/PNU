@@ -1,0 +1,776 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파트너십 — 부산대학교 AI 거점대학육성사업단 | ARISE PNU</title>
+<meta name="description" content="Google · 삼성 · LG · NVIDIA · AWS · Stanford · KIMS · ETRI · KERI 등 35+ 파트너">
+<link rel="icon" type="image/jpeg" href="assets/pnu-symbol-color.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800;900&family=Source+Serif+4:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --pnu-blue: #005BAA; --pnu-blue-dark: #143F90; --pnu-blue-sub: #0075C9;
+  --pnu-navy: #0F1F45; --pnu-green: #00A651;
+  --gold: #3B82F6; --gold-bright: #60A5FA; --emerald: #047857;
+  --blue-tint: #EFF6FF; --blue-light: #DBEAFE;
+  --ink: #0F172A; --text-h: #1E293B; --text-b: #475569; --text-m: #64748B;
+  --white: #FFFFFF; --bg-off: #FAFBFC; --bg-cream: #F7F4EC; --bg-section: #F1F5F9;
+  --border: #E2E8F0; --border-soft: #EEF2F7;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Noto Sans KR','Inter',sans-serif; color:var(--text-b); background:var(--white); font-size:15px; line-height:1.7; word-break:keep-all; -webkit-font-smoothing:antialiased; }
+a { text-decoration:none; color:inherit; }
+img { display:block; max-width:100%; }
+.container { max-width:1320px; margin:0 auto; padding:0 36px; }
+
+/* Shared header */
+.topbar { background:var(--pnu-navy); padding:8px 0; }
+.topbar .container { display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:rgba(255,255,255,.65); font-family:'Inter',sans-serif; }
+.topbar a { color:rgba(255,255,255,.7); margin-left:18px; }
+.topbar a:hover { color:#fff; }
+.topbar .live { display:inline-flex; align-items:center; gap:6px; color:var(--gold); font-weight:700; }
+.live-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); animation:blink 2.4s ease infinite; box-shadow:0 0 8px var(--gold); }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.slogan-strip { font-family:'Source Serif 4', serif; font-style:italic; color:rgba(255,255,255,.72); }
+header.main-hdr { position:sticky; top:0; z-index:100; background:var(--white); border-bottom:1px solid var(--border); box-shadow:0 1px 4px rgba(15,31,69,.04); }
+.hdr-inner { display:flex; align-items:center; justify-content:space-between; height:84px; }
+.brand { display:flex; align-items:center; gap:14px; }
+.brand-logo { height:48px; }
+.brand-divider { width:1px; height:38px; background:var(--border); }
+.brand-text-ko { font-size:15.5px; font-weight:800; color:var(--pnu-blue); line-height:1.25; }
+.brand-text-en { font-size:10.5px; color:var(--text-m); font-family:'Inter',sans-serif; margin-top:2px; letter-spacing:.04em; }
+nav.main-nav { display:flex; align-items:center; gap:0; }
+.nav-item { position:relative; }
+.nav-link { display:flex; align-items:center; gap:5px; padding:10px 16px; font-size:14.5px; font-weight:600; color:var(--text-h); border-radius:6px; cursor:pointer; transition:all .18s; }
+.nav-link:hover { background:var(--blue-tint); color:var(--pnu-blue); }
+.nav-link.active { color:var(--pnu-blue); background:var(--blue-tint); }
+.nav-link i { font-size:10px; opacity:.55; transition:transform .2s; }
+.nav-item:hover .nav-link i { transform:rotate(180deg); }
+.dropdown { position:absolute; top:calc(100% + 8px); left:0; min-width:240px; background:var(--white); border:1px solid var(--border); border-radius:12px; box-shadow:0 12px 36px rgba(15,31,69,.12); padding:8px; opacity:0; visibility:hidden; transform:translateY(-8px); transition:all .22s; }
+.nav-item:hover .dropdown { opacity:1; visibility:visible; transform:translateY(0); }
+.dropdown a { display:flex; align-items:center; gap:10px; padding:10px 12px; font-size:13.5px; color:var(--text-b); border-radius:7px; }
+.dropdown a:hover { background:var(--blue-tint); color:var(--pnu-blue); }
+.dropdown a .d-i { width:26px; height:26px; border-radius:7px; background:var(--blue-tint); display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--pnu-blue); flex-shrink:0; }
+.nav-cta { margin-left:8px; background:var(--pnu-blue); color:#fff !important; padding:10px 22px; border-radius:8px; font-size:13.5px; font-weight:700; }
+.lang-toggle { font-size:11.5px; font-weight:700; color:var(--text-m); padding:5px 11px; border:1.5px solid var(--border); border-radius:100px; margin-left:12px; cursor:pointer; font-family:'Inter',sans-serif; }
+
+/* Page hero */
+.page-hero { background:linear-gradient(165deg, #FFFFFF 0%, var(--blue-tint) 60%, #DBEAFE 100%); padding:64px 0 56px; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+.page-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(15,31,69,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(15,31,69,.04) 1px,transparent 1px); background-size:48px 48px; pointer-events:none; }
+.page-hero::after { content:''; position:absolute; top:-80px; right:-60px; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle, rgba(0,91,170,.12), transparent 60%); }
+.ph-inner { position:relative; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.ph-left { max-width:720px; }
+.ph-eyebrow { display:inline-flex; align-items:center; gap:10px; font-size:11.5px; font-weight:800; color:var(--pnu-blue); letter-spacing:.16em; text-transform:uppercase; margin-bottom:16px; font-family:'Inter',sans-serif; }
+.ph-eyebrow::before { content:''; width:28px; height:2px; background:var(--pnu-blue); }
+.ph-title { font-size:clamp(1.9rem, 3.4vw, 2.8rem); font-weight:900; color:var(--ink); letter-spacing:-.035em; line-height:1.2; margin-bottom:14px; }
+.ph-title em { font-style:normal; color:var(--pnu-blue); }
+.ph-sub { font-size:15.5px; color:var(--text-b); line-height:1.7; max-width:620px; }
+.breadcrumb { display:flex; gap:10px; align-items:center; font-size:12.5px; color:var(--text-m); margin-top:24px; font-family:'Inter',sans-serif; }
+.breadcrumb a { color:var(--text-b); }
+.breadcrumb a:hover { color:var(--pnu-blue); }
+.breadcrumb i { font-size:9px; opacity:.55; }
+.breadcrumb .current { color:var(--pnu-blue); font-weight:600; }
+.ph-icon { font-size:96px; color:rgba(0,91,170,.10); }
+
+/* Section */
+.section { padding:72px 0; }
+.section-alt { background:var(--bg-off); }
+.s-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11.5px; font-weight:800; color:var(--pnu-blue); letter-spacing:.12em; text-transform:uppercase; margin-bottom:12px; font-family:'Inter',sans-serif; }
+.s-eyebrow::before { content:''; width:24px; height:2px; background:var(--pnu-blue); }
+.s-title { font-size:clamp(1.6rem, 2.4vw, 2rem); font-weight:900; color:var(--ink); letter-spacing:-.04em; line-height:1.2; margin-bottom:14px; }
+.s-title em { font-style:normal; color:var(--pnu-blue); }
+.s-sub { font-size:15px; color:var(--text-b); line-height:1.75; max-width:660px; }
+.section-header { margin-bottom:40px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; }
+.section-header > div { flex:1; min-width:280px; }
+
+/* Google feature */
+.google-feat { display:grid; grid-template-columns:1.05fr 1fr; gap:0; background:var(--white); border:1px solid var(--border); border-radius:24px; overflow:hidden; box-shadow:0 18px 48px rgba(15,31,69,.1); }
+.gf-image { position:relative; min-height:380px; }
+.gf-image img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.gf-badge { position:absolute; top:22px; left:22px; z-index:2; display:inline-flex; align-items:center; gap:8px; padding:8px 16px; background:rgba(255,255,255,.95); backdrop-filter:blur(10px); border-radius:100px; font-size:11.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; background:linear-gradient(90deg,#4285F4,#34A853,#FBBC04,#EA4335); color:#fff; }
+.gf-body { padding:48px 44px; }
+.gf-tag { display:inline-block; padding:5px 14px; border-radius:100px; background:var(--blue-tint); color:var(--pnu-blue); font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin-bottom:16px; font-family:'Inter',sans-serif; }
+.gf-title { font-size:clamp(1.5rem, 2.2vw, 1.9rem); font-weight:900; color:var(--ink); line-height:1.2; letter-spacing:-.03em; margin-bottom:14px; }
+.gf-desc { font-size:14.5px; color:var(--text-b); line-height:1.85; margin-bottom:22px; }
+.gf-bullets { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.gf-bullets li { display:flex; gap:12px; align-items:flex-start; font-size:13.5px; color:var(--text-b); line-height:1.6; }
+.gf-bullets i { color:#4285F4; margin-top:5px; font-size:11px; flex-shrink:0; }
+
+/* Category band */
+.cat-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; padding-bottom:18px; border-bottom:2px solid var(--border); }
+.cat-title { font-size:18px; font-weight:900; color:var(--ink); display:flex; align-items:center; gap:12px; }
+.cat-title i { width:36px; height:36px; border-radius:10px; background:var(--blue-tint); color:var(--pnu-blue); display:flex; align-items:center; justify-content:center; font-size:14px; }
+.cat-count { font-size:12px; color:var(--text-m); font-family:'Inter',sans-serif; font-weight:700; }
+
+/* Partners grid */
+.partners-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.partner-card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:20px; transition:all .22s; cursor:pointer; position:relative; }
+.partner-card:hover { border-color:var(--pnu-blue); transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,91,170,.12); }
+.partner-card-head { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+.partner-icon { width:42px; height:42px; border-radius:11px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; font-weight:800; flex-shrink:0; font-family:'Inter',sans-serif; }
+.partner-icon.google { background:linear-gradient(135deg, #4285F4 25%, #34A853 50%, #FBBC04 75%, #EA4335); }
+.partner-icon.aws { background:linear-gradient(135deg, #FF9900, #E47911); }
+.partner-icon.nvidia { background:linear-gradient(135deg, #76B900, #1A8917); }
+.partner-icon.samsung { background:linear-gradient(135deg, #1428A0, #0D2BAF); }
+.partner-icon.lg { background:linear-gradient(135deg, #143F90, #005BAA); }
+.partner-icon.stanford { background:linear-gradient(135deg, #143F90, #143F90); }
+.partner-icon.eunsung { background:linear-gradient(135deg, var(--pnu-green), #047857); }
+.partner-icon.kims { background:linear-gradient(135deg, #3B82F6, #143F90); }
+.partner-icon.upstage { background:linear-gradient(135deg, #1E3A5F, #0F172A); }
+.partner-icon.naver { background:linear-gradient(135deg, #03C75A, #02863F); }
+.partner-icon.lguplus { background:linear-gradient(135deg, #E6007E, #B8006B); }
+.partner-icon.busan { background:linear-gradient(135deg, var(--pnu-blue), var(--pnu-blue-sub)); }
+.partner-icon.etri { background:linear-gradient(135deg, #0075C9, #003C66); }
+.partner-icon.hanwha { background:linear-gradient(135deg, #FF6B00, #CC5400); }
+.partner-icon.bnk { background:linear-gradient(135deg, #003875, #001E40); }
+.partner-icon.mit { background:linear-gradient(135deg, #8B0000, #4B0000); }
+.partner-icon.cmu { background:linear-gradient(135deg, #C41230, #8B0000); }
+.partner-icon.todai { background:linear-gradient(135deg, #1B5E20, #0D3815); }
+.partner-icon.gov { background:linear-gradient(135deg, var(--pnu-navy), #0a1530); }
+.partner-icon.kiat { background:linear-gradient(135deg, #1565C0, #0D47A1); }
+.partner-icon.iitp { background:linear-gradient(135deg, #00838F, #006064); }
+.partner-icon.kmac { background:linear-gradient(135deg, #5D4037, #3E2723); }
+.partner-icon.keri { background:linear-gradient(135deg, #143F90, #143F90); }
+.partner-icon.busan-city { background:linear-gradient(135deg, #0075C9, #003C66); }
+.partner-icon.kt { background:linear-gradient(135deg, #FF0000, #C8102E); }
+
+.partner-info { flex:1; min-width:0; }
+.partner-name { font-size:13.5px; font-weight:800; color:var(--ink); line-height:1.3; }
+.partner-name-en { font-size:10.5px; color:var(--text-m); font-family:'Inter',sans-serif; margin-top:2px; }
+.partner-desc { font-size:11.5px; color:var(--text-b); line-height:1.5; }
+.partner-tag { position:absolute; top:14px; right:14px; padding:3px 9px; border-radius:100px; background:var(--blue-tint); color:var(--pnu-blue); font-size:9.5px; font-weight:800; letter-spacing:.04em; font-family:'Inter',sans-serif; }
+.partner-tag.new { background:#DBEAFE; color:#0F172A; }
+.partner-tag.mou { background:#D1FAE5; color:#047857; }
+
+/* Footer */
+footer.site-footer { background:var(--pnu-navy); padding:64px 0 28px; color:rgba(255,255,255,.65); }
+.ft-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,.08); }
+.ft-brand-row { display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+.ft-logo-img { height:42px; }
+.ft-brand-name { font-size:14.5px; font-weight:800; color:#fff; line-height:1.3; }
+.ft-brand-name small { display:block; font-size:11px; color:rgba(255,255,255,.68); font-family:'Inter',sans-serif; margin-top:2px; }
+.ft-desc { font-size:13px; color:rgba(255,255,255,.6); line-height:1.75; margin-bottom:20px; }
+.ft-desc em { font-style:italic; color:var(--gold); }
+.ft-addr { font-size:12px; color:rgba(255,255,255,.65); line-height:1.8; }
+.ft-col h4 { font-size:11px; font-weight:800; color:rgba(255,255,255,.72); letter-spacing:.12em; text-transform:uppercase; margin-bottom:18px; font-family:'Inter',sans-serif; }
+.ft-col a { display:block; font-size:13px; color:rgba(255,255,255,.7); margin-bottom:11px; }
+.ft-col a:hover { color:#fff; }
+.ft-bottom { padding-top:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; }
+.ft-copy { font-size:11.5px; color:rgba(255,255,255,.62); font-family:'Inter',sans-serif; }
+.ft-policy { display:flex; gap:22px; }
+.ft-policy a { font-size:11.5px; color:rgba(255,255,255,.68); }
+.ft-sns { display:flex; gap:8px; }
+.ft-sns a { width:34px; height:34px; border-radius:10px; background:rgba(255,255,255,.06); display:flex; align-items:center; justify-content:center; font-size:13px; color:rgba(255,255,255,.65); }
+.ft-sns a:hover { background:var(--pnu-blue); color:#fff; }
+
+@media (max-width:1024px){
+  .google-feat { grid-template-columns:1fr; }
+  .partners-grid { grid-template-columns:repeat(2,1fr); }
+  .ft-top { grid-template-columns:1fr 1fr; }
+  .section-banner { height:auto !important; min-height:200px; }
+}
+
+/* === Accessibility: prefers-reduced-motion === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <div class="left">
+      <span class="live"><span class="live-dot"></span> 2026 AI 거점대학사업 운영 중</span>
+      <span style="margin-left:14px">·</span>
+      <span class="slogan-strip" style="margin-left:14px">Arise PNU, 같이 더 높게</span>
+    </div>
+    <div class="right">
+      <a href="https://www.pusan.ac.kr" target="_blank"><i class="fas fa-external-link-alt" style="font-size:9px;margin-right:4px"></i>부산대학교</a>
+      <a href="https://ai.pusan.ac.kr" target="_blank">AI 대학</a>
+      <a href="https://airc.pusan.ac.kr" target="_blank">장영실연구원</a>
+      <a href="#">로그인</a>
+    </div>
+  </div>
+</div>
+
+<header class="main-hdr">
+  <div class="container hdr-inner">
+    <a href="s30.html" class="brand">
+      <img src="assets/pnu-signature.jpg" alt="부산대학교" class="brand-logo">
+      <div class="brand-divider"></div>
+      <div>
+        <div class="brand-text-ko">AI 거점대학육성사업단</div>
+        <div class="brand-text-en">ARISE · arise-ai.pusan.ac.kr</div>
+      </div>
+    </a>
+    <nav class="main-nav">
+      <div class="nav-item">
+        <a href="arise_about.html" class="nav-link">사업 소개 <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <a href="arise_about.html#overview"><div class="d-i"><i class="fas fa-flag"></i></div>사업 개요 · 비전</a>
+          <a href="arise_about.html#aura"><div class="d-i"><i class="fas fa-sitemap"></i></div>A.U.R.A 2.0 마스터플랜</a>
+          <a href="arise_about.html#governance"><div class="d-i"><i class="fas fa-users-cog"></i></div>거버넌스</a>
+          <a href="arise_roadmap.html"><div class="d-i"><i class="fas fa-bullseye"></i></div>3개년 로드맵</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="arise_programs.html" class="nav-link">핵심 사업 <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <a href="arise_programs.html#education"><div class="d-i"><i class="fas fa-graduation-cap"></i></div>AI 교육 혁신</a>
+          <a href="arise_programs.html#research"><div class="d-i"><i class="fas fa-microscope"></i></div>AI 연구 강화</a>
+          <a href="arise_programs.html#industry"><div class="d-i"><i class="fas fa-handshake"></i></div>산학 협력</a>
+          <a href="arise_programs.html#infra"><div class="d-i"><i class="fas fa-server"></i></div>AI 인프라</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="arise_achievements.html" class="nav-link">성과 <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <a href="arise_achievements.html#robocup"><div class="d-i"><i class="fas fa-trophy"></i></div>RoboCup 2025 우승</a>
+          <a href="arise_achievements.html#quantum"><div class="d-i"><i class="fas fa-atom"></i></div>양자AI 47억 사업</a>
+          <a href="arise_achievements.html#papers"><div class="d-i"><i class="fas fa-file-alt"></i></div>논문 · 특허</a>
+          <a href="arise_achievements.html#transfer"><div class="d-i"><i class="fas fa-exchange-alt"></i></div>기술이전 · 창업</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="arise_partners.html" class="nav-link active">파트너십 <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <a href="arise_partners.html#google"><div class="d-i"><i class="fab fa-google"></i></div>Google for Education</a>
+          <a href="arise_partners.html#industry"><div class="d-i"><i class="fas fa-industry"></i></div>산학 협약 (35+)</a>
+          <a href="arise_partners.html#global"><div class="d-i"><i class="fas fa-globe"></i></div>글로벌 협력</a>
+          <a href="arise_partners.html#govt"><div class="d-i"><i class="fas fa-landmark"></i></div>정부·공공기관</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="arise_news.html" class="nav-link">알림마당 <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown">
+          <a href="arise_news.html?cat=notice"><div class="d-i"><i class="fas fa-bullhorn"></i></div>공지사항</a>
+          <a href="arise_news.html?cat=news"><div class="d-i"><i class="fas fa-newspaper"></i></div>뉴스·보도자료</a>
+          <a href="arise_news.html?cat=event"><div class="d-i"><i class="fas fa-calendar-alt"></i></div>행사·일정</a>
+          <a href="arise_news.html?cat=resource"><div class="d-i"><i class="fas fa-download"></i></div>자료실</a>
+        </div>
+      </div>
+      <a href="arise_partners.html#contact" class="nav-link nav-cta">참여 신청 →</a>
+      <div class="lang-toggle">KOR | ENG</div>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container ph-inner">
+    <div class="ph-left">
+      <div class="ph-eyebrow"><i class="fas fa-handshake"></i> Partnerships</div>
+      <h1 class="ph-title">파트너십 · <em>35+ 글로벌</em><br>AX 생태계 동맹</h1>
+      <p class="ph-sub">Google · 삼성 · LG · NVIDIA · AWS · Stanford · 은성의료재단 · KIMS · ETRI · KERI — 부산대학교를 중심으로 35개 이상의 전략적 파트너가 동남권 AX 생태계를 함께 만들어 갑니다.</p>
+      <div class="breadcrumb">
+        <a href="s30.html"><i class="fas fa-home"></i> 홈</a>
+        <i class="fas fa-chevron-right"></i>
+        <span class="current">파트너십</span>
+      </div>
+    </div>
+    <div class="ph-icon"><i class="fas fa-handshake"></i></div>
+  </div>
+</section>
+
+<!-- Google for Education feature -->
+<section class="section" id="google">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="s-eyebrow">Flagship Partnership</div>
+        <h2 class="s-title">Google for Education — <em>국내 대학 최초</em></h2>
+        <p class="s-sub">2026년 5월 13일, 부산대학교 80주년 기념일에 체결된 전면 협약. Reference University 지정을 추진합니다.</p>
+      </div>
+    </div>
+
+    <div class="google-feat">
+      <div class="gf-image">
+        <span class="gf-badge"><i class="fab fa-google"></i> Reference University</span>
+        <img src="assets/img/google-edu.jpg" alt="Google Edu" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg, #4285F4 25%, #34A853 50%, #FBBC04 75%, #EA4335)'">
+      </div>
+      <div class="gf-body">
+        <span class="gf-tag">Signed · 2026.05.13</span>
+        <h3 class="gf-title">국내 대학 최초 Google AI Ecosystem 전면 도입</h3>
+        <p class="gf-desc">부산대학교는 Google Korea와 80주년 기념 협약을 통해 Google Workspace for Education, Gemini, Vertex AI 등 Google AI 생태계를 전면 도입합니다. 학생·교직원 4만 명 전원에게 적용되며, 국내 대학 최초의 Google Reference University 지정을 추진합니다.</p>
+        <ul class="gf-bullets">
+          <li><i class="fas fa-check-circle"></i> Google Workspace for Education 전 구성원 도입 (4만 명)</li>
+          <li><i class="fas fa-check-circle"></i> Gemini · NotebookLM 학습 도구 캠퍼스 라이선스</li>
+          <li><i class="fas fa-check-circle"></i> Vertex AI 크레딧 지원 — 연구·창업 지원</li>
+          <li><i class="fas fa-check-circle"></i> Google AI Career Certificate 학점 인정</li>
+          <li><i class="fas fa-check-circle"></i> Google Reference University 지정 추진 (2027 목표)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 글로벌 빅테크 -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="cat-header">
+      <div class="cat-title"><i class="fas fa-globe-americas"></i> 글로벌 빅테크</div>
+      <div class="cat-count">5개사</div>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <span class="partner-tag new">2026.05</span>
+        <div class="partner-card-head">
+          <div class="partner-icon google">G</div>
+          <div class="partner-info">
+            <div class="partner-name">Google for Education</div>
+            <div class="partner-name-en">Google Korea</div>
+          </div>
+        </div>
+        <div class="partner-desc">80주년 협약 · AI Ecosystem 전면 도입 · Reference University 추진</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon aws">aws</div>
+          <div class="partner-info">
+            <div class="partner-name">Amazon Web Services</div>
+            <div class="partner-name-en">AWS Educate</div>
+          </div>
+        </div>
+        <div class="partner-desc">클라우드 크레딧 · AWS Academy 학점 · 데이터센터 협력</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon nvidia">N</div>
+          <div class="partner-info">
+            <div class="partner-name">NVIDIA</div>
+            <div class="partner-name-en">DLI Ambassador</div>
+          </div>
+        </div>
+        <div class="partner-desc">DLI 인증 · GPU 인프라 · H100 클러스터 협력</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon upstage">U</div>
+          <div class="partner-info">
+            <div class="partner-name">업스테이지</div>
+            <div class="partner-name-en">Upstage AI</div>
+          </div>
+        </div>
+        <div class="partner-desc">Solar LLM 캠퍼스 라이선스 · 한국어 LLM 공동연구</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon naver">N</div>
+          <div class="partner-info">
+            <div class="partner-name">NAVER Cloud</div>
+            <div class="partner-name-en">HyperCLOVA X</div>
+          </div>
+        </div>
+        <div class="partner-desc">HyperCLOVA X 활용 · 클라우드 인프라 · 한국어 AI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 동남권 산업체 -->
+<section class="section" id="industry">
+  <div class="container">
+    <div class="section-banner" style="position:relative;height:260px;border-radius:18px;overflow:hidden;margin-bottom:36px;box-shadow:0 10px 30px rgba(15,31,69,.10)">
+      <img src="assets/img/handshake.jpg" alt="동남권 산학협약" style="width:100%;height:100%;object-fit:cover;display:block">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(15,31,69,.78),rgba(15,31,69,.30) 55%,rgba(15,31,69,.05));display:flex;flex-direction:column;justify-content:center;padding:32px 38px;color:#fff">
+        <div style="font-size:11px;letter-spacing:.14em;color:#BFDBFE;text-transform:uppercase;margin-bottom:8px;font-weight:800;font-family:'Inter',sans-serif">INDUSTRY · MOU 35+</div>
+        <div style="font-size:22px;font-weight:900;line-height:1.35;letter-spacing:-.02em;max-width:620px">삼성중공업 · LG · 한화 · BNK · KT — 동남권 35+ 산업체 협약</div>
+        <div style="font-size:13.5px;color:rgba(255,255,255,.82);margin-top:6px;line-height:1.65">자율운항 · 스마트가전 · 우주항공 · 통신 AI까지 전 산업 파트너십</div>
+      </div>
+    </div>
+    <div class="cat-header">
+      <div class="cat-title"><i class="fas fa-industry"></i> 동남권 산업체</div>
+      <div class="cat-count">7개사</div>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <span class="partner-tag new">2025.12.30</span>
+        <div class="partner-card-head">
+          <div class="partner-icon samsung">S</div>
+          <div class="partner-info">
+            <div class="partner-name">삼성중공업</div>
+            <div class="partner-name-en">Samsung Heavy</div>
+          </div>
+        </div>
+        <div class="partner-desc">해양AI 센터 (2025.12.30) · 자율운항 · 디지털트윈</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag new">2027.03 신설</span>
+        <div class="partner-card-head">
+          <div class="partner-icon lg">LG</div>
+          <div class="partner-info">
+            <div class="partner-name">LG전자</div>
+            <div class="partner-name-en">LG Electronics</div>
+          </div>
+        </div>
+        <div class="partner-desc">스마트가전공학과 계약학과 (2027 신설 · 30명 · 전액 지원)</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon hanwha">H</div>
+          <div class="partner-info">
+            <div class="partner-name">한화에어로스페이스</div>
+            <div class="partner-name-en">Hanwha Aerospace</div>
+          </div>
+        </div>
+        <div class="partner-desc">우주항공 AI · 동남권 방산 디지털 전환 · 공동연구</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon bnk">BNK</div>
+          <div class="partner-info">
+            <div class="partner-name">BNK부산은행</div>
+            <div class="partner-name-en">BNK Busan Bank</div>
+          </div>
+        </div>
+        <div class="partner-desc">금융 AI · 학자금 협력 · 핀테크 인재 양성</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon lguplus">U+</div>
+          <div class="partner-info">
+            <div class="partner-name">LG U+</div>
+            <div class="partner-name-en">LG Uplus</div>
+          </div>
+        </div>
+        <div class="partner-desc">5G/6G · 통신 AI · 엣지 컴퓨팅 공동연구</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon kt">KT</div>
+          <div class="partner-info">
+            <div class="partner-name">KT</div>
+            <div class="partner-name-en">KT AI/X</div>
+          </div>
+        </div>
+        <div class="partner-desc">믿:음 LLM · 통신 인프라 · 스마트시티 공동 R&D</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag">동남권</span>
+        <div class="partner-card-head">
+          <div class="partner-icon busan">B</div>
+          <div class="partner-info">
+            <div class="partner-name">동남권 산업체 컨소시엄</div>
+            <div class="partner-name-en">Busan Industrial Consortium</div>
+          </div>
+        </div>
+        <div class="partner-desc">35개사 산학협력 · AI 부트캠프 협력 · 인력양성</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 의료·소재 -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="cat-header">
+      <div class="cat-title"><i class="fas fa-flask"></i> 의료 · 소재 · 연구기관</div>
+      <div class="cat-count">5개 기관</div>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <span class="partner-tag new">2025.12.30</span>
+        <div class="partner-card-head">
+          <div class="partner-icon eunsung">E</div>
+          <div class="partner-info">
+            <div class="partner-name">은성의료재단</div>
+            <div class="partner-name-en">Eunsung Medical</div>
+          </div>
+        </div>
+        <div class="partner-desc">AX 헬스케어 협력 (2025.12.30) · 의료영상 AI · 임상결정지원</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag new">2025.12.30</span>
+        <div class="partner-card-head">
+          <div class="partner-icon kims">K</div>
+          <div class="partner-info">
+            <div class="partner-name">한국재료연구원</div>
+            <div class="partner-name-en">KIMS</div>
+          </div>
+        </div>
+        <div class="partner-desc">PNU 협력센터 (2025.12.30) · 소재 AI · 신소재 설계 가속</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon etri">E</div>
+          <div class="partner-info">
+            <div class="partner-name">ETRI</div>
+            <div class="partner-name-en">한국전자통신연구원</div>
+          </div>
+        </div>
+        <div class="partner-desc">자율행동 AI · 멀티모달 · 공동 박사후 과정</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon keri">K</div>
+          <div class="partner-info">
+            <div class="partner-name">한국전기연구원</div>
+            <div class="partner-name-en">KERI</div>
+          </div>
+        </div>
+        <div class="partner-desc">전기 AI · 에너지 그리드 · 양자 컴퓨팅 공동연구</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag">의대</span>
+        <div class="partner-card-head">
+          <div class="partner-icon eunsung">M</div>
+          <div class="partner-info">
+            <div class="partner-name">부산대학교 의과대학</div>
+            <div class="partner-name-en">PNU School of Medicine</div>
+          </div>
+        </div>
+        <div class="partner-desc">의대 AX 추진단 (2026.03.09) · 임상 AI · 헬스데이터</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 글로벌 학술 -->
+<section class="section" id="global">
+  <div class="container">
+    <div class="section-banner" style="position:relative;height:260px;border-radius:18px;overflow:hidden;margin-bottom:36px;box-shadow:0 10px 30px rgba(15,31,69,.10)">
+      <img src="assets/img/partnership.jpg" alt="글로벌 학술 협력" style="width:100%;height:100%;object-fit:cover;display:block">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(15,31,69,.78),rgba(15,31,69,.30) 55%,rgba(15,31,69,.05));display:flex;flex-direction:column;justify-content:center;padding:32px 38px;color:#fff">
+        <div style="font-size:11px;letter-spacing:.14em;color:#BFDBFE;text-transform:uppercase;margin-bottom:8px;font-weight:800;font-family:'Inter',sans-serif">GLOBAL ACADEMIC NETWORK</div>
+        <div style="font-size:22px;font-weight:900;line-height:1.35;letter-spacing:-.02em;max-width:620px">Stanford · MIT · CMU · 도쿄대 — 세계 최고 AI 연구기관과 협력</div>
+        <div style="font-size:13.5px;color:rgba(255,255,255,.82);margin-top:6px;line-height:1.65">Fei-Fei Li 교수 2026 부산 AI 서밋 기조강연 · 박사 교환 · 공동 워크숍</div>
+      </div>
+    </div>
+    <div class="cat-header">
+      <div class="cat-title"><i class="fas fa-university"></i> 글로벌 학술</div>
+      <div class="cat-count">4개 대학</div>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <span class="partner-tag new">2026.06 방한</span>
+        <div class="partner-card-head">
+          <div class="partner-icon stanford">S</div>
+          <div class="partner-info">
+            <div class="partner-name">Stanford University</div>
+            <div class="partner-name-en">HAI Institute</div>
+          </div>
+        </div>
+        <div class="partner-desc">Fei-Fei Li 교수 — 2026 부산 AI 서밋 기조 (2026.06.15)</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon mit">M</div>
+          <div class="partner-info">
+            <div class="partner-name">MIT</div>
+            <div class="partner-name-en">CSAIL</div>
+          </div>
+        </div>
+        <div class="partner-desc">로보틱스 · 머신러닝 공동 워크숍 · 박사 교환</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon cmu">C</div>
+          <div class="partner-info">
+            <div class="partner-name">Carnegie Mellon</div>
+            <div class="partner-name-en">CMU SCS</div>
+          </div>
+        </div>
+        <div class="partner-desc">자연어처리 · 로봇학습 협력 · 여름학교</div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-tag mou">MOU</span>
+        <div class="partner-card-head">
+          <div class="partner-icon todai">T</div>
+          <div class="partner-info">
+            <div class="partner-name">도쿄대학교</div>
+            <div class="partner-name-en">University of Tokyo</div>
+          </div>
+        </div>
+        <div class="partner-desc">한일 AI 컨소시엄 · 공동 학회 · 대학원생 교류</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 정부·공공 -->
+<section class="section section-alt" id="govt">
+  <div class="container">
+    <div class="section-banner" style="position:relative;height:260px;border-radius:18px;overflow:hidden;margin-bottom:36px;box-shadow:0 10px 30px rgba(15,31,69,.10)">
+      <img src="assets/img/meeting.jpg" alt="정부·공공기관 협력" style="width:100%;height:100%;object-fit:cover;display:block">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(15,31,69,.78),rgba(15,31,69,.30) 55%,rgba(15,31,69,.05));display:flex;flex-direction:column;justify-content:center;padding:32px 38px;color:#fff">
+        <div style="font-size:11px;letter-spacing:.14em;color:#BFDBFE;text-transform:uppercase;margin-bottom:8px;font-weight:800;font-family:'Inter',sans-serif">GOVERNMENT · PUBLIC SECTOR</div>
+        <div style="font-size:22px;font-weight:900;line-height:1.35;letter-spacing:-.02em;max-width:620px">교육부 · 과기부 · 부산광역시 · KIAT · IITP — 6개 정부 파트너</div>
+        <div style="font-size:13.5px;color:rgba(255,255,255,.82);margin-top:6px;line-height:1.65">AI 거점대학 · 글로컬 30 · RISE · SW 중심대학 · 양자AI · 부산 AI 서밋 공동주최</div>
+      </div>
+    </div>
+    <div class="cat-header">
+      <div class="cat-title"><i class="fas fa-landmark"></i> 정부 · 공공 기관</div>
+      <div class="cat-count">6개 기관</div>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <div class="partner-card-head">
+          <div class="partner-icon gov">교</div>
+          <div class="partner-info">
+            <div class="partner-name">교육부</div>
+            <div class="partner-name-en">Ministry of Education</div>
+          </div>
+        </div>
+        <div class="partner-desc">AI 거점대학 사업 주관 · 글로컬 30 · RISE 사업</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-card-head">
+          <div class="partner-icon gov">과</div>
+          <div class="partner-info">
+            <div class="partner-name">과학기술정보통신부</div>
+            <div class="partner-name-en">MSIT</div>
+          </div>
+        </div>
+        <div class="partner-desc">SW 중심대학 · AI 부트캠프 · 양자AI 사업 주관</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-card-head">
+          <div class="partner-icon busan-city">부</div>
+          <div class="partner-info">
+            <div class="partner-name">부산광역시</div>
+            <div class="partner-name-en">Busan Metropolitan City</div>
+          </div>
+        </div>
+        <div class="partner-desc">2026 부산 AI 서밋 공동 주최 · 동남권 AX 거점 조성</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-card-head">
+          <div class="partner-icon kiat">K</div>
+          <div class="partner-info">
+            <div class="partner-name">KIAT</div>
+            <div class="partner-name-en">한국산업기술진흥원</div>
+          </div>
+        </div>
+        <div class="partner-desc">산업 R&D · 동남권 제조 AX 사업 · 기술이전 지원</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-card-head">
+          <div class="partner-icon iitp">I</div>
+          <div class="partner-info">
+            <div class="partner-name">IITP</div>
+            <div class="partner-name-en">정보통신기획평가원</div>
+          </div>
+        </div>
+        <div class="partner-desc">ICT R&D · AI 핵심기술 · SW 중심대학 평가</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-card-head">
+          <div class="partner-icon kmac">K</div>
+          <div class="partner-info">
+            <div class="partner-name">KMAC</div>
+            <div class="partner-name-en">한국능률협회</div>
+          </div>
+        </div>
+        <div class="partner-desc">교육 컨설팅 · 인재양성 평가 · 산업체 매칭</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact anchor for 참여 신청 -->
+<div id="contact"></div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="ft-top">
+      <div>
+        <div class="ft-brand-row">
+          <img src="assets/pnu-signature.jpg" alt="부산대학교" class="ft-logo-img" style="filter:brightness(0) invert(1)">
+        </div>
+        <div class="ft-brand-name">
+          AI 거점대학육성사업단 · ARISE PNU
+          <small>arise-ai.pusan.ac.kr · A.U.R.A 2.0 마스터플랜</small>
+        </div>
+        <div class="ft-desc" style="margin-top:16px"><em>"Arise PNU, 같이 더 높게"</em> — 동남권 AX 생태계의 중심 거점, 부산대학교 AI 거점대학육성사업단입니다.</div>
+        <div class="ft-addr">
+          📍 부산광역시 금정구 부산대학로 63번길 2 · IT관 3층 AI 거점사업단<br>
+          📞 051-510-0000 · ✉ arise@pusan.ac.kr<br>
+          ⏰ 평일 09:00 – 18:00
+        </div>
+        <div class="ft-sns" style="margin-top:24px">
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>사업 소개</h4>
+        <a href="arise_about.html#overview">사업 개요 · 비전</a>
+        <a href="arise_about.html#aura">A.U.R.A 2.0</a>
+        <a href="arise_about.html#structure">추진 체계</a>
+        <a href="arise_about.html#governance">거버넌스</a>
+        <a href="arise_roadmap.html">3개년 로드맵</a>
+      </div>
+      <div class="ft-col">
+        <h4>핵심 사업</h4>
+        <a href="arise_programs.html#education">AI 교육 혁신</a>
+        <a href="arise_programs.html#research">AI 연구 강화</a>
+        <a href="arise_programs.html#industry">산학 협력</a>
+        <a href="arise_programs.html#infra">AI 인프라</a>
+        <a href="arise_programs.html#education">AI 부트캠프</a>
+      </div>
+      <div class="ft-col">
+        <h4>관련 사이트</h4>
+        <a href="https://www.pusan.ac.kr" target="_blank">부산대학교 ↗</a>
+        <a href="https://ai.pusan.ac.kr" target="_blank">AI 대학 ↗</a>
+        <a href="https://airc.pusan.ac.kr" target="_blank">장영실연구원 ↗</a>
+        <a href="https://aiedu.pusan.ac.kr" target="_blank">AI 융합교육원 ↗</a>
+        <a href="https://uitc.pusan.ac.kr" target="_blank">AX·정보화혁신본부 ↗</a>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <div class="ft-copy">© 2026 Pusan National University ARISE-AI. All rights reserved.</div>
+      <div class="ft-policy">
+        <a href="#">개인정보처리방침</a>
+        <a href="#">이메일무단수집거부</a>
+        <a href="#">사이트맵</a>
+        <a href="#">접근성 정책</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  // Language toggle (KOR|ENG)
+  // Lang toggle: .lang-toggle/.lang-btn class OR sidebar/footer EN link
+var langSels = document.querySelectorAll('.lang-toggle, .lang-btn, [class~="lang-toggle"], .sb-footer-links a:last-child, .ft-policy a:last-child, .af-policy a:last-child, .airc-policy a:last-child, .lf-policy a:last-child');
+langSels.forEach(function(el){
+    if (el.tagName === 'A' && el.getAttribute('href') === '#') {
+      el.addEventListener('click', function(e){
+        e.preventDefault();
+        alert('English version is in preparation.\n영문 버전은 준비 중입니다.');
+      });
+    } else if (el.tagName !== 'A') {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', function(){
+        alert('English version is in preparation.\n영문 버전은 준비 중입니다.');
+      });
+    }
+  });
+})();
+</script>
+</body>
+</html>
