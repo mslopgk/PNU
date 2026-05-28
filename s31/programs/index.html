@@ -1,0 +1,667 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교육·연구 — 부산대학교 AI 대학</title>
+<meta name="description" content="Pentomino 교육체계 · AI 부트캠프 75억 · 마이크로디그리 13트랙 · AI MASTER · 해외 교환">
+<link rel="icon" type="image/jpeg" href="/assets/pnu-symbol-color.jpg">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+
+<div class="blob-container">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+
+<header>
+  <div class="hdr-top">
+    <div class="container">
+      <div>
+        <span>College of AI · Pusan National University</span>
+        <span style="margin-left:14px;color:rgba(255,255,255,.62)">·</span>
+        <span class="slogan" style="margin-left:14px">Arise PNU, 같이 더 높게</span>
+      </div>
+      <div>
+        <a href="https://www.pusan.ac.kr">PNU 메인 ↗</a>
+        <a href="https://arise-ai.pusan.ac.kr">ARISE ↗</a>
+        <a href="https://airc.pusan.ac.kr">장영실연구원 ↗</a>
+        <a href="#">로그인</a>
+      </div>
+    </div>
+  </div>
+  <div class="container hdr-main">
+    <a href="/" class="brand">
+      <img src="/assets/pnu-signature.jpg" alt="부산대학교 공식 시그니처" class="brand-logo">
+      <div class="brand-divider"></div>
+      <div>
+        <div class="brand-text-1">AI 대학 · College of AI</div>
+        <div class="brand-text-2">ai.pusan.ac.kr · 2027 신설 · ADP+X</div>
+      </div>
+    </a>
+    <nav class="mega-nav">
+      <div class="mn-item">
+        <a href="/about/" class="mn-link">대학 소개 <i class="fas fa-chevron-down"></i></a>
+        <div class="mega-menu">
+          <div class="mega-grid">
+            <div class="mg-col"><h5>OVERVIEW</h5>
+              <a href="/about/#dean"><div class="mg-icon"><i class="fas fa-flag"></i></div><div><span class="mg-t">학장 인사말</span><span class="mg-d">Dean's Message</span></div></a>
+              <a href="/about/#adpx"><div class="mg-icon"><i class="fas fa-eye"></i></div><div><span class="mg-t">ADP+X 비전</span><span class="mg-d">AI·Data·Process·X</span></div></a>
+              <a href="/about/#history"><div class="mg-icon"><i class="fas fa-history"></i></div><div><span class="mg-t">연혁</span><span class="mg-d">2027 첫 신입생</span></div></a>
+            </div>
+            <div class="mg-col"><h5>ORGANIZATION</h5>
+              <a href="/about/#org"><div class="mg-icon"><i class="fas fa-sitemap"></i></div><div><span class="mg-t">조직도</span><span class="mg-d">4 학부 + LG</span></div></a>
+              <a href="/faculty/"><div class="mg-icon"><i class="fas fa-users-cog"></i></div><div><span class="mg-t">교직원 안내</span><span class="mg-d">교수진 안내</span></div></a>
+              <a href="/about/#committee"><div class="mg-icon"><i class="fas fa-tools"></i></div><div><span class="mg-t">위원회</span><span class="mg-d">평가·교육과정</span></div></a>
+            </div>
+            <div class="mg-col"><h5>FACILITY</h5>
+              <a href="/about/#it"><div class="mg-icon"><i class="fas fa-building"></i></div><div><span class="mg-t">IT관</span><span class="mg-d">267억·13,161㎡</span></div></a>
+              <a href="/about/#it-building"><div class="mg-icon"><i class="fas fa-microchip"></i></div><div><span class="mg-t">GPU 서버</span><span class="mg-d">AI 컴퓨팅</span></div></a>
+              <a href="/about/#location"><div class="mg-icon"><i class="fas fa-map"></i></div><div><span class="mg-t">오시는 길</span><span class="mg-d">금정구</span></div></a>
+            </div>
+            <div class="mg-col"><h5>ECOSYSTEM</h5>
+              <a href="https://arise-ai.pusan.ac.kr"><div class="mg-icon"><i class="fas fa-network-wired"></i></div><div><span class="mg-t">ARISE 사업 ↗</span><span class="mg-d">A.U.R.A 2.0</span></div></a>
+              <a href="https://airc.pusan.ac.kr"><div class="mg-icon"><i class="fas fa-flask"></i></div><div><span class="mg-t">장영실연구원 ↗</span><span class="mg-d">융합 연구</span></div></a>
+              <a href="https://aiedu.pusan.ac.kr"><div class="mg-icon"><i class="fas fa-graduation-cap"></i></div><div><span class="mg-t">AI 융합교육원 ↗</span><span class="mg-d">SW 중심대학</span></div></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mn-item">
+        <a href="/depts/" class="mn-link">학과·전공 <i class="fas fa-chevron-down"></i></a>
+        <div class="mega-menu">
+          <div class="mega-grid">
+            <div class="mg-col"><h5>AI 컴퓨팅</h5>
+              <a href="/depts/#ai-cs"><div class="mg-icon" style="background:var(--blue-pale);color:var(--blue)">💻</div><div><span class="mg-t">AI컴퓨터공학부</span><span class="mg-d">120명 / 24교수</span></div></a>
+              <a href="/depts/#ai-cs"><div class="mg-icon" style="background:var(--blue-pale);color:var(--blue)">🤖</div><div><span class="mg-t">Interactive Computing</span><span class="mg-d">XR · HCI</span></div></a>
+            </div>
+            <div class="mg-col"><h5>데이터·통계</h5>
+              <a href="/depts/#ds"><div class="mg-icon" style="background:var(--green-pale);color:var(--green)">📊</div><div><span class="mg-t">데이터사이언스·통계학부</span><span class="mg-d">정원 110명 / 12교수</span></div></a>
+              <a href="/depts/#ds"><div class="mg-icon" style="background:var(--green-pale);color:var(--green)">📈</div><div><span class="mg-t">통계 트랙</span><span class="mg-d">통계 ML</span></div></a>
+            </div>
+            <div class="mg-col"><h5>산업·소재</h5>
+              <a href="/depts/#ie"><div class="mg-icon" style="background:var(--amber-pale);color:var(--amber)">⚙️</div><div><span class="mg-t">산업공학부</span><span class="mg-d">60명 / 10교수</span></div></a>
+              <a href="/depts/#ie"><div class="mg-icon" style="background:var(--amber-pale);color:var(--amber)">🏭</div><div><span class="mg-t">스마트제조 AI</span><span class="mg-d">Process</span></div></a>
+            </div>
+            <div class="mg-col"><h5>AX 융합</h5>
+              <a href="/depts/#ax"><div class="mg-icon" style="background:var(--violet-pale);color:var(--violet)">🧬</div><div><span class="mg-t">AX융합학부</span><span class="mg-d">57명 · 10+ 트랙</span></div></a>
+              <a href="/depts/#lg"><div class="mg-icon" style="background:var(--rose-pale);color:var(--rose)">💡</div><div><span class="mg-t">LG 스마트가전</span><span class="mg-d">계약 · 30명</span></div></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mn-item">
+        <a href="/programs/" class="mn-link active">교육·연구 <i class="fas fa-chevron-down"></i></a>
+        <div class="mega-menu">
+          <div class="mega-grid">
+            <div class="mg-col"><h5>학부 교육</h5>
+              <a href="/programs/#pentomino"><div class="mg-icon"><i class="fas fa-book"></i></div><div><span class="mg-t">교육과정</span><span class="mg-d">Pentomino 체계</span></div></a>
+              <a href="/programs/#core"><div class="mg-icon"><i class="fas fa-star"></i></div><div><span class="mg-t">전교 필수</span><span class="mg-d">AI와 디지털 사고</span></div></a>
+              <a href="/programs/#micro"><div class="mg-icon"><i class="fas fa-medal"></i></div><div><span class="mg-t">마이크로디그리</span><span class="mg-d">13개 트랙</span></div></a>
+            </div>
+            <div class="mg-col"><h5>대학원</h5>
+              <a href="https://aigs.pusan.ac.kr"><div class="mg-icon"><i class="fas fa-user-graduate"></i></div><div><span class="mg-t">AI 대학원 ↗</span><span class="mg-d">63억 사업</span></div></a>
+              <a href="https://ds.pusan.ac.kr"><div class="mg-icon"><i class="fas fa-database"></i></div><div><span class="mg-t">DS 대학원 ↗</span><span class="mg-d">DS 대학원 원장</span></div></a>
+            </div>
+            <div class="mg-col"><h5>연구실</h5>
+              <a href="/faculty/#labs"><div class="mg-icon"><i class="fas fa-flask"></i></div><div><span class="mg-t">14개 연구실</span><span class="mg-d">AILab·VIPLab</span></div></a>
+              <a href="/faculty/#publications"><div class="mg-icon"><i class="fas fa-file-alt"></i></div><div><span class="mg-t">발표 논문</span><span class="mg-d">480+/yr</span></div></a>
+            </div>
+            <div class="mg-col"><h5>특별 프로그램</h5>
+              <a href="/programs/#bootcamp"><div class="mg-icon"><i class="fas fa-rocket"></i></div><div><span class="mg-t">AI 부트캠프</span><span class="mg-d">75억 · 7트랙</span></div></a>
+              <a href="/programs/#global"><div class="mg-icon"><i class="fas fa-globe"></i></div><div><span class="mg-t">해외 교환</span><span class="mg-d">Stanford·MIT</span></div></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mn-item">
+        <a href="/admissions/" class="mn-link">입학·취업 <i class="fas fa-chevron-down"></i></a>
+        <div class="mega-menu">
+          <div class="mega-grid">
+            <div class="mg-col"><h5>학부 입학</h5>
+              <a href="/admissions/"><div class="mg-icon"><i class="fas fa-pencil"></i></div><div><span class="mg-t">2027 모집 요강</span><span class="mg-d">424명</span></div></a>
+              <a href="/admissions/#faq"><div class="mg-icon"><i class="fas fa-question"></i></div><div><span class="mg-t">FAQ</span><span class="mg-d">자주 묻는 질문</span></div></a>
+            </div>
+            <div class="mg-col"><h5>장학금</h5>
+              <a href="/admissions/#scholar"><div class="mg-icon"><i class="fas fa-coins"></i></div><div><span class="mg-t">장학 제도</span><span class="mg-d">국가·교내·기업</span></div></a>
+              <a href="/admissions/#scholar"><div class="mg-icon"><i class="fas fa-trophy"></i></div><div><span class="mg-t">AI 인재 장학</span><span class="mg-d">신설</span></div></a>
+            </div>
+            <div class="mg-col"><h5>취업·진로</h5>
+              <a href="/admissions/#career"><div class="mg-icon"><i class="fas fa-briefcase"></i></div><div><span class="mg-t">취업 현황</span><span class="mg-d">94%</span></div></a>
+              <a href="/admissions/#internship"><div class="mg-icon"><i class="fas fa-handshake"></i></div><div><span class="mg-t">산학 인턴십</span><span class="mg-d">대기업 연계</span></div></a>
+            </div>
+            <div class="mg-col"><h5>지원</h5>
+              <a href="/admissions/#chatbot"><div class="mg-icon"><i class="fas fa-comments"></i></div><div><span class="mg-t">상담 신청</span><span class="mg-d">AI 챗봇</span></div></a>
+              <a href="/admissions/#info-session"><div class="mg-icon"><i class="fas fa-calendar"></i></div><div><span class="mg-t">설명회</span><span class="mg-d">월 1회 정기</span></div></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mn-item"><a href="/news/" class="mn-link">알림마당</a></div>
+      <div class="hdr-actions">
+        <button class="hdr-search"><i class="fas fa-search"></i></button>
+        <div class="lang-toggle">KOR | ENG</div>
+        <a href="/admissions/" class="hdr-cta">2027 입학 <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="subhero">
+  <div class="container subhero-inner">
+    <div class="breadcrumb">
+      <a href="/"><i class="fas fa-home"></i> 홈</a>
+      <i class="fas fa-chevron-right"></i>
+      <span style="color:var(--ink);font-weight:700">교육·연구</span>
+    </div>
+    <div class="sh-eyebrow">Programs & Curriculum · 5중 트랙</div>
+    <h1 class="sh-title">AI 인재를 만드는<br><span class="acc">5중 교육 체계</span></h1>
+    <p class="sh-sub">학부 정규 (Pentomino) + 마이크로디그리 13트랙 + AI 부트캠프 75억 + 해외 교환 + 창업 인큐베이팅의 다층 교육 시스템. 학생이 자신의 길을 자유롭게 설계합니다.</p>
+    <div class="sh-quickstats">
+      <div class="sh-qs"><div class="sh-qs-n">5 영역</div><div class="sh-qs-l">Pentomino</div></div>
+      <div class="sh-qs"><div class="sh-qs-n">13 트랙</div><div class="sh-qs-l">마이크로디그리</div></div>
+      <div class="sh-qs"><div class="sh-qs-n">75 억</div><div class="sh-qs-l">부트캠프 5년</div></div>
+      <div class="sh-qs"><div class="sh-qs-n">5+ 협약</div><div class="sh-qs-l">해외 교환</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PENTOMINO -->
+<section class="section" id="pentomino">
+  <div class="container">
+    <div class="section-header center">
+      <div class="s-eyebrow">Curriculum #1 · Pentomino</div>
+      <h2 class="s-title">Pentomino <span class="acc">학사구조</span></h2>
+      <p class="s-sub">5개 학문 영역의 자유로운 조합. 학생이 자신만의 융합 트랙을 설계합니다.</p>
+    </div>
+
+    <div style="position:relative;height:280px;border-radius:22px;overflow:hidden;margin:0 0 36px;box-shadow:0 16px 44px rgba(15,31,69,.16);">
+      <img src="/assets/img/students.jpg" alt="Pentomino — 학생 중심 융합 학습" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,26,62,.7), rgba(11,26,62,.15) 55%, transparent);display:flex;flex-direction:column;justify-content:flex-end;padding:30px 36px;color:#fff;">
+        <div style="font-size:11px;letter-spacing:.12em;color:#BFDBFE;text-transform:uppercase;margin-bottom:8px;font-weight:800;font-family:'JetBrains Mono', monospace;">5 PIECES · YOUR OWN TRACK</div>
+        <div style="font-size:1.4rem;font-weight:900;line-height:1.3;letter-spacing:-.02em;">학생이 직접 설계하는 융합 트랙</div>
+      </div>
+    </div>
+
+    <div class="pent-grid">
+      <div class="pent-piece c1">
+        <div class="pent-icon">💻</div>
+        <div class="pent-name">AI Computing</div>
+        <div class="pent-en">A · 만들기</div>
+        <div class="pent-desc">ML · CV · NLP · 시스템</div>
+      </div>
+      <div class="pent-piece c2">
+        <div class="pent-icon">📊</div>
+        <div class="pent-name">Data · Stats</div>
+        <div class="pent-en">D · 키우기</div>
+        <div class="pent-desc">Big Data · Bayesian · Quant</div>
+      </div>
+      <div class="pent-piece c3">
+        <div class="pent-icon">⚙️</div>
+        <div class="pent-name">Process</div>
+        <div class="pent-en">P · 모델링</div>
+        <div class="pent-desc">최적화 · 스마트 제조</div>
+      </div>
+      <div class="pent-piece c4">
+        <div class="pent-icon">🧬</div>
+        <div class="pent-name">AX · 확산</div>
+        <div class="pent-en">X · eXtension</div>
+        <div class="pent-desc">인문·예술·법·사회</div>
+      </div>
+      <div class="pent-piece c5">
+        <div class="pent-icon">💡</div>
+        <div class="pent-name">Physical AI</div>
+        <div class="pent-en">L · 실체</div>
+        <div class="pent-desc">로봇·가전·IoT·자율</div>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:32px;color:var(--text-m);font-size:.92rem;">5개 영역 중 2~3개 자유 조합 + 자신만의 융합 트랙 신청 가능 (예: AI×법, AI×예술)</p>
+  </div>
+</section>
+
+<!-- CORE COURSE -->
+<section class="section section-alt" id="core">
+  <div class="container">
+    <div class="section-header">
+      <div class="s-eyebrow">Curriculum #2 · 전교 필수</div>
+      <h2 class="s-title">전국 최초 <span class="acc">전교 필수 AI 과목</span></h2>
+    </div>
+
+    <div class="core-card">
+      <div class="core-icon">🦅</div>
+      <div class="core-text">
+        <div class="core-tag"><i class="fas fa-star"></i> University-Wide Required</div>
+        <h3>인공지능과 디지털 사고 (AI Literacy &amp; Digital Thinking) · 3학점</h3>
+        <p>부산대 모든 신입생이 수강하는 전교 필수 AI 과목. 3학점(3-3-0), 학기 별 65분반(총 130분반) 양학기 운영. 온라인(1h)+오프라인(2h) Blended 수업.</p>
+      </div>
+      <div class="core-stat">
+        <div class="core-stat-n">3 학점</div>
+        <div class="core-stat-l">필수 · 전 학과</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI BOOTCAMP -->
+<section class="bc-section" id="bootcamp">
+  <div class="container">
+    <div class="bc-row">
+      <div class="bc-text">
+        <div class="s-eyebrow">Featured · AI 첨단산업 부트캠프</div>
+        <h2 class="s-title">5년 75억<br><span class="acc">7대 특화 트랙</span></h2>
+        <p class="s-sub">과기정통부·IITP가 지원하는 AI 첨단산업 부트캠프 사업. 35개사가 협력하는 산학 연계형 집중 교육 프로그램. 학생당 월 100만 원 장학 + 팀 활동비 1,200만 원 + 기기 구입비 300만 원 지원.</p>
+        <div class="bc-money-row">
+          <div class="bc-money">
+            <div class="bc-money-n">100<span style="font-size:1rem">만/월</span></div>
+            <div class="bc-money-l">학생 장학금</div>
+          </div>
+          <div class="bc-money">
+            <div class="bc-money-n">1,200<span style="font-size:1rem">만</span></div>
+            <div class="bc-money-l">팀 활동비 (연)</div>
+          </div>
+          <div class="bc-money">
+            <div class="bc-money-n">300<span style="font-size:1rem">만</span></div>
+            <div class="bc-money-l">기기 구입비</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bc-tracks">
+        <h4>🚀 7개 특화 트랙</h4>
+        <div class="bc-track-list">
+          <div class="bc-track">
+            <div class="bc-track-num">01</div>
+            <div style="flex:1"><div class="bc-track-name">AI 클라우드</div><div class="bc-track-desc">AWS · Azure · GCP 통합 ML 인프라</div></div>
+          </div>
+          <div class="bc-track">
+            <div class="bc-track-num">02</div>
+            <div style="flex:1"><div class="bc-track-name">생성형 AI</div><div class="bc-track-desc">LLM · Diffusion · 멀티모달</div></div>
+          </div>
+          <div class="bc-track">
+            <div class="bc-track-num">03</div>
+            <div style="flex:1"><div class="bc-track-name">Physical AI</div><div class="bc-track-desc">로봇 · 가전 · 자율시스템</div></div>
+          </div>
+          <div class="bc-track">
+            <div class="bc-track-num">04</div>
+            <div style="flex:1"><div class="bc-track-name">XR · 메타버스</div><div class="bc-track-desc">VR/AR · 디지털 휴먼</div></div>
+          </div>
+          <div class="bc-track">
+            <div class="bc-track-num">05</div>
+            <div style="flex:1"><div class="bc-track-name">AX 보안</div><div class="bc-track-desc">사이버 · LLM · 적대적 ML</div></div>
+          </div>
+          <div class="bc-track">
+            <div class="bc-track-num">06</div>
+            <div style="flex:1"><div class="bc-track-name">제조 AI</div><div class="bc-track-desc">스마트팩토리 · 품질 비전</div></div>
+          </div>
+          <div class="bc-track">
+            <div class="bc-track-num">07</div>
+            <div style="flex:1"><div class="bc-track-name">물류 AI</div><div class="bc-track-desc">SCM · 라스트 마일 · 항만</div></div>
+          </div>
+        </div>
+        <div class="bc-partner">
+          <div class="bc-partner-label">35+ 협력 기업</div>
+          <div class="bc-partner-list">
+            <span class="bc-partner-tag">AWS</span>
+            <span class="bc-partner-tag">NVIDIA</span>
+            <span class="bc-partner-tag">업스테이지</span>
+            <span class="bc-partner-tag">LG전자</span>
+            <span class="bc-partner-tag">한화</span>
+            <span class="bc-partner-tag">BNK</span>
+            <span class="bc-partner-tag">삼성SDS</span>
+            <span class="bc-partner-tag">현대오토에버</span>
+            <span class="bc-partner-tag">NAVER</span>
+            <span class="bc-partner-tag">카카오</span>
+            <span class="bc-partner-tag">+ 25개사</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MICRO DEGREE -->
+<section class="section section-alt" id="micro">
+  <div class="container">
+    <div class="section-header row">
+      <div>
+        <div class="s-eyebrow">Curriculum #3 · 마이크로디그리</div>
+        <h2 class="s-title">마이크로디그리 <span class="acc">13 트랙</span></h2>
+        <p class="s-sub">짧고 집중적인 모듈형 인증. 학부 정규 학위와 별도로 받을 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="micro-grid">
+      <div class="micro-card">
+        <div class="micro-num">01</div>
+        <span class="micro-tag">AI Core</span>
+        <div class="micro-name">머신러닝 기초</div>
+        <div class="micro-desc">선형 모델부터 트리·SVM·앙상블까지. 입문자용 ML 기본기.</div>
+        <div class="micro-meta">9학점 · 1학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">02</div>
+        <span class="micro-tag">AI Core</span>
+        <div class="micro-name">딥러닝 심화</div>
+        <div class="micro-desc">CNN · RNN · Transformer · 디퓨전 모델까지 심층 학습 핵심 아키텍처.</div>
+        <div class="micro-meta">12학점 · 2학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">03</div>
+        <span class="micro-tag green">Data</span>
+        <div class="micro-name">데이터 엔지니어링</div>
+        <div class="micro-desc">SQL · Spark · Airflow · ETL 파이프라인 · 데이터 레이크.</div>
+        <div class="micro-meta">9학점 · 1학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">04</div>
+        <span class="micro-tag green">Data</span>
+        <div class="micro-name">생성형 AI · LLM</div>
+        <div class="micro-desc">GPT · Gemini · Claude API 활용 · Fine-tuning · RAG · Agent.</div>
+        <div class="micro-meta">12학점 · 2학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">05</div>
+        <span class="micro-tag amber">Process</span>
+        <div class="micro-name">스마트 제조 AI</div>
+        <div class="micro-desc">생산 최적화 · 품질 비전 검사 · 예지보전 · 디지털 트윈.</div>
+        <div class="micro-meta">12학점 · 2학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">06</div>
+        <span class="micro-tag amber">Process</span>
+        <div class="micro-name">프로세스 마이닝</div>
+        <div class="micro-desc">이벤트 로그 분석 · BPM · 조직 행동 모델링.</div>
+        <div class="micro-meta">9학점 · 1학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">07</div>
+        <span class="micro-tag violet">AX</span>
+        <div class="micro-name">AI × 인문</div>
+        <div class="micro-desc">디지털 인문학 · 문화재 AI · 한국학 데이터 마이닝.</div>
+        <div class="micro-meta">9학점 · 1학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">08</div>
+        <span class="micro-tag violet">AX</span>
+        <div class="micro-name">AI × 법·정책</div>
+        <div class="micro-desc">AI 거버넌스 · EU AI Act · 알고리즘 책무성.</div>
+        <div class="micro-meta">9학점 · 1학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">09</div>
+        <span class="micro-tag violet">AX</span>
+        <div class="micro-name">AI × 예술 · 디자인</div>
+        <div class="micro-desc">Generative Art · 음악 AI · UX/UI · 크리에이티브 코딩.</div>
+        <div class="micro-meta">12학점 · 2학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">10</div>
+        <span class="micro-tag rose">Physical</span>
+        <div class="micro-name">XR · 디지털 휴먼</div>
+        <div class="micro-desc">VR/AR · 모션 캡처 · 디지털 휴먼 · 햅틱.</div>
+        <div class="micro-meta">12학점 · 2학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">11</div>
+        <span class="micro-tag rose">Physical</span>
+        <div class="micro-name">로보틱스 · RL</div>
+        <div class="micro-desc">로봇 제어 · 강화학습 · ROS · SLAM · 자율주행.</div>
+        <div class="micro-meta">12학점 · 2학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">12</div>
+        <span class="micro-tag">AI Core</span>
+        <div class="micro-name">AI 보안</div>
+        <div class="micro-desc">적대적 ML · LLM Red Team · Privacy AI · 블록체인.</div>
+        <div class="micro-meta">9학점 · 1학기</div>
+      </div>
+      <div class="micro-card">
+        <div class="micro-num">13</div>
+        <span class="micro-tag green">Data</span>
+        <div class="micro-name">Bio·Medical AI</div>
+        <div class="micro-desc">의료 영상 · 유전체 · 신약 발굴 · 디지털 헬스.</div>
+        <div class="micro-meta">12학점 · 2학기</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI MASTER -->
+<section class="section" id="master">
+  <div class="container">
+    <div class="section-header center">
+      <div class="s-eyebrow">Certification · AI MASTER</div>
+      <h2 class="s-title">대학 <span class="acc">AI 인증 제도</span></h2>
+      <p class="s-sub">국내 최초의 대학 AI 인증. 한국인공지능산업협회 공식 주관.</p>
+    </div>
+
+    <div style="position:relative;height:240px;border-radius:20px;overflow:hidden;margin:0 0 32px;box-shadow:0 14px 40px rgba(15,31,69,.14);">
+      <img src="/assets/img/diploma.jpg" alt="AI MASTER 인증 — 졸업 인증서" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(11,26,62,.78), rgba(20,63,144,.2) 55%, transparent);display:flex;flex-direction:column;justify-content:center;padding:0 38px;color:#fff;max-width:560px;">
+        <div style="font-size:11px;letter-spacing:.12em;color:#BFDBFE;text-transform:uppercase;margin-bottom:8px;font-weight:800;font-family:'JetBrains Mono', monospace;">UNIVERSITY AI MASTER · AIIA 공식</div>
+        <div style="font-size:1.3rem;font-weight:900;line-height:1.3;letter-spacing:-.02em;">국내 최초 대학 AI 역량 인증</div>
+      </div>
+    </div>
+
+    <div class="master-row">
+      <div class="master-card">
+        <div class="master-medal">🏆</div>
+        <h3 class="master-title">University AI MASTER</h3>
+        <p class="master-sub">부산대학교 AI 대학 졸업생에게 부여되는 공식 AI 역량 인증. 한국인공지능산업협회 공식 인증으로 산업계에서 즉시 인정됩니다.</p>
+        <span class="master-badge">2026~ · 국내 최초</span>
+      </div>
+      <div>
+        <h3 style="font-size:1.6rem;font-weight:900;color:var(--ink);margin-bottom:14px;letter-spacing:-.025em;">AI MASTER 인증의 가치</h3>
+        <ul style="list-style:none;padding:0;">
+          <li style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border-soft);">
+            <i class="fas fa-medal" style="color:var(--amber);font-size:20px;margin-top:3px;"></i>
+            <div><div style="font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:3px;">국내 최초 대학 AI 인증</div><div style="font-size:.85rem;color:var(--text-m);">한국인공지능산업협회(AIIA) 공식 인증 · 산업계 즉시 인정</div></div>
+          </li>
+          <li style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border-soft);">
+            <i class="fas fa-graduation-cap" style="color:var(--blue);font-size:20px;margin-top:3px;"></i>
+            <div><div style="font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:3px;">3단계 레벨</div><div style="font-size:.85rem;color:var(--text-m);">Foundation (기초) · Practitioner (실무) · Expert (전문가)</div></div>
+          </li>
+          <li style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border-soft);">
+            <i class="fas fa-briefcase" style="color:var(--green);font-size:20px;margin-top:3px;"></i>
+            <div><div style="font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:3px;">취업·이직 가점</div><div style="font-size:.85rem;color:var(--text-m);">삼성·LG·NAVER·카카오 등 35개사 가점 협약</div></div>
+          </li>
+          <li style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;">
+            <i class="fas fa-globe" style="color:var(--violet);font-size:20px;margin-top:3px;"></i>
+            <div><div style="font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:3px;">국제 호환</div><div style="font-size:.85rem;color:var(--text-m);">2027년부터 해외 AI 협회와 상호 인증 확대 추진</div></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOBAL EXCHANGE -->
+<section class="section section-alt" id="global">
+  <div class="container">
+    <div class="section-header row">
+      <div>
+        <div class="s-eyebrow">International · 해외 교환·파견</div>
+        <h2 class="s-title">세계 최고 AI 대학과의 <span class="acc">교환·파견</span></h2>
+        <p class="s-sub">학부 3학년 또는 4학년 1학기 동안 해외 AI 선도 대학에서 학점을 이수합니다.</p>
+      </div>
+    </div>
+
+    <div style="position:relative;height:260px;border-radius:20px;overflow:hidden;margin:0 0 32px;box-shadow:0 14px 40px rgba(15,31,69,.14);">
+      <img src="/assets/img/graduation.jpg" alt="해외 교환 — 글로벌 캠퍼스" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,26,62,.7), rgba(11,26,62,.15) 55%, transparent);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 36px;color:#fff;">
+        <div style="font-size:11px;letter-spacing:.12em;color:#BFDBFE;text-transform:uppercase;margin-bottom:8px;font-weight:800;font-family:'JetBrains Mono', monospace;">STANFORD · MIT · CMU · UTOKYO · ETH</div>
+        <div style="font-size:1.3rem;font-weight:900;line-height:1.3;letter-spacing:-.02em;">세계 최고 AI 대학으로 떠나는 한 학기</div>
+      </div>
+    </div>
+
+    <div class="global-grid">
+      <div class="global-card">
+        <div class="global-flag">🇺🇸</div>
+        <div class="global-name">Stanford University</div>
+        <div class="global-loc">Stanford, CA · USA</div>
+        <div class="global-program">Summer AI Program</div>
+      </div>
+      <div class="global-card">
+        <div class="global-flag">🇺🇸</div>
+        <div class="global-name">MIT</div>
+        <div class="global-loc">Cambridge, MA · USA</div>
+        <div class="global-program">Visiting Student</div>
+      </div>
+      <div class="global-card">
+        <div class="global-flag">🇺🇸</div>
+        <div class="global-name">Carnegie Mellon</div>
+        <div class="global-loc">Pittsburgh, PA · USA</div>
+        <div class="global-program">CMU AI Exchange</div>
+      </div>
+      <div class="global-card">
+        <div class="global-flag">🇯🇵</div>
+        <div class="global-name">도쿄대학 (UTokyo)</div>
+        <div class="global-loc">Tokyo · Japan</div>
+        <div class="global-program">1학기 교환</div>
+      </div>
+      <div class="global-card">
+        <div class="global-flag">🇸🇬</div>
+        <div class="global-name">NUS Singapore</div>
+        <div class="global-loc">Singapore</div>
+        <div class="global-program">AI Summer School</div>
+      </div>
+      <div class="global-card">
+        <div class="global-flag">🇨🇭</div>
+        <div class="global-name">ETH Zürich</div>
+        <div class="global-loc">Zürich · Switzerland</div>
+        <div class="global-program">연구 인턴십</div>
+      </div>
+      <div class="global-card">
+        <div class="global-flag">🇨🇦</div>
+        <div class="global-name">Vector Institute</div>
+        <div class="global-loc">Toronto · Canada</div>
+        <div class="global-program">Research Visit</div>
+      </div>
+      <div class="global-card">
+        <div class="global-flag">🇩🇪</div>
+        <div class="global-name">TU München</div>
+        <div class="global-loc">Munich · Germany</div>
+        <div class="global-program">DAAD 교환</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INCUBATING + COMPETITION -->
+<section class="section">
+  <div class="container">
+    <div class="section-header row">
+      <div>
+        <div class="s-eyebrow">Special · 창업·경진대회</div>
+        <h2 class="s-title">학생의 <span class="acc">도전을 응원</span></h2>
+      </div>
+    </div>
+
+    <div style="position:relative;height:230px;border-radius:20px;overflow:hidden;margin:0 0 30px;box-shadow:0 14px 40px rgba(15,31,69,.14);">
+      <img src="/assets/img/meeting.jpg" alt="창업 멘토링·인큐베이팅" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(11,26,62,.78), rgba(20,63,144,.2) 55%, transparent);display:flex;flex-direction:column;justify-content:center;padding:0 38px;color:#fff;max-width:560px;">
+        <div style="font-size:11px;letter-spacing:.12em;color:#BFDBFE;text-transform:uppercase;margin-bottom:8px;font-weight:800;font-family:'JetBrains Mono', monospace;">12억 인큐베이팅 · MENTORING · VC</div>
+        <div style="font-size:1.3rem;font-weight:900;line-height:1.3;letter-spacing:-.02em;">학생 창업을 실제 사업으로 키웁니다</div>
+      </div>
+    </div>
+
+    <div class="dual-row">
+      <div class="feat-card">
+        <div class="feat-icon rose"><i class="fas fa-rocket"></i></div>
+        <div class="feat-name">AI 창업 인큐베이팅</div>
+        <p class="feat-desc">AI 기반 창업 아이디어를 실제 사업으로 만드는 풀스택 지원 프로그램. 12억 원의 인큐베이팅 자금과 멘토링을 제공합니다.</p>
+        <ul class="feat-list">
+          <li>시드 펀딩 (최대 5,000만 원/팀)</li>
+          <li>IT관 내 창업 공간 + GPU 서버 무상 제공</li>
+          <li>벤처캐피탈(BNK·기보·중기부) 네트워킹</li>
+          <li>변호사·회계사·특허사 무료 자문</li>
+          <li>해외 데모데이 (CES · SXSW) 참가 지원</li>
+        </ul>
+      </div>
+
+      <div class="feat-card">
+        <div class="feat-icon violet"><i class="fas fa-trophy"></i></div>
+        <div class="feat-name">AI 경진대회 지원</div>
+        <p class="feat-desc">학부생부터 참가 가능한 국내외 AI 경진대회. 출전 비용 전액 지원 + 사전 멘토링 + 수상 시 추가 장학금.</p>
+        <ul class="feat-list">
+          <li>Kaggle · AIcrowd · DrivenData 출전 지원</li>
+          <li>NeurIPS · ICML · CVPR 워크샵 출전</li>
+          <li>RoboCup (2025년 우승 보유)</li>
+          <li>국방 AI · 의료 AI · 금융 AI 챌린지</li>
+          <li>해커톤 (Hackathon) 연 4회 자체 운영</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:linear-gradient(165deg, var(--navy), var(--blue));color:#fff;text-align:center;">
+  <div class="container">
+    <div style="max-width:760px;margin:0 auto;">
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:7px 18px;background:rgba(126,200,255,.2);border:1px solid rgba(126,200,255,.4);border-radius:100px;font-size:.78rem;font-weight:800;color:#7EC8FF;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5rem;font-family:'JetBrains Mono', monospace;"><i class="fas fa-graduation-cap"></i> 5중 트랙 · 학생 맞춤</div>
+      <h2 style="font-size:clamp(2rem,4vw,2.6rem);font-weight:900;color:#fff;line-height:1.2;letter-spacing:-.04em;margin-bottom:1.2rem;">당신만의 AI 로드맵을<br>설계하세요</h2>
+      <p style="font-size:1rem;color:rgba(255,255,255,.72);line-height:1.75;margin-bottom:2.4rem;">정규 학위 + 마이크로디그리 + 부트캠프 + 해외 교환 + 창업까지. 학생이 스스로 길을 만듭니다.</p>
+      <div style="display:flex;justify-content:center;gap:.9rem;flex-wrap:wrap;">
+        <a href="/admissions/" style="display:inline-flex;align-items:center;gap:10px;padding:.95rem 2rem;background:#FFFFFF;color:var(--blue-dark);border-radius:12px;font-size:.95rem;font-weight:800;">2027 입학 안내 <i class="fas fa-arrow-right"></i></a>
+        <a href="/admissions/#chatbot" style="display:inline-flex;align-items:center;gap:8px;padding:.95rem 1.6rem;color:#fff;border-radius:12px;font-size:.9rem;font-weight:600;border:1.5px solid rgba(255,255,255,.25);"><i class="fas fa-comments"></i> AI 상담 챗봇</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ai-footer">
+  <div class="container">
+    <div class="af-top">
+      <div>
+        <div class="af-brand-row">
+          <img src="/assets/pnu-signature.jpg" alt="부산대학교" class="af-logo">
+        </div>
+        <div class="af-brand">부산대학교 AI 대학<small>ai.pusan.ac.kr · College of AI · 2027 Launch</small></div>
+        <div class="af-desc">ADP+X 비전 기반 4학부 + LG 계약학과. 산지니 AI 시대의 차세대 AI 인재 양성 허브. <em style="color:#7EC8FF;font-style:italic">Arise PNU, 같이 더 높게</em></div>
+        <div class="af-addr">📍 부산광역시 금정구 부산대학로 63번길 2 · IT관<br>📞 051-510-1234 · ✉ ai@pusan.ac.kr</div>
+      </div>
+      <div class="af-col"><h4>학과·전공</h4>
+        <a href="/depts/#ai-cs">AI 컴퓨터공학부</a>
+        <a href="/depts/#ds">데이터사이언스</a>
+        <a href="/depts/#ie">산업공학부</a>
+        <a href="/depts/#ax">AX 융합학부</a>
+        <a href="/depts/#lg">LG 스마트가전 (계약)</a>
+      </div>
+      <div class="af-col"><h4>입학·교육</h4>
+        <a href="/admissions/">2027 입학 안내</a>
+        <a href="/programs/#pentomino">Pentomino 교육</a>
+        <a href="/programs/#master">AI MASTER 인증</a>
+        <a href="/programs/#bootcamp">AI 부트캠프</a>
+        <a href="/programs/#global">해외 교환</a>
+      </div>
+      <div class="af-col"><h4>생태계</h4>
+        <a href="https://arise-ai.pusan.ac.kr">ARISE 사업 ↗</a>
+        <a href="https://airc.pusan.ac.kr">장영실연구원 ↗</a>
+        <a href="https://aiedu.pusan.ac.kr">AI 융합교육원 ↗</a>
+        <a href="https://aigs.pusan.ac.kr">AI 대학원 ↗</a>
+        <a href="https://ds.pusan.ac.kr">DS 대학원 ↗</a>
+      </div>
+    </div>
+    <div class="af-bottom">
+      <div class="af-copy">© 2026 College of AI, Pusan National University. All rights reserved.</div>
+      <div class="af-policy">
+        <a href="#">개인정보처리방침</a>
+        <a href="#">사이트맵</a>
+        <a href="#">English</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+<script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

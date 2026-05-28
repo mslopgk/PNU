@@ -6,13 +6,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main:         resolve(__dirname, 's30.html'),
-        about:        resolve(__dirname, 'arise_about.html'),
-        achievements: resolve(__dirname, 'arise_achievements.html'),
-        news:         resolve(__dirname, 'arise_news.html'),
-        partners:     resolve(__dirname, 'arise_partners.html'),
-        programs:     resolve(__dirname, 'arise_programs.html'),
-        roadmap:      resolve(__dirname, 'arise_roadmap.html'),
+        main:         resolve(__dirname, 'index.html'),
+        about:        resolve(__dirname, 'about/index.html'),
+        achievements: resolve(__dirname, 'achievements/index.html'),
+        news:         resolve(__dirname, 'news/index.html'),
+        partners:     resolve(__dirname, 'partners/index.html'),
+        programs:     resolve(__dirname, 'programs/index.html'),
+        roadmap:      resolve(__dirname, 'roadmap/index.html'),
       }
     }
   }

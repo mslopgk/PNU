@@ -6,13 +6,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main:     resolve(__dirname, 's32.html'),
-        about:    resolve(__dirname, 'airc_about.html'),
-        facility: resolve(__dirname, 'airc_facility.html'),
-        heritage: resolve(__dirname, 'airc_heritage.html'),
-        news:     resolve(__dirname, 'airc_news.html'),
-        partners: resolve(__dirname, 'airc_partners.html'),
-        research: resolve(__dirname, 'airc_research.html'),
+        main:     resolve(__dirname, 'index.html'),
+        about:    resolve(__dirname, 'about/index.html'),
+        facility: resolve(__dirname, 'facility/index.html'),
+        heritage: resolve(__dirname, 'heritage/index.html'),
+        news:     resolve(__dirname, 'news/index.html'),
+        partners: resolve(__dirname, 'partners/index.html'),
+        research: resolve(__dirname, 'research/index.html'),
       }
     }
   }
