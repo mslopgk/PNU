@@ -2,3 +2,9 @@ node_modules/
 dist/
 .DS_Store
 *.local
+
+# Local Netlify folder
+.netlify
+
+# 설문 응답 원본(개인정보 포함) — 커밋 금지
+s30/assets/video/responses-*.csv
